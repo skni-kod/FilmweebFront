@@ -10,6 +10,21 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     component: Home
   },
+  {
+    path: '/film',
+    name: 'Movie',
+    component: () => import(/* webpackChunkName: "film" */ '../views/TheMovie.vue'),
+  },
+  {
+    path: '/wyszukiwanie',
+    name: 'Search',
+    component: () => import(/* webpackChunkName: "film" */ '../views/TheSearch.vue'),
+  },
+  {
+    path: '/uzytkownik',
+    name: 'User',
+    component: () => import(/* webpackChunkName: "film" */ '../views/UserProfile.vue'),
+  },
 ]
 
 const router = new VueRouter({
