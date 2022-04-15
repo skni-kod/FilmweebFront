@@ -4,11 +4,13 @@ import { Component } from "vue-property-decorator";
 
 import ProfileSidebar from "@/components/profilePage/ProfileSidebar.vue";
 import ProfileInfoForm from "@/components/profilePage/ProfileInfoForm.vue";
+import ChangePasswordForm from "@/components/profilePage/ChangePasswordForm.vue";
 
 @Component({
   components: {
     ProfileSidebar,
     ProfileInfoForm,
+    ChangePasswordForm,
   },
 })
 export default class UserProfile extends Vue {
@@ -64,7 +66,8 @@ export default class UserProfile extends Vue {
     </v-row>
     <v-col><v-spacer></v-spacer></v-col>
     <v-col></v-col>
-    <v-col> <ProfileInfoForm :user="user" v-if="navOptions[0].show" /></v-col>
+    <v-col v-if="navOptions[0].show"> <ProfileInfoForm :user="user" /></v-col>
+    <v-col v-else-if="navOptions[1].show"> <ChangePasswordForm /></v-col>
   </v-container>
 </template>
 

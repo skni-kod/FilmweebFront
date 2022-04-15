@@ -49,7 +49,7 @@ export default class ProfileInfoForm extends Vue {
       rules: [
         (v: string) => !!v || "Adres e-mail jest wymagany",
         (v: string) =>
-          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(v) ||
           "Nieprawidłowy adres e-mail",
       ],
     },
@@ -64,6 +64,7 @@ export default class ProfileInfoForm extends Vue {
 <template>
   <v-card>
     <v-form class="form">
+      <h3>Dane użytkownika</h3>
       <v-text-field
         v-for="(input, i) in formData"
         v-model="input.value"
