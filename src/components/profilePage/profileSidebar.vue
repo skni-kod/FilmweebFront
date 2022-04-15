@@ -3,9 +3,10 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 
 @Component
-export default class profileSidebar extends Vue {
+export default class ProfileSidebar extends Vue {
   public sidebar: boolean = true;
   @Prop({ required: true }) profileNavOptions: any;
+  @Prop({ required: true }) readonly user: any;
   changeView(choice: any) {
     //this.sidebar = false;
     this.$emit("view-change", choice);
@@ -39,11 +40,9 @@ export default class profileSidebar extends Vue {
           <v-list-item-content>
             <v-list-item-title>
               <v-list-item-avatar>
-                <v-img
-                  src="https://play-lh.googleusercontent.com/5LIMaa7WTNy34bzdFhBETa2MRj7mFJZWb8gCn_uyxQkUvFx_uOFCeQjcK16c6WpBA3E=s180-rw"
-                ></v-img>
+                <v-img :src="user.avatar"></v-img>
               </v-list-item-avatar>
-              nickname
+              {{ user.nickName }}
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
