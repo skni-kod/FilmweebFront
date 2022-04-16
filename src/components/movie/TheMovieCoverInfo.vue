@@ -6,15 +6,18 @@
       <div class="undertitle-dets__production-year">{{ movieData.productYear }}</div>
       <div class="undertitle-dets__duration">{{ durationFormat(movieData.duration) }}</div>
     </div>
-    <div class="cover-info__grade-box">
-      <div class="grade-box__average">
+    <div class="cover-info__rate-box">
+      <div class="rate-box__average">
         <img src="../../assets/star.svg" alt="Average">
         <span class="average__real">0.0</span>
         <span class="average__full">/10</span>
       </div>
-      <div class="grade-box__all-grades">
-        <img src="../../assets/grades.svg" alt="All Grades">
-        <span>1000000</span>
+      <div class="rate-box__all-rates">
+        <img src="../../assets/grades.svg" alt="All rates">
+        <div class="rate-box__all-rates-wrapper">
+          <span class="all-rates__head">OCEN:</span>
+          <span class="all-rates__count">2137</span>
+        </div>
       </div>
     </div>
   </div>
@@ -90,12 +93,13 @@ export default class CoverInfo extends Vue {
   text-transform: uppercase;
 }
 
-.cover-info__grade-box {
+.cover-info__rate-box {
   display: flex;
   align-items: center;
   margin-top: 10px;
   font-size: 30px;
   column-gap: 15px;
+  color: #ddd;
 
   @media (max-width: 1264px) {
     font-size: 27px;
@@ -112,12 +116,7 @@ export default class CoverInfo extends Vue {
   }
 }
 
-.grade-box__average, .grade-box__all-grades {
-  display: flex;
-  align-items: center;
-}
-
-.cover-info__grade-box img {
+.cover-info__rate-box img {
   height: 27px;
   margin-right: 5px;
 
@@ -134,11 +133,24 @@ export default class CoverInfo extends Vue {
   }
 }
 
-.average__full {
-  margin-top: 2px;
-  font-size: 0.8em;
+.rate-box__average, .rate-box__all-rates {
+  display: flex;
+  align-items: center;
+}
+
+.rate-box__all-rates-wrapper {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
   color: #ddd;
 }
 
+.average__real {
+  color: #ddd;
+}
+
+.average__full {
+  font-size: 0.8em;
+}
 
 </style>

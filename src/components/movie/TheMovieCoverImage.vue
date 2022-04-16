@@ -1,5 +1,5 @@
 <template>
-  <div :style="setBgImage(coverImagePath)"></div>
+  <div :style="{'background-image': `url(${coverImagePath})`}"></div>
 </template>
 
 <script lang="ts">
@@ -15,9 +15,6 @@ import {Component} from 'vue-property-decorator';
   },
 })
 export default class CoverImage extends Vue {
-  setBgImage(coverImagePath: string) {
-    return {'background-image': `url(${coverImagePath})`}
-  }
 }
 </script>
 
@@ -25,8 +22,7 @@ export default class CoverImage extends Vue {
 div {
   width: 100%;
   height: 100%;
-  background-position-x: center;
-  background-position-y: center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
 
