@@ -26,7 +26,8 @@ export default class Navbar extends Vue {
     <v-spacer></v-spacer>
     <v-btn v-for="(icon, i) in icons" :key="i" :to="icon.link">
       <v-icon> {{ icon.name }} </v-icon>
-      <span> {{ icon.text }} </span>
+      <span v-if="$vuetify.breakpoint.xs === false"> {{ icon.text }} </span>
+      <span v-else></span>
     </v-btn>
   </v-app-bar>
 </template>
