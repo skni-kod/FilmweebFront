@@ -3,15 +3,13 @@
     <div class="movie-overview__poster">
       <img src="../../assets/logo.png" alt=""/>
     </div>
-    <div class="movie-overview__dets-box">
-      <div class="dets-box__plot">{{ movieData.description }}</div>
-      <ul class="dets-box__tags-ul">
-        <li class="tags-ul__detail-li" v-for="i in 5" :key="i">
-          <div class="detail-li__tag">premiera</div>
-          <div class="detail-li__value" tabindex="0">{{ movieData.premiere }}</div>
-        </li>
-      </ul>
-    </div>
+    <div class="movie-overview__plot dets-box__plot">{{ movieData.description }}</div>
+    <ul class="movie-overview__tag-ul dets-box__tag-ul">
+      <li class="tag-ul__detail-li" v-for="i in 5" :key="i">
+        <div class="detail-li__tag">premiera</div>
+        <div class="detail-li__value" tabindex="0">{{ movieData.premiere }}</div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -35,15 +33,21 @@ export default class MovieOverview extends Vue {
 .wrapper-blk {
   display: grid;
   grid-template-columns: 200px auto;
-  column-gap: 32px;
+  grid-column-gap: 32px;
+
+  @media (max-width: 960px) {
+    grid-template-columns: 150px auto;
+  }
+
+  @media (max-width: 600px) {
+    grid-column-gap: 16px;
+    grid-template-rows: auto auto;
+    grid-template-columns: 100px auto;
+  }
 }
 
-.movie-overview__poster {
-  width: 200px;
-}
-
-.movie-overview__poster img {
-  width: inherit;
+.movie-overview__poster, .movie-overview__poster img {
+  width: 100%;
 }
 
 .movie-overview__dets-box {
@@ -54,33 +58,46 @@ export default class MovieOverview extends Vue {
   }
 }
 
-.dets-box__plot {
+.movie-overview__poster {
+  grid-area: 1 / 1 / 3 / 2;
+  @media (max-width: 960px) {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+}
+
+.movie-overview__plot {
+  grid-area: 1 / 2 / 2 / 3;
   text-align: justify;
 }
 
-.dets-box__tags-ul {
+.movie-overview__tag-ul {
+  grid-area: 2 / 2 / 3 / 3;
   list-style: none;
   margin-top: 32px;
   padding: 0;
+
+  @media (max-width: 960px) {
+    grid-area: 2 / 1 / 3 / 3;
+  }
 }
 
-.tags-ul__detail-li {
+.tag-ul__detail-li {
   display: flex;
   align-items: center;
   min-height: 40px;
   padding: 0 5px;
   border-top: 1px solid #777;
-  column-gap: 16px;
 }
 
-.tags-ul__detail-li:last-child {
+.tag-ul__detail-li:last-child {
   border-bottom: 1px solid #777;
 }
 
 .detail-li__tag {
-  width: 70px;
+  width: 85px;
   font-weight: 500;
-  color: #676767;
+  color: #8c8c8c;
+  letter-spacing: 0.1px;
 }
 
 .detail-li__value {

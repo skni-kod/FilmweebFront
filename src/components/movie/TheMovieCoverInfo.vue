@@ -73,7 +73,6 @@ export default class CoverInfo extends Vue {
 .cover-info__undertitle-dets {
   font-size: 13px;
   display: flex;
-  column-gap: 15px;
   color: #ddd;
 
   @media (max-width: 960px) {
@@ -89,6 +88,10 @@ export default class CoverInfo extends Vue {
   }
 }
 
+.cover-info__undertitle-dets > * {
+  margin-right: 15px;
+}
+
 .undertitle-dets__type {
   text-transform: uppercase;
 }
@@ -98,7 +101,6 @@ export default class CoverInfo extends Vue {
   align-items: center;
   margin-top: 10px;
   font-size: 30px;
-  column-gap: 15px;
   color: #ddd;
 
   @media (max-width: 1264px) {
@@ -114,6 +116,10 @@ export default class CoverInfo extends Vue {
     font-size: 3.2vw;
     column-gap: 5px;
   }
+}
+
+.cover-info__rate-box > * {
+  margin-right: 15px;
 }
 
 .cover-info__rate-box img {
@@ -142,11 +148,10 @@ export default class CoverInfo extends Vue {
   display: flex;
   flex-direction: column;
   font-size: 12px;
-  color: #ddd;
 }
 
 .average__real {
-  color: #ddd;
+  color: #fff;
 }
 
 .average__full {

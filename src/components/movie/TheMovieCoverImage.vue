@@ -22,9 +22,7 @@ export default class CoverImage extends Vue {
 div {
   width: 100%;
   height: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100%;
+  background: no-repeat center / 100%;
 
   @media (max-width: 960px) {
     background-size: cover;
@@ -36,6 +34,6 @@ div::after {
   display: block;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 100%);
+  background: linear-gradient(90deg, #000F 0%, #0000 50%, #000F 100%);
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper-blk">
-    <h3 class="general-section-title">Obsada filmu</h3>
-    <v-sheet class="movie-crew__crew-slider">
+    <h3 class="general-section-title"><span></span>Obsada filmu</h3>
+    <v-sheet class="movie-crew__crew-slider accent">
       <v-slide-group class="crew-slider__slider-box" show-arrows>
-        <v-slide-item class="slider-box__person-box" v-for="n in 12" :key="n" v-slot="{ active, toggle }">
-          <v-card class="person_box__person-item" tabindex="0" @click="toggle">
+        <v-slide-item class="slider-box__person-box" v-for="n in 12" :key="n" v-slot="{ toggle }">
+          <v-card class="person_box__person-item accent" tabindex="0" @click="toggle">
             <v-row class="person-item__single-card" no-gutters>
               <div class="single-card__img" :style="{'background-image': `url(${actorImagePath})`}"></div>
               <div class="single-card__name">Imie Nazwisko</div>
@@ -49,8 +49,7 @@ export default class MovieCrew extends Vue {
 }
 
 .single-card__img {
-  background-size: 100%;
-  background-position: center;
+  background: no-repeat center / 100%;
   width: 100%;
   height: 256px;
   transition: 1s background-size;

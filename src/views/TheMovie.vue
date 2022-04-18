@@ -26,12 +26,12 @@
             />
           </v-col>
           <v-col class="movie-sidebar" cols="4">
-
+            <movie-sidetool class="movie-sidebar__movie-sidetool"/>
           </v-col>
         </v-row>
-        <v-row cols="12" no-gutters>
-          <v-col class="movie-content" cols="12">
-            <movie-crew/>
+        <v-row no-gutters>
+          <v-col class="movie-content">
+            <movie-crew class="movie-content__movie-crew"/>
           </v-col>
         </v-row>
         <v-row cols="12" no-gutters style="min-height: 200px;"></v-row>
@@ -47,6 +47,7 @@ import CoverImage from "@/components/movie/TheMovieCoverImage.vue";
 import CoverInfo from "@/components/movie/TheMovieCoverInfo.vue";
 import MovieOverview from "@/components/movie/TheMovieMovieOverview.vue";
 import MovieCrew from "@/components/movie/TheMovieMovieCrew.vue";
+import MovieSidetool from "@/components/movie/TheMovieMovieSidetool.vue";
 
 @Component({
   components: {
@@ -54,6 +55,7 @@ import MovieCrew from "@/components/movie/TheMovieMovieCrew.vue";
     CoverInfo,
     MovieOverview,
     MovieCrew,
+    MovieSidetool,
   },
   data() {
     return {
@@ -82,12 +84,11 @@ export default class TheMovie extends Vue {
 }
 
 .header-blk .container {
-  padding: 0 12px;
+  padding: 0;
 }
 
 .movie-cover {
   min-height: 450px;
-  margin: 0 auto;
   position: relative;
   background-color: gray;
 
@@ -104,14 +105,10 @@ export default class TheMovie extends Vue {
   }
 }
 
-.movie-cover__cover-image, .movie-cover__cover-info {
-  width: 100%;
-  position: absolute;
-}
-
 .movie-cover__cover-image {
-  width: inherit;
+  width: 100%;
   height: 100%;
+  position: absolute;
   top: 0;
 }
 
@@ -119,17 +116,13 @@ export default class TheMovie extends Vue {
   width: 85%;
   margin: 0 auto;
   bottom: 15px;
+  position: absolute;
   left: 0;
   right: 0;
 
   @media (max-width: 600px) {
     bottom: 10px;
   }
-}
-
-.main-blk {
-  width: 100%;
-  background: #fff;
 }
 
 .main-blk .container {
@@ -145,8 +138,22 @@ export default class TheMovie extends Vue {
   }
 }
 
-.movie-content, .movie-sidebar {
+.movie-content {
   padding: 0 16px;
+
+  @media (max-width: 600px) {
+    flex: 0 0 85% !important;
+    max-width: 85% !important;
+  }
+}
+
+.movie-content > div {
+  padding: 32px 16px;
+}
+
+.movie-sidebar__movie-sidetool {
+  margin: 32px 16px 16px 16px;
+  padding: 16px;
 }
 
 .movie-sidebar {
@@ -154,11 +161,6 @@ export default class TheMovie extends Vue {
     display: none;
   }
 }
-
-.movie-content > div {
-  padding: 32px 0;
-}
-
 </style>
 <style lang="scss">
 .container {
@@ -168,17 +170,20 @@ export default class TheMovie extends Vue {
 }
 
 .general-section-title {
-  padding: 0 24px 24px 10px;
+  padding: 24px;
   font-size: 32px;
   font-weight: 600;
+
+  @media (max-width: 600px){
+    font-size: 27px;
+  }
 }
 
-.general-section-title::before {
-  content: "";
+.general-section-title > span {
   display: inline-block;
   width: 4px;
   height: 32px;
   margin: 0 8px -5px 0;
-  background: #000;
+  background: #0d0d0d; //#f7f7f7;
 }
 </style>
