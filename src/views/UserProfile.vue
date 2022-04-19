@@ -6,6 +6,7 @@ import ProfileSidebar from "@/components/profilePage/ProfileSidebar.vue";
 import ProfileInfoForm from "@/components/profilePage/ProfileInfoForm.vue";
 import ChangePasswordForm from "@/components/profilePage/ChangePasswordForm.vue";
 import ReviewList from "@/components/profilePage/ReviewList.vue";
+import UserLists from "@/components/profilePage/UserLists.vue";
 
 @Component({
   components: {
@@ -13,6 +14,7 @@ import ReviewList from "@/components/profilePage/ReviewList.vue";
     ProfileInfoForm,
     ChangePasswordForm,
     ReviewList,
+    UserLists,
   },
 })
 export default class UserProfile extends Vue {
@@ -26,7 +28,7 @@ export default class UserProfile extends Vue {
     nickName: "jankowalski123",
     email: "jankowalski@gmail.com",
     avatar:
-      "https://play-lh.googleusercontent.com/5LIMaa7WTNy34bzdFhBETa2MRj7mFJZWb8gCn_uyxQkUvFx_uOFCeQjcK16c6WpBA3E=s180-rwa",
+      "https://i0.wp.com/www.iskmogul.com/wp-content/uploads/2020/05/super-mario-64.jpg?resize=1140%2C694&ssl=1",
   };
   public userReviews: Array<any> = [
     {
@@ -49,6 +51,32 @@ export default class UserProfile extends Vue {
       content: "tresc3",
     },
   ];
+  public userLists: Array<any> = [
+    {
+      name: "Ulubione",
+      movies: [
+        { title: "Star Wars" },
+        { title: "Forest Gump" },
+        { title: "Die Hard" },
+      ],
+      showDialog: false,
+    },
+    {
+      name: "Badziej ulubione",
+      movies: [
+        { title: "Spider-man" },
+        { title: "Avengers" },
+        { title: "Batman" },
+      ],
+      showDialog: false,
+    },
+    {
+      name: "Jeszcze bardziej ulubione",
+      movies: [{ title: "Muminki" }, { title: "Krecik" }, { title: "Reksio" }],
+      showDialog: false,
+    },
+  ];
+
   // ----------------------------------------------
 
   navOptions: Array<any> = [
@@ -96,6 +124,9 @@ export default class UserProfile extends Vue {
     <v-col v-else-if="navOptions[1].show"> <ChangePasswordForm /></v-col>
     <v-col v-else-if="navOptions[2].show">
       <ReviewList :reviews="userReviews"
+    /></v-col>
+    <v-col v-else-if="navOptions[3].show">
+      <UserLists :userLists="userLists"
     /></v-col>
   </v-container>
 </template>
