@@ -9,7 +9,7 @@ import ReviewListItem from "@/components/profilePage/ReviewListItem.vue";
   },
 })
 export default class ReviewList extends Vue {
-  @Prop({ required: true }) readonly reviews: Array<any>;
+  @Prop({ required: true }) reviews: Array<any>;
 }
 </script>
 

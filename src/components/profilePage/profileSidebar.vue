@@ -8,7 +8,7 @@ export default class ProfileSidebar extends Vue {
   @Prop({ required: true }) profileNavOptions: any;
   @Prop({ required: true }) readonly user: any;
   changeView(choice: any) {
-    //this.sidebar = false;
+    this.sidebar = false;
     this.$emit("view-change", choice);
   }
   get sidebarShown(): boolean {
@@ -17,23 +17,28 @@ export default class ProfileSidebar extends Vue {
   set sidebarShown(newValue) {
     this.sidebar = newValue;
   }
+  calcTopbarPos(): number {
+    return this.$vuetify.application.top / 2;
+  }
 }
 </script>
 
 <template>
   <v-container>
-    <v-app-bar absolute>
+    <v-app-bar app clipped-left :style="{ top: calcTopbarPos() + 'px' }">
       <v-app-bar-nav-icon @click="sidebar = !sidebar"></v-app-bar-nav-icon>
       <v-spacer />
       <v-toolbar-title class="text-h6">Profil użytkownika</v-toolbar-title>
       <v-spacer />
     </v-app-bar>
     <v-navigation-drawer
-      absolute
+      app
       temporary
       hide-overlay
       left
       v-model="sidebarShown"
+      :style="{ top: $vuetify.application.top + 'px', zIndex: 4 }"
+      clipped
     >
       <v-list>
         <v-list-item>
