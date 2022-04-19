@@ -5,7 +5,9 @@ import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class UserLists extends Vue {
   @Prop({ required: true }) currentName: String;
+  @Prop({ required: false, default: null }) listId: any;
   public show: any = true;
+  public listName: string = this.currentName;
   inputRules: Array<any> = [(v: string) => !!v || "Nie wprowadzono nazwy"];
 
   closeDialog() {
@@ -16,7 +18,11 @@ export default class UserLists extends Vue {
   onSubmit(): void {
     if (this.$refs.form.validate()) {
       this.closeDialog();
-      console.log("submitted");
+      if (this.listId) {
+        this.$emit("rename-list", this.listId, this.listName);
+      } else {
+        this.$emit("create-list", this.listName);
+      }
     }
   }
 }
@@ -36,7 +42,7 @@ export default class UserLists extends Vue {
             color="dark"
             label="Nazwa listy"
             required
-            :value="currentName"
+            v-model="listName"
             :rules="inputRules"
           ></v-text-field>
         </v-container>
