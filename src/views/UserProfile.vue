@@ -18,8 +18,6 @@ import UserLists from "@/components/profilePage/UserLists.vue";
   },
 })
 export default class UserProfile extends Vue {
-  private sidebar: boolean = false;
-
   // ----------------------------------------------
   // example data
   public user: object = {
@@ -55,30 +53,38 @@ export default class UserProfile extends Vue {
     {
       name: "Ulubione",
       movies: [
-        { title: "Star Wars" },
-        { title: "Forest Gump" },
-        { title: "Die Hard" },
+        { title: "Star Wars", id: 1 },
+        { title: "Forest Gump", id: 2 },
+        { title: "Die Hard", id: 3 },
       ],
       showDialog: false,
+      id: 1,
     },
     {
       name: "Badziej ulubione",
       movies: [
-        { title: "Spider-man" },
-        { title: "Avengers" },
-        { title: "Batman" },
+        { title: "Spider-man", id: 4 },
+        { title: "Avengers", id: 5 },
+        { title: "Batman", id: 6 },
       ],
       showDialog: false,
+      id: 2,
     },
     {
       name: "Jeszcze bardziej ulubione",
-      movies: [{ title: "Muminki" }, { title: "Krecik" }, { title: "Reksio" }],
+      movies: [
+        { title: "Muminki", id: 7 },
+        { title: "Krecik", id: 8 },
+        { title: "Reksio", id: 9 },
+      ],
       showDialog: false,
+      id: 3,
     },
   ];
 
   // ----------------------------------------------
-
+  public nextListId = 3;
+  private sidebar: boolean = false;
   navOptions: Array<any> = [
     {
       title: "Dane użytkownika",
@@ -104,6 +110,35 @@ export default class UserProfile extends Vue {
     });
     choice.show = true;
   }
+
+  createList(listName: string): void {
+    this.userLists.push({
+      name: listName,
+      movies: [],
+      id: ++this.nextListId,
+      showDialog: false,
+    });
+  }
+
+  renameList(listId: number, listName: string): void {
+    var index: number = this.userLists.findIndex((list) => list.id === listId);
+    this.userLists[index].name = listName;
+  }
+
+  removeList(id: number): void {
+    this.userLists = this.userLists.filter((list) => {
+      return list.id !== id;
+    });
+  }
+
+  removeMovie(listId: number, movieId: number): void {
+    var index: number = this.userLists.findIndex((list) => list.id === listId);
+    this.userLists[index].movies = this.userLists[index].movies.filter(
+      (movie: Object) => {
+        return movie.id !== movieId;
+      }
+    );
+  }
 }
 </script>
 
@@ -126,7 +161,12 @@ export default class UserProfile extends Vue {
       <ReviewList :reviews="userReviews"
     /></v-col>
     <v-col v-else-if="navOptions[3].show">
-      <UserLists :userLists="userLists"
+      <UserLists
+        @remove-list="removeList"
+        @remove-movie="removeMovie"
+        @create-list="createList"
+        @rename-list="renameList"
+        :userLists="userLists"
     /></v-col>
   </v-container>
 </template>
