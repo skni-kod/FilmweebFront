@@ -1,189 +1,89 @@
 <template>
-  <div>
-    <div class="header-blk">
-      <v-container>
-        <v-row cols="12" no-gutters>
-          <v-col class="movie-cover" cols="12">
-            <cover-image
-                class="movie-cover__cover-image"
-                :coverImagePath="coverImagePath"
-            />
-            <cover-info
-                class="movie-cover__cover-info"
-                :movieData="movieData"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-    </div>
-    <div class="main-blk">
-      <v-container>
-        <v-row cols="12" no-gutters>
-          <v-col class="movie-content" cols="8">
-            <movie-overview
-                class="movie-content__movie-overview"
-                :movieData="movieData"
-            />
-          </v-col>
-          <v-col class="movie-sidebar" cols="4">
-            <movie-sidetool class="movie-sidebar__movie-sidetool"/>
-          </v-col>
-        </v-row>
-        <v-row no-gutters>
-          <v-col class="movie-content">
-            <movie-crew class="movie-content__movie-crew"/>
-          </v-col>
-        </v-row>
-        <v-row cols="12" no-gutters style="min-height: 200px;"></v-row>
-      </v-container>
-    </div>
-  </div>
+  <v-container style="min-height: 1000px">
+    <v-row class="header-blk">
+      <v-col class="header-blk__wrapper">
+        <movie-cover class="movie-cover"/>
+        <movie-overview class="movie-overview"/>
+      </v-col>
+    </v-row>
+    <v-row class="main-blk">
+      <v-col class="main-blk__movie-info" cols="8">
+        <movie-crew class="movie-crew"/>
+        <movie-reviews class="movie-reviews"/>
+        <movie-comments class="movie-comments"/>
+        <div style="min-height: 500px;"></div>
+      </v-col>
+      <v-col class="main-blk__movie-sidebar" cols="4">
+        <movie-sidetool class="movie-sidetool"/>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import {Component} from "vue-property-decorator";
-import CoverImage from "@/components/movie/TheMovieCoverImage.vue";
-import CoverInfo from "@/components/movie/TheMovieCoverInfo.vue";
+import MovieCover from "@/components/movie/TheMovieMovieCover.vue";
 import MovieOverview from "@/components/movie/TheMovieMovieOverview.vue";
 import MovieCrew from "@/components/movie/TheMovieMovieCrew.vue";
+import MovieReviews from "@/components/movie/TheMovieMovieReviews.vue";
+import MovieComments from "@/components/movie/TheMovieMovieComments.vue";
 import MovieSidetool from "@/components/movie/TheMovieMovieSidetool.vue";
 
 @Component({
   components: {
-    CoverImage,
-    CoverInfo,
+    MovieCover,
     MovieOverview,
     MovieCrew,
+    MovieReviews,
+    MovieComments,
     MovieSidetool,
   },
-  data() {
-    return {
-      coverImagePath: "" as String,
-      movieData: {
-        id: 1 as Number,
-        title: "Lorem Ipsum: Dolor sit amet" as String,
-        type: 'film' as String,
-        productYear: 2022 as Number,
-        productCountry: 'Country',
-        premiere: 'XX-XX-XXXX' as String,
-        duration: 1297 as Number,
-        description: 'Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique.' as String,
-      } as Object,
-    };
-  }
 })
 export default class TheMovie extends Vue {
+  public movieData: object = {
+    id_filmu: 1 as Number,
+    typ: 'film' as String,
+    tytul: "Lorem Ipsum: Dolor sit amet" as String,
+    oryginalny_tytul: "Lorem Ipsum: Dolor sit amet" as String,
+    kraj_produkcji: 'Country' as String,
+    rok_produkcji: 2022 as Number,
+    premiera: 'XX-XX-XXXX' as String,
+    czas_trwania: 1297 as Number,
+    opis_filmu: 'Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique. Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique.' as String,
+  };
 }
 </script>
 
 <style lang="scss" scoped>
-.header-blk {
-  width: 100%;
-  background: #000;
-}
-
-.header-blk .container {
-  padding: 0;
-}
-
-.movie-cover {
-  min-height: 450px;
-  position: relative;
-  background-color: gray;
-
-  @media (max-width: 1264px) {
-    min-height: 360px;
-  }
-
-  @media (max-width: 960px) {
-    min-height: 320px;
-  }
-
-  @media (max-width: 600px) {
-    min-height: 50vw;
-  }
-}
-
-.movie-cover__cover-image {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-}
-
-.movie-cover__cover-info {
-  width: 85%;
-  margin: 0 auto;
-  bottom: 15px;
-  position: absolute;
-  left: 0;
-  right: 0;
-
-  @media (max-width: 600px) {
-    bottom: 10px;
-  }
-}
-
-.main-blk .container {
-  padding: 0 6px 12px 6px;
-}
-
-.main-blk .row {
-  display: flex;
-  justify-content: space-between;
-
-  @media (max-width: 960px) {
-    justify-content: center;
-  }
-}
-
-.movie-content {
-  padding: 0 16px;
-
-  @media (max-width: 600px) {
-    flex: 0 0 85% !important;
-    max-width: 85% !important;
-  }
-}
-
-.movie-content > div {
-  padding: 32px 16px;
-}
-
-.movie-sidebar__movie-sidetool {
-  margin: 32px 16px 16px 16px;
-  padding: 16px;
-}
-
-.movie-sidebar {
-  @media (max-width: 960px) {
-    display: none;
-  }
-}
-</style>
-<style lang="scss">
 .container {
-  @media (min-width: 1904px) {
+  padding-top: 32px;
+  @media (min-width: 1185px) {
     max-width: 1185px;
   }
 }
 
-.general-section-title {
-  padding: 24px;
-  font-size: 32px;
-  font-weight: 600;
-
-  @media (max-width: 600px){
-    font-size: 27px;
-  }
+.movie-cover, .movie-overview {
+  display: grid;
+  margin-bottom: 16px;
 }
 
-.general-section-title > span {
-  display: inline-block;
-  width: 4px;
-  height: 32px;
-  margin: 0 8px -5px 0;
-  background: #0d0d0d; //#f7f7f7;
+.main-blk__movie-info > div {
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+</style>
+<style lang="scss">
+.general-section-title {
+  width: 100%;
+  padding: 16px;
+  font-size: 28px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 600px) {
+    font-size: 27px;
+  }
 }
 </style>

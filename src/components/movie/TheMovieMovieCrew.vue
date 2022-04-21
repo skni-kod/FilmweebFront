@@ -1,13 +1,14 @@
 <template>
   <div class="wrapper-blk">
-    <h3 class="general-section-title"><span></span>Obsada filmu</h3>
+    <h3 class="general-section-title">Obsada filmu</h3>
     <v-sheet class="movie-crew__crew-slider accent">
       <v-slide-group class="crew-slider__slider-box" show-arrows>
-        <v-slide-item class="slider-box__person-box" v-for="n in 12" :key="n" v-slot="{ toggle }">
+        <v-slide-item class="slider-box__person-box" v-for="n in 18" :key="n" v-slot="{ toggle }">
           <v-card class="person_box__person-item accent" tabindex="0" @click="toggle">
             <v-row class="person-item__single-card" no-gutters>
-              <div class="single-card__img" :style="{'background-image': `url(${actorImagePath})`}"></div>
+              <div class="single-card__img"></div>
               <div class="single-card__name">Imie Nazwisko</div>
+              <div class="single-card__role ">Rola</div>
             </v-row>
           </v-card>
         </v-slide-item>
@@ -20,14 +21,7 @@
 import Vue from "vue";
 import {Component} from "vue-property-decorator";
 
-@Component({
-  props: {
-    actorImagePath: {
-      type: String,
-      default: ""
-    }
-  },
-})
+@Component({})
 export default class MovieCrew extends Vue {
 }
 </script>
@@ -37,10 +31,14 @@ export default class MovieCrew extends Vue {
   width: 100%;
 }
 
+.slider-box__person-box {
+  background-color: gray !important;
+}
+
 .person_box__person-item {
-  width: 180px;
-  margin: 2.5px 17px 5px 17px;
-  padding-bottom: 30px;
+  width: 150px;
+  margin: 2.5px 8px 5px 8px;
+  padding-bottom: 16px;
 }
 
 .person-item__single-card {
@@ -51,7 +49,7 @@ export default class MovieCrew extends Vue {
 .single-card__img {
   background: no-repeat center / 100%;
   width: 100%;
-  height: 256px;
+  height: 170px;
   transition: 1s background-size;
 }
 
@@ -61,9 +59,6 @@ export default class MovieCrew extends Vue {
 
 .single-card__name {
   width: 100%;
-}
-
-.single-card__name {
   margin-top: 16px;
   text-align: center;
 }

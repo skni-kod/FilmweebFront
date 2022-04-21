@@ -1,7 +1,8 @@
 <template>
   <div>
+    <h3 class="general-section-title">Komentarze użytkowników</h3>
     <div>
-      Sidetool section or something like that.
+      Comments section or something like that.
     </div>
   </div>
 </template>
@@ -11,7 +12,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
 @Component({})
-export default class MovieSidetool extends Vue {
+export default class MovieComments extends Vue {
 }
 </script>
 
