@@ -33,6 +33,7 @@ export default class UserLists extends Vue {
 <template>
   <v-container>
     <v-list>
+      <v-list-title class="text-h6">Listy użytkownika</v-list-title>
       <v-list-group
         v-for="(list, i) in userLists"
         :key="i"
