@@ -2,7 +2,7 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
-import ProfileSidebar from "@/components/profilePage/ProfileSidebar.vue";
+import ProfileSidebar from "@/components/profilePage/profileSidebar.vue";
 import ProfileInfoForm from "@/components/profilePage/ProfileInfoForm.vue";
 import ChangePasswordForm from "@/components/profilePage/ChangePasswordForm.vue";
 import ReviewList from "@/components/profilePage/ReviewList.vue";
