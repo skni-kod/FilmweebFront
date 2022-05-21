@@ -27,7 +27,7 @@ export default class ChangePasswordForm extends Vue {
     ];
 
     this.$nextTick(() => {
-      if (this.$refs.form.validate()) {
+      if ((this.$refs.form as Vue).validate()) {
         console.log("password form submit");
       }
     });

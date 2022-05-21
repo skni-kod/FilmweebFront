@@ -4,7 +4,7 @@ import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class UserLists extends Vue {
-  @Prop({ required: true }) currentName: String;
+  @Prop({ required: true }) currentName!: string;
   @Prop({ required: false, default: null }) listId: any;
   public show: any = true;
   public listName: string = this.currentName;

@@ -84,7 +84,6 @@ export default class UserProfile extends Vue {
 
   // ----------------------------------------------
   public nextListId = 3;
-  private sidebar: boolean = false;
   navOptions: Array<any> = [
     {
       title: "Dane użytkownika",

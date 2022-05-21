@@ -5,8 +5,8 @@ import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class ProfileSidebar extends Vue {
   public sidebar: boolean = true;
-  @Prop({ required: true }) profileNavOptions: any;
-  @Prop({ required: true }) readonly user: any;
+  @Prop({ required: true }) profileNavOptions!: any;
+  @Prop({ required: true }) user!: any;
   changeView(choice: any) {
     this.sidebar = false;
     this.$emit("view-change", choice);

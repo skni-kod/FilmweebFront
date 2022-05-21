@@ -9,13 +9,14 @@ import ReviewListItem from "@/components/profilePage/ReviewListItem.vue";
   },
 })
 export default class ReviewList extends Vue {
-  @Prop({ required: true }) reviews: Array<any>;
+  @Prop({ required: true }) reviews!: Array<any>;
 }
 </script>
 
 <template>
   <v-container>
     <v-list>
+      <v-list-title class="text-h6">Recenzje</v-list-title>
       <reviewListItem
         v-for="(reviewItem, i) in reviews"
         :key="i"

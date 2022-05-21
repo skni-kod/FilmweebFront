@@ -9,7 +9,7 @@ import ChangeListNameForm from "@/components/profilePage/ChangeListNameForm.vue"
   },
 })
 export default class UserLists extends Vue {
-  @Prop({ required: true }) userLists: Array<any>;
+  @Prop({ required: true }) userLists!: Array<any>;
   public sideIcon: string = "mdi-dots-vertical";
   public newListIcon: string = "mdi-bookmark-plus-outline";
   public showNewListDialog: boolean = false;
