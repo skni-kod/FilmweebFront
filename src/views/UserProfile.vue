@@ -84,10 +84,6 @@ export default class UserProfile extends Vue {
 
   // ----------------------------------------------
   public nextListId = 3;
-  navOptions: Array<any> = [
-    {
-      title: "Dane użytkownika",
-      icon: "mdi-account-box",
       show: false,
     },
     { title: "Zmiana hasła", icon: "mdi-shield", show: false },
