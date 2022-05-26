@@ -1,13 +1,3 @@
-<script lang="ts">
-import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
-
-@Component
-export default class ReviewListItem extends Vue {
-  @Prop({ required: true }) readonly review: any;
-}
-</script>
-
 <template>
   <v-list-item>
     <v-card outlined class="review">
@@ -24,6 +14,16 @@ export default class ReviewListItem extends Vue {
     </v-card>
   </v-list-item>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
+
+@Component
+export default class ReviewListItem extends Vue {
+  @Prop({ required: true }) readonly review: any;
+}
+</script>
 
 <style scoped>
 .review {
