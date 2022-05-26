@@ -1,40 +1,3 @@
-<script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-
-@Component
-export default class ChangePasswordForm extends Vue {
-  password: string = "";
-  confirmedPassword: string = "";
-  passwordRules: Array<any> = [];
-  confirmedPasswordRules: Array<any> = [];
-
-  resetRules() {
-    this.passwordRules = [];
-    this.confirmedPasswordRules = [];
-  }
-
-  submit(): void {
-    this.passwordRules = [
-      (v: string) => !!v || "Wprowadź hasło",
-      (v: string) => v.length >= 4 || "Hasło musi mieć przynajmniej 4 znaki",
-      (v: string) =>
-        v.length <= 32 || "Podane hasło musi mieć mniej niż 32 znaki",
-    ];
-
-    this.confirmedPasswordRules = [
-      (v: string) => v === this.password || "Podane hasła różnią się",
-    ];
-
-    this.$nextTick(() => {
-      if ((this.$refs.form as Vue).validate()) {
-        console.log("password form submit");
-      }
-    });
-  }
-}
-</script>
-
 <template>
   <v-card>
     <v-form class="form" ref="form" lazy-validation>
@@ -61,6 +24,45 @@ export default class ChangePasswordForm extends Vue {
     </v-form>
   </v-card>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+
+@Component
+export default class ChangePasswordForm extends Vue {
+  data() {
+    return {
+      password: "",
+      confirmedPassword: "",
+      passwordRules: [],
+      confirmedPasswordRules: [],
+    };
+  }
+
+  resetRules(): void {
+    this.$data.passwordRules = [];
+    this.$data.confirmedPasswordRules = [];
+  }
+
+  submit(): void {
+    this.$data.passwordRules = [
+      (v: string) => !!v || "Wprowadź hasło",
+      (v: string) => v.length >= 4 || "Hasło musi mieć przynajmniej 4 znaki",
+      (v: string) =>
+        v.length <= 32 || "Podane hasło musi mieć mniej niż 32 znaki",
+    ];
+    this.$data.confirmedPasswordRules = [
+      (v: string) => v === this.$data.password || "Podane hasła różnią się",
+    ];
+    this.$nextTick(() => {
+      if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
+        console.log("password form submit");
+      }
+    });
+  }
+}
+</script>
 
 <style scoped>
 .form {
