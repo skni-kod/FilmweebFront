@@ -4,8 +4,6 @@
     hide-overlay
     v-model="sidebarShown"
     :style="{ top: $vuetify.application.top + 'px', zIndex: 4 }"
-    clipped-left
-    temporary
   >
     <v-list>
       <v-list-item>
