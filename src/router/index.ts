@@ -22,8 +22,30 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/uzytkownik',
-    name: 'User',
-    component: () => import(/* webpackChunkName: "film" */ '../views/UserProfile.vue'),
+    component: () => import(/* webpackChunkName: "group-user" */ '../views/UserProfile.vue'),
+    children: [
+      {
+        name: 'User',
+        path: 'dane',
+        component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/ProfileInfoForm.vue')
+      },
+      {
+        path: 'haslo',
+        component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/ChangePasswordForm.vue')
+      },
+      {
+        path: 'recenzje',
+        component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/ReviewList.vue')
+      },
+      {
+        path: 'listy',
+        component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/UserLists.vue')
+      },
+      {
+        path: 'administrator',
+        component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/Admin.vue')
+      },
+    ]
   },
 ]
 
