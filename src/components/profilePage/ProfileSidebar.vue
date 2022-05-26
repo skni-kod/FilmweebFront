@@ -19,13 +19,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
-      <v-list-item
-        v-for="(page, i) in pages"
-        :key="i"
-        link
-        :to="page.link"
-        replace
-      >
+      <v-list-item v-for="(page, i) in pages" :key="i" link :to="page.link">
         <v-list-item-icon>
           <v-icon v-text="page.icon"></v-icon>
         </v-list-item-icon>
@@ -74,8 +68,7 @@ export default class ProfileSidebar extends Vue {
       ],
       user: {
         nickName: "jankowalski123",
-        avatar:
-          "https://play-lh.googleusercontent.com/5LIMaa7WTNy34bzdFhBETa2MRj7mFJZWb8gCn_uyxQkUvFx_uOFCeQjcK16c6WpBA3E=s180-rw",
+        avatar: "https://images.nintendolife.com/670d42b50d6d5/1280x720.jpg",
       },
     };
   }

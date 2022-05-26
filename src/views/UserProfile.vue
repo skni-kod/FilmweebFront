@@ -22,7 +22,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import ProfileSidebar from "@/components/profilePage/profileSidebar.vue";
+import ProfileSidebar from "@/components/profilePage/ProfileSidebar.vue";
 
 @Component({
   components: {
