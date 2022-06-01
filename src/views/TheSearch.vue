@@ -12,8 +12,12 @@ export default class Search extends Vue {
         "Rok premiery, rosnąco",
         "Rok premiery, malejąco",
       ],
-      valueSlider: [0, 300],
-      filtering: 0,
+      valueSlider: [0, 180],
+      filtering: false,
+      genre: null,
+      country: null,
+      releaseDate: null,
+      rating: null,
     };
   }
 }
@@ -21,18 +25,19 @@ export default class Search extends Vue {
 
 <template>
   <v-container>
-    <v-row class="px-3"
-      ><v-text-field
+    <v-row class="px-3">
+      <v-text-field
         color="black"
         class="pt-5 mt-5"
         clearable
         label="Szukaj filmów, seriali, postaci"
         solo
-      ></v-text-field
-    ></v-row>
+      >
+      </v-text-field>
+    </v-row>
     <v-row class="mt-n7">
-      <v-col cols="12" md="6" lg="6"
-        ><v-btn
+      <v-col cols="12" md="6" lg="6">
+        <v-btn
           block
           dense
           class="px-3"
@@ -40,11 +45,11 @@ export default class Search extends Vue {
           @click="filtering = !filtering"
         >
           Filtrowanie i sortowanie
-        </v-btn></v-col
-      >
-      <v-col cols="12" md="6" lg="6"
-        ><v-btn block dense class="px-3" color="yellow"> Szukaj </v-btn></v-col
-      >
+        </v-btn>
+      </v-col>
+      <v-col cols="12" md="6" lg="6">
+        <v-btn block dense class="px-3" color="yellow"> Szukaj </v-btn>
+      </v-col>
     </v-row>
     <v-row v-if="filtering == 1">
       <v-container>
@@ -59,7 +64,8 @@ export default class Search extends Vue {
                 v-model="genre"
                 label="Wpisz gatunek produkcji"
                 clearable
-              ></v-text-field>
+              >
+              </v-text-field>
             </v-col>
             <v-col cols="12" lg="4" class="white--text">
               Kraj
@@ -70,7 +76,8 @@ export default class Search extends Vue {
                 v-model="country"
                 label="Wpisz kraj wydania produkcji"
                 clearable
-              ></v-text-field>
+              >
+              </v-text-field>
             </v-col>
             <v-col cols="12" lg="4" class="white--text">
               Premiera
@@ -81,7 +88,8 @@ export default class Search extends Vue {
                 v-model="releaseDate"
                 label="Wpisz rok wydania tytułu"
                 clearable
-              ></v-text-field>
+              >
+              </v-text-field>
             </v-col>
           </v-row>
           <v-row :column="$vuetify.breakpoint.mdAndDown" class="mt-n5">
@@ -94,11 +102,13 @@ export default class Search extends Vue {
                 x-large
                 clearable
                 hover
-              ></v-rating>
+              >
+              </v-rating>
             </v-col>
             <v-col class="white--text" cols="12" md="6" lg="4">
               Długość trwania
-              <v-range-slider class="mt-3"
+              <v-range-slider
+                class="mt-3"
                 v-model="valueSlider"
                 text-color="black"
                 min="0"
@@ -107,11 +117,12 @@ export default class Search extends Vue {
                 :thumb-label="true"
                 :thumb-size="24"
                 :thumb-color="'grey darken-1'"
-              />
+              ></v-range-slider>
             </v-col>
             <v-col class="white--text" cols="12" md="12" lg="4">
               Sortowanie
-              <v-select class="mt-2"
+              <v-select
+                class="mt-2"
                 :items="sortResults"
                 label="Wybierz sortowanie"
                 color="black"
@@ -119,7 +130,8 @@ export default class Search extends Vue {
                 solo
                 dense
                 flat
-              ></v-select>
+              >
+              </v-select>
             </v-col>
           </v-row>
         </v-sheet>
@@ -127,5 +139,3 @@ export default class Search extends Vue {
     </v-row>
   </v-container>
 </template>
-
-<style scoped></style>
