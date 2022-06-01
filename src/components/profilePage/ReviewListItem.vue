@@ -8,8 +8,8 @@
         <p>{{ review.content }}</p>
       </v-card-text>
       <v-card-actions>
-        <v-btn text @click=""> Edytuj </v-btn>
-        <v-btn text @click=""> Usuń </v-btn>
+        <v-btn text> Edytuj </v-btn>
+        <v-btn text> Usuń </v-btn>
       </v-card-actions>
     </v-card>
   </v-list-item>
