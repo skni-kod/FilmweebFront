@@ -20,6 +20,16 @@ export default class Search extends Vue {
       rating: null,
     };
   }
+  asd() {
+    console.log(
+      this.$data.genre,
+      this.$data.country,
+      this.$data.releaseDate,
+      this.$data.rating,
+      this.$data.valueSlider[0],
+      this.$data.valueSlider[1]
+    );
+  }
 }
 </script>
 
@@ -48,7 +58,9 @@ export default class Search extends Vue {
         </v-btn>
       </v-col>
       <v-col cols="12" md="6" lg="6">
-        <v-btn block dense class="px-3" color="yellow"> Szukaj </v-btn>
+        <v-btn block dense class="px-3" color="yellow" @click="asd()">
+          Szukaj
+        </v-btn>
       </v-col>
     </v-row>
     <v-row v-if="filtering == 1">
@@ -61,7 +73,7 @@ export default class Search extends Vue {
                 color="black"
                 solo
                 flat
-                v-model="genre"
+                v-model.lazy="genre"
                 label="Wpisz gatunek produkcji"
                 clearable
               >
@@ -73,7 +85,7 @@ export default class Search extends Vue {
                 color="black"
                 solo
                 flat
-                v-model="country"
+                v-model.lazy="country"
                 label="Wpisz kraj wydania produkcji"
                 clearable
               >
@@ -85,7 +97,8 @@ export default class Search extends Vue {
                 color="black"
                 solo
                 flat
-                v-model="releaseDate"
+                v-model.lazy="releaseDate"
+                type="number"
                 label="Wpisz rok wydania tytułu"
                 clearable
               >
@@ -96,7 +109,7 @@ export default class Search extends Vue {
             <v-col class="white--text" cols="12" md="6" lg="4">
               Min. ilość gwiazdek
               <v-rating
-                v-model="rating"
+                v-model.lazy="rating"
                 background-color="white"
                 color="white"
                 x-large
@@ -109,7 +122,7 @@ export default class Search extends Vue {
               Długość trwania
               <v-range-slider
                 class="mt-3"
-                v-model="valueSlider"
+                v-model.lazy="valueSlider"
                 text-color="black"
                 min="0"
                 max="180"
