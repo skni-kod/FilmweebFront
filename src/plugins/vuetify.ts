@@ -7,17 +7,25 @@ const darkModeSwitcher : boolean = window.matchMedia && window.matchMedia('(pref
 
 export default new Vuetify({
     theme: {
-        dark: false, // darkModeSwitcher,
+        dark: darkModeSwitcher,
         themes: {
             light: {
                 primary: '#FFF', //do zmiany
                 secondary: '#000', //do zmiany
                 accent: '#f7f7f7',
+                tags: '#808080',
+                break: '#808080',
+                more: '#808080',
+                extlink: '#808080',
             },
             dark: {
                 primary: '#FFF', //do zmiany
                 secondary: '#000', //do zmiany
-                accent: '#161616'
+                accent: '#161616',
+                tags: '#959595',
+                break: '#808080',
+                more: '#959595',
+                extlink: '#959595',
             }
         },
     },
