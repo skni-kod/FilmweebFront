@@ -31,7 +31,7 @@ export default class Search extends Vue {
       ></v-text-field
     ></v-row>
     <v-row class="mt-n7">
-      <v-col cols="5"
+      <v-col cols="12" md="6" lg="6"
         ><v-btn
           block
           dense
@@ -42,7 +42,7 @@ export default class Search extends Vue {
           Filtrowanie i sortowanie
         </v-btn></v-col
       >
-      <v-col
+      <v-col cols="12" md="6" lg="6"
         ><v-btn block dense class="px-3" color="yellow"> Szukaj </v-btn></v-col
       >
     </v-row>
@@ -104,7 +104,7 @@ export default class Search extends Vue {
                 min="0"
                 max="180"
                 color="yellow"
-                thumb-label="true"
+                :thumb-label="true"
                 :thumb-size="24"
                 :thumb-color="'grey darken-1'"
               />
