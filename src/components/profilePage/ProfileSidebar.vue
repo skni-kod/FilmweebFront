@@ -17,7 +17,12 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
-      <v-list-item v-for="(page, i) in pages" :key="i" link :to="page.link">
+      <v-list-item
+        v-for="(page, i) in pages"
+        :key="i"
+        link
+        :to="{ name: page.link.name }"
+      >
         <v-list-item-icon>
           <v-icon v-text="page.icon"></v-icon>
         </v-list-item-icon>
@@ -40,27 +45,27 @@ export default class ProfileSidebar extends Vue {
       pages: [
         {
           name: "Dane użytkownika",
-          link: "/uzytkownik/dane",
+          link: { name: "User" },
           icon: "mdi-account-box",
         },
         {
           name: "Zmiana hasła",
-          link: "/uzytkownik/haslo",
+          link: { name: "user-password" },
           icon: "mdi-shield",
         },
         {
           name: "Recenzje użytkownika",
-          link: "/uzytkownik/recenzje",
+          link: { name: "user-reviews" },
           icon: "mdi-file-document",
         },
         {
           name: "Listy użytkownika",
-          link: "/uzytkownik/listy",
+          link: { name: "user-lists" },
           icon: "mdi-playlist-play",
         },
         {
           name: "Administrator",
-          link: "/uzytkownik/administrator",
+          link: { name: "user-admin" },
           icon: "mdi-account-supervisor",
         },
       ],
