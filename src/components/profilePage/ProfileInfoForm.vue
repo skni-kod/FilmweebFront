@@ -11,12 +11,6 @@
         required
         :rules="input.rules"
       ></v-text-field>
-      <v-file-input
-        label="Zmień awatar"
-        color="dark"
-        prepend-icon="mdi-camera"
-        accept="image/png, image/jpeg, image/bmp"
-      ></v-file-input>
       <v-btn type="submit" @click.prevent="submit"> Zapisz </v-btn>
     </v-form>
   </v-card>
@@ -77,6 +71,11 @@ export default class ProfileInfoForm extends Vue {
               /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(v) ||
               "Nieprawidłowy adres e-mail",
           ],
+        },
+        {
+          label: "Link do awatara",
+          value: "",
+          rules: [],
         },
       ],
     };
