@@ -2,7 +2,11 @@
   <v-container>
     <v-list>
       <v-subheader class="text-h6">Panel administratora</v-subheader>
-      <v-list-item v-for="(page, i) in pages" :key="i" link :to="page.link">
+      <v-list-item 
+          v-for="(page, i) in pages" 
+          :key="i" 
+          link 
+          :to="{ name: page.link.name}">
         <v-list-item-content>
           <v-list-item-title> {{ page.name }}</v-list-item-title>
         </v-list-item-content>
@@ -34,15 +38,15 @@ export default class Admin extends Vue {
       pages: [
         {
           name: "Dodaj film",
-          link: "/uzytkownik/administrator/dodawanie-filmu",
+          link: {name: "admin-add-movie"},
         },
         {
           name: "Importuj film",
-          link: "/uzytkownik/administrator/import-filmu",
+          link: {name: "admin-import-movie"},
         },
         {
           name: "Dodaj osobę",
-          link: "/uzytkownik/administrator/dodawanie-osoby",
+          link: {name: "admin-add-person"},
         },
       ],
     };
