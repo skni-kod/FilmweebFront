@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-form class="form">
+    <v-form class="form" ref="form">
       <h3>Dane użytkownika</h3>
       <v-text-field
         v-for="(input, i) in formData"
@@ -83,7 +83,9 @@ export default class ProfileInfoForm extends Vue {
   }
 
   submit(): void {
-    console.log("form submit");
+    if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
+      console.log("submit");
+    }
   }
 }
 </script>
