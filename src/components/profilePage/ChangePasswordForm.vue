@@ -1,10 +1,19 @@
 <template>
   <v-card>
-    <v-form class="form" ref="form" lazy-validation>
+    <v-form class="pa-4" ref="form" lazy-validation>
       <h3>Zmiana hasła</h3>
       <v-text-field
         @input="resetRules"
-        v-model="password"
+        v-model="currentPassword"
+        label="Obecne hasło"
+        color="dark"
+        required
+        type="password"
+        :rules="passwordRules"
+      ></v-text-field>
+      <v-text-field
+        @input="resetRules"
+        v-model="newPassword"
         label="Nowe hasło"
         color="dark"
         required
@@ -33,7 +42,8 @@ import { Component } from "vue-property-decorator";
 export default class ChangePasswordForm extends Vue {
   data() {
     return {
-      password: "",
+      currentPassword: "",
+      newPassword: "",
       confirmedPassword: "",
       passwordRules: [],
       confirmedPasswordRules: [],
@@ -65,7 +75,3 @@ export default class ChangePasswordForm extends Vue {
 </script>
 
 <style scoped>
-.form {
-  padding: 15px;
-}
-</style>

@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-form class="form">
+    <v-form class="pa-4" ref="form">
       <h3>Dane użytkownika</h3>
       <v-text-field
         v-for="(input, i) in formData"
@@ -11,12 +11,6 @@
         required
         :rules="input.rules"
       ></v-text-field>
-      <v-file-input
-        label="Zmień awatar"
-        color="dark"
-        prepend-icon="mdi-camera"
-        accept="image/png, image/jpeg, image/bmp"
-      ></v-file-input>
       <v-btn type="submit" @click.prevent="submit"> Zapisz </v-btn>
     </v-form>
   </v-card>
@@ -78,18 +72,19 @@ export default class ProfileInfoForm extends Vue {
               "Nieprawidłowy adres e-mail",
           ],
         },
+        {
+          label: "Link do awatara",
+          value: "",
+          rules: [],
+        },
       ],
     };
   }
 
   submit(): void {
-    console.log("form submit");
+    if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
+      console.log("submit");
+    }
   }
 }
 </script>
-
-<style scoped>
-.form {
-  padding: 15px;
-}
-</style>

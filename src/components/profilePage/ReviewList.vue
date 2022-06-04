@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-list>
-      <v-list-item-title class="text-h6">Recenzje</v-list-item-title>
+      <v-subheader class="text-h6">Recenzje</v-subheader>
       <reviewListItem
         v-for="(reviewItem, i) in reviews"
         :key="i"
