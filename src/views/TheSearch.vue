@@ -37,7 +37,8 @@ export default class Search extends Vue {
   <v-container>
     <v-row class="px-3">
       <v-text-field
-        color="black"
+        background-color="grey darken-4"
+        color="grey lighten-1"
         class="pt-5 mt-5"
         clearable
         label="Szukaj filmów, seriali, postaci"
@@ -48,17 +49,18 @@ export default class Search extends Vue {
     <v-row class="mt-n7">
       <v-col cols="12" md="6" lg="6">
         <v-btn
+        rounded
           block
           dense
           class="px-3"
-          color="yellow"
+          color="blue darken-3"
           @click="filtering = !filtering"
         >
           Filtrowanie i sortowanie
         </v-btn>
       </v-col>
       <v-col cols="12" md="6" lg="6">
-        <v-btn block dense class="px-3" color="yellow" @click="asd()">
+        <v-btn block dense rounded class="px-3" color="blue darken-3" @click="asd()">
           Szukaj
         </v-btn>
       </v-col>
@@ -111,7 +113,7 @@ export default class Search extends Vue {
               <v-rating
                 v-model.lazy="rating"
                 background-color="white"
-                color="white"
+                color="blue darken-4"
                 x-large
                 clearable
                 hover
@@ -126,10 +128,10 @@ export default class Search extends Vue {
                 text-color="black"
                 min="0"
                 max="180"
-                color="yellow"
+                color="blue darken-3"
                 :thumb-label="true"
                 :thumb-size="24"
-                :thumb-color="'grey darken-1'"
+                :thumb-color="'blue darken-3'"
               ></v-range-slider>
             </v-col>
             <v-col class="white--text" cols="12" md="12" lg="4">
