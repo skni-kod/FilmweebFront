@@ -59,10 +59,7 @@ export default class AddMovieForm extends Vue {
           label: "Data premiery",
           value: "",
           type: "date",
-          rules: [
-            (v: string) =>
-              v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
-          ],
+          rules: [],
         },
         {
           label: "Czas trwania (w minutach)",
