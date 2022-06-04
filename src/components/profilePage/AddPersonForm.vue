@@ -53,7 +53,7 @@ export default class AddPersonForm extends Vue {
         },
         {
           label: "Data urodzenia",
-          value: "",
+          value: null,
           type: "date",
           rules: [],
         },
