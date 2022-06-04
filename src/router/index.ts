@@ -43,7 +43,21 @@ const routes: Array<RouteConfig> = [
       },
       {
         path: 'administrator',
-        component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/Admin.vue')
+        component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/Admin.vue'),
+        children: [
+          {
+            path: 'dodawanie-filmu',
+            component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/AddMovieForm.vue'),
+          },
+          {
+            path: 'import-filmu',
+            component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/ImportMovieForm.vue'),
+          },          
+          {
+            path: 'dodawanie-osoby',
+            component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/AddPersonForm.vue'),
+          }
+        ]
       },
     ]
   },
