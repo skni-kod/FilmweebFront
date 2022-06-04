@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-form class="form" ref="form" lazy-validation>
+    <v-form class="pa-4" ref="form" lazy-validation>
       <h3>Zmiana hasła</h3>
       <v-text-field
         @input="resetRules"
@@ -75,7 +75,3 @@ export default class ChangePasswordForm extends Vue {
 </script>
 
 <style scoped>
-.form {
-  padding: 15px;
-}
-</style>

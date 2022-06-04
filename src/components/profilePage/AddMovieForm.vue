@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-form class="form" ref="form">
+    <v-form class="pa-4" ref="form">
       <h3>Wprowadź informacje o filmie</h3>
       <v-text-field
         v-for="(input, i) in formData"
@@ -123,9 +123,3 @@ export default class AddMovieForm extends Vue {
   }
 }
 </script>
-
-<style scoped>
-.form {
-  padding: 15px;
-}
-</style>

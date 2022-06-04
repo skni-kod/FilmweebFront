@@ -9,7 +9,7 @@
       </v-list-item>
     </v-list>
     <v-spacer></v-spacer>
-    <v-divider class="spacer"></v-divider>
+    <v-divider class="pa-4"></v-divider>
     <router-view></router-view>
   </v-container>
 </template>
@@ -51,7 +51,3 @@ export default class Admin extends Vue {
 </script>
 
 <style scoped>
-.spacer {
-  padding: 15px;
-}
-</style>
