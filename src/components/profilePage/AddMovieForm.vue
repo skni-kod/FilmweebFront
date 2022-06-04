@@ -44,11 +44,8 @@ export default class AddMovieForm extends Vue {
         },
         {
           label: "Rok produkcji",
-          value: null,
-          type: "number",
-          rules: [
-            (v: number) => (v <= 2100 && v >= 1900) || "Niepoprawna wartość",
-          ],
+          value: "",
+          rules: [(v: string) => v.length <= 4 || "Niepoprawna wartość"],
         },
         {
           label: "Kraj produkcji",
@@ -60,16 +57,17 @@ export default class AddMovieForm extends Vue {
         },
         {
           label: "Data premiery",
-          value: null,
+          value: "",
           type: "date",
           rules: [],
         },
         {
           label: "Czas trwania (w minutach)",
-          value: null,
+          value: "",
           type: "number",
           rules: [
-            (v: number) => (v >= 0 && v <= 1000) || "Niepoprawna wartość",
+            (v: string) =>
+              v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
           ],
         },
         {
