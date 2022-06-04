@@ -4,7 +4,16 @@
       <h3>Zmiana hasła</h3>
       <v-text-field
         @input="resetRules"
-        v-model="password"
+        v-model="currentPassword"
+        label="Obecne hasło"
+        color="dark"
+        required
+        type="password"
+        :rules="passwordRules"
+      ></v-text-field>
+      <v-text-field
+        @input="resetRules"
+        v-model="newPassword"
         label="Nowe hasło"
         color="dark"
         required
@@ -33,7 +42,8 @@ import { Component } from "vue-property-decorator";
 export default class ChangePasswordForm extends Vue {
   data() {
     return {
-      password: "",
+      currentPassword: "",
+      newPassword: "",
       confirmedPassword: "",
       passwordRules: [],
       confirmedPasswordRules: [],
