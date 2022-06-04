@@ -30,30 +30,37 @@ const routes: Array<RouteConfig> = [
         component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/ProfileInfoForm.vue')
       },
       {
+        name: 'user-password',
         path: 'haslo',
         component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/ChangePasswordForm.vue')
       },
       {
+        name: 'user-reviews',
         path: 'recenzje',
         component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/ReviewList.vue')
       },
       {
+        name: 'user-lists',
         path: 'listy',
         component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/UserLists.vue')
       },
       {
+        name: 'user-admin',
         path: 'administrator',
         component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/Admin.vue'),
         children: [
           {
+            name: 'admin-add-movie',
             path: 'dodawanie-filmu',
             component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/AddMovieForm.vue'),
           },
           {
+            name: 'admin-import-movie',
             path: 'import-filmu',
             component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/ImportMovieForm.vue'),
           },          
           {
+            name: 'admin-add-person',
             path: 'dodawanie-osoby',
             component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/AddPersonForm.vue'),
           }
