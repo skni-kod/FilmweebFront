@@ -1,11 +1,24 @@
-<template>
-  <h1>Tutaj będzie stopka</h1>
-</template>
+<script lang="ts">
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
 
-<style scoped>
-h1 {
-  position: absolute;
-  top: 90%;
-  left: 20%;
+@Component
+export default class Footer extends Vue {
+  created() {
+    this.$data.year = new Date().getFullYear();
+  }
+  data() {
+    return {
+      year: null,
+    };
+  }
 }
-</style>
+</script>
+
+<template>
+  <v-footer padless color="secondary">
+    <v-col class="text-center" cols="12">
+      {{ year }} — <strong>Filmweeb</strong>
+    </v-col>
+  </v-footer>
+</template>
