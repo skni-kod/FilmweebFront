@@ -103,15 +103,15 @@ export default class MovieOverview extends Vue {
       references: [
         {
           letter: "f",
-          img: "https://i.imgur.com/xWvDSIF.png",
+          img: require("@/assets/filmweb.png"),
         },
         {
           letter: "r",
-          img: "https://i.imgur.com/N4S2F5y.png",
+          img: require("@/assets/rotten.png"),
         },
         {
           letter: "i",
-          img: "https://i.imgur.com/CiCn2Vl.png",
+          img: require("@/assets/imdb.png"),
         },
       ],
     };
