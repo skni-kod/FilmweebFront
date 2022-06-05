@@ -4,27 +4,21 @@ import { Component } from "vue-property-decorator";
 
 @Component
 export default class Footer extends Vue {
+  created() {
+    this.$data.year = new Date().getFullYear();
+  }
   data() {
     return {
-
+      year: null,
     };
   }
 }
 </script>
 
-
 <template>
-  <v-footer padless color="grey darken-3">
-    <v-col
-      
-      class="text-center"
-      cols="12"
-    >
-      {{ new Date().getFullYear() }} — <strong>Filmweeb</strong>
+  <v-footer padless color="secondary">
+    <v-col class="text-center" cols="12">
+      {{ year }} — <strong>Filmweeb</strong>
     </v-col>
   </v-footer>
 </template>
-
-
-
-
