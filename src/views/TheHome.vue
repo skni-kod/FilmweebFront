@@ -79,22 +79,24 @@ export default class Home extends Vue {
         color="grey darken-4"
       >
         <v-card-text>
-          <div
-            id="original_title"
-            class="pb-1"
-            v-tooltip.hover.bottom
-            :title="movie.original_title"
-          >
-            {{ movie.original_title }}
-          </div>
-          <h1
-            id="title"
-            class="py-1"
-            v-tooltip.hover.bottom
-            :title="movie.title"
-          >
-            {{ movie.title }}
-          </h1>
+          <v-tooltip bottom open-delay="200">
+            <template v-slot:activator="{ on, attrs }">
+              <div id="original_title" class="pb-1" v-bind="attrs" v-on="on">
+                {{ movie.original_title }}
+              </div>
+            </template>
+            <span>{{ movie.original_title }}</span>
+          </v-tooltip>
+
+          <v-tooltip bottom open-delay="200">
+            <template v-slot:activator="{ on, attrs }">
+              <h1 id="title" class="py-1" v-bind="attrs" v-on="on">
+                {{ movie.title }}
+              </h1>
+            </template>
+            <span>{{ movie.title }}</span>
+          </v-tooltip>
+
           <p id="releaseDate" class="pt-1">{{ movie.release_date }}</p>
         </v-card-text>
       </v-card>
