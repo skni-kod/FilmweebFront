@@ -79,8 +79,20 @@ export default class Home extends Vue {
         color="grey darken-4"
       >
         <v-card-text>
-          <div id="original_title" class="pb-1">{{ movie.original_title }}</div>
-          <h1 id="title" class="py-1">
+          <div
+            id="original_title"
+            class="pb-1"
+            v-tooltip.hover.bottom
+            :title="movie.original_title"
+          >
+            {{ movie.original_title }}
+          </div>
+          <h1
+            id="title"
+            class="py-1"
+            v-tooltip.hover.bottom
+            :title="movie.title"
+          >
             {{ movie.title }}
           </h1>
           <p id="releaseDate" class="pt-1">{{ movie.release_date }}</p>
@@ -108,10 +120,7 @@ export default class Home extends Vue {
   font-size: 1.7em;
   height: 45px;
 }
-#original_title:hover,
-#title:hover {
-  overflow: auto;
-}
+
 #releaseDate {
   text-align: left;
   font-size: 1.2em;
