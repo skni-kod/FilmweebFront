@@ -49,18 +49,25 @@ export default class Search extends Vue {
     <v-row class="mt-n7">
       <v-col cols="12" md="6" lg="6">
         <v-btn
-        rounded
+          rounded
           block
           dense
           class="px-3"
-          color="blue darken-3"
+          color="secondary"
           @click="filtering = !filtering"
         >
           Filtrowanie i sortowanie
         </v-btn>
       </v-col>
       <v-col cols="12" md="6" lg="6">
-        <v-btn block dense rounded class="px-3" color="blue darken-3" @click="asd()">
+        <v-btn
+          block
+          dense
+          rounded
+          class="px-3"
+          color="secondary"
+          @click="asd()"
+        >
           Szukaj
         </v-btn>
       </v-col>
@@ -128,10 +135,10 @@ export default class Search extends Vue {
                 text-color="black"
                 min="0"
                 max="180"
-                color="blue darken-3"
+                color="secondary"
                 :thumb-label="true"
                 :thumb-size="24"
-                :thumb-color="'blue darken-3'"
+                :thumb-color="secondary"
               ></v-range-slider>
             </v-col>
             <v-col class="white--text" cols="12" md="12" lg="4">

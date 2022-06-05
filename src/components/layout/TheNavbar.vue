@@ -20,37 +20,38 @@ export default class Navbar extends Vue {
   <v-app-bar app dark color="grey darken-3">
     <v-toolbar-title>
       <router-link :to="{ name: 'Home' }" class="text-decoration-none">
-        <v-img 
-        v-if="$vuetify.breakpoint.xs === false"
-        contain
-        position="left"
-        rounded
-        max-height="35px"
-        
-        :src="`https://i.imgur.com/d0rV42l.png`">
+        <v-img
+          v-if="!$vuetify.breakpoint.xs"
+          contain
+          position="left"
+          rounded
+          max-height="35px"
+          :src="require('@/assets/logo_serwisu.png')"
+        >
         </v-img>
-        <div v-if="$vuetify.breakpoint.xs === true">
-          Filmweeb
-        </div>
-        
+        <div v-if="$vuetify.breakpoint.xs">Filmweeb</div>
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn  class="mx-1"
-    rounded
-
-    color="blue darken-3" v-for="(icon, i) in icons" :key="i" :to="icon.link">
+    <v-btn
+      class="mx-1"
+      rounded
+      color="secondary"
+      v-for="(icon, i) in icons"
+      :key="i"
+      :to="icon.link"
+    >
       <v-icon> {{ icon.name }} </v-icon>
-      <span class="white--text" v-if="$vuetify.breakpoint.xs === false"> {{ icon.text }} </span>
+      <span class="white--text" v-if="!$vuetify.breakpoint.xs">
+        {{ icon.text }}
+      </span>
       <span v-else></span>
     </v-btn>
   </v-app-bar>
 </template>
 
 <style scoped>
-  .v-btn:before {
-   background-color: transparent;
-  }
+.v-btn:before {
+  background-color: transparent;
+}
 </style>
-
-
