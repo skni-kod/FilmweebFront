@@ -31,65 +31,20 @@
       <li class="buttons">
         <div class="tag tags--text">Odnośniki:</div>
         <v-row>
-          <v-col v-for="(reference, i) in references" :key="i" cols="auto">
-            <a :href="`${reference.link}`" target="_blank">
+          <v-col v-for="(r, i) in downloadRefs" :key="r.id" cols="auto">
+            <a
+              v-if="r.type.charAt(0) == references[i].letter"
+              :href="r.link"
+              target="_blank"
+            >
               <v-img
-                v-if="reference.type.charAt(0) === 'f'"
                 class="mt-3"
                 contain
                 position="left"
                 rounded
                 height="35px"
                 width="35px"
-                :src="`https://i.imgur.com/xWvDSIF.png`"
-              >
-                <template v-slot:placeholder>
-                  <v-row
-                    class="fill-height ma-0"
-                    align="center"
-                    justify="center"
-                  >
-                    <v-progress-circular
-                      indeterminate
-                      color="grey lighten-5"
-                    ></v-progress-circular>
-                  </v-row>
-                </template>
-              </v-img>
-
-              <v-img
-                v-if="reference.type.charAt(0) === 'r'"
-                class="mt-3"
-                contain
-                position="left"
-                rounded
-                height="35px"
-                width="35px"
-                :src="`https://i.imgur.com/N4S2F5y.png`"
-              >
-                <template v-slot:placeholder>
-                  <v-row
-                    class="fill-height ma-0"
-                    align="center"
-                    justify="center"
-                  >
-                    <v-progress-circular
-                      indeterminate
-                      color="grey lighten-5"
-                    ></v-progress-circular>
-                  </v-row>
-                </template>
-              </v-img>
-
-              <v-img
-                v-if="reference.type.charAt(0) === 'i'"
-                class="mt-3"
-                contain
-                position="left"
-                rounded
-                height="35px"
-                width="35px"
-                :src="`https://i.imgur.com/CiCn2Vl.png`"
+                :src="references[i].img"
               >
                 <template v-slot:placeholder>
                   <v-row
@@ -128,7 +83,7 @@ export default class MovieOverview extends Vue {
 
   data() {
     return {
-      references: [
+      downloadRefs: [
         {
           id: "1",
           type: "filmweb",
@@ -143,6 +98,20 @@ export default class MovieOverview extends Vue {
           id: "3",
           type: "imdb",
           link: "https://www.imdb.com/title/tt1877830/",
+        },
+      ],
+      references: [
+        {
+          letter: "f",
+          img: "https://i.imgur.com/xWvDSIF.png",
+        },
+        {
+          letter: "r",
+          img: "https://i.imgur.com/N4S2F5y.png",
+        },
+        {
+          letter: "i",
+          img: "https://i.imgur.com/CiCn2Vl.png",
         },
       ],
     };
