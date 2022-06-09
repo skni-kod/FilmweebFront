@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="title">{{ movieData.tytul }}</div>
+    <div class="title">{{ movieData.title }}</div>
     <div class="details tags--text">
-      <div class="title-orig tags--text">{{ movieData.oryginalny_tytul }}</div>
+      <div class="title-orig tags--text">{{ movieData.original_title }}</div>
       <div class="type">
-        <div>{{ movieData.typ }}</div>
+        <div>FILM</div>
       </div>
     </div>
     <div class="rates" style="color: gold;">
@@ -19,7 +19,7 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component({})
 export default class MovieCover extends Vue {
-  @Prop({ required: true }) movieData: any;
+  @Prop({ required: true }) readonly movieData: any;
   private srednia: Number = 1.1;
   private wszystkich_ocen: Number = 2137;
 }

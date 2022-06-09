@@ -3,13 +3,13 @@
     <h3 class="general-section-title">Obsada filmu</h3>
     <div class="crew-blk">
       <div class="crew-list">
-        <div class="crew-item" v-for="(actor, i) in movieCrews" :key="i">
+        <div class="crew-item" v-for="(actor, i) in movieCrew" :key="i">
           <div class="avatar">
             <img src="../../assets/unknown_person.png" alt />
           </div>
           <div class="details">
-            <div class="name">{{ actor.imie }} {{ actor.nazwisko }}</div>
-            <div class="role tags--text">jako {{ actor.nazwa_roli }}</div>
+            <div class="name">{{ actor.first_name }} {{ actor.last_name }}</div>
+            <div class="role tags--text">jako ???</div>
           </div>
         </div>
       </div>
@@ -22,75 +22,34 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
+import axios from "axios";
 
 @Component({})
 export default class MovieCrew extends Vue {
-  public movieCrews: object = [
-    {
-      id_aktora: 1,
-      imie: "Imie",
-      nazwisko: "Nazwisko",
-      nazwa_stanowiska: "aktor",
-      nazwa_roli: "Nazwa Roli",
-    },
-    {
-      id_aktora: 5,
-      imie: "Imie",
-      nazwisko: "Nazwisko",
-      nazwa_stanowiska: "aktor",
-      nazwa_roli: "Nazwa Roli",
-    },
-    {
-      id_aktora: 2,
-      imie: "Imie",
-      nazwisko: "Nazwisko",
-      nazwa_stanowiska: "aktor",
-      nazwa_roli: "Nazwa Roli",
-    },
-    {
-      id_aktora: 4,
-      imie: "Imie",
-      nazwisko: "Nazwisko",
-      nazwa_stanowiska: "aktor",
-      nazwa_roli: "Nazwa Roli",
-    },
-    {
-      id_aktora: 3,
-      imie: "Imie",
-      nazwisko: "Nazwisko",
-      nazwa_stanowiska: "aktor",
-      nazwa_roli: "Nazwa Roli",
-    },
-    {
-      id_aktora: 6,
-      imie: "Imie",
-      nazwisko: "Nazwisko",
-      nazwa_stanowiska: "aktor",
-      nazwa_roli: "Nazwa Roli",
-    },
-    {
-      id_aktora: 8,
-      imie: "Imie",
-      nazwisko: "Nazwisko",
-      nazwa_stanowiska: "aktor",
-      nazwa_roli: "Nazwa Roli",
-    },
-    {
-      id_aktora: 7,
-      imie: "Imie",
-      nazwisko: "Nazwisko",
-      nazwa_stanowiska: "aktor",
-      nazwa_roli: "Nazwa Roli",
-    },
-    {
-      id_aktora: 8,
-      imie: "Imie",
-      nazwisko: "Nazwisko",
-      nazwa_stanowiska: "aktor",
-      nazwa_roli: "Nazwa Roli",
-    },
-  ];
+  @Prop({ required: true}) readonly API: any;
+  @Prop({ required: true}) readonly movieID: any;
+
+  data() {
+    return {
+      movieCrew : [],
+    }
+  }
+
+  created() {
+    this.getMovieCrew(this.API, this.movieID);
+  }
+
+  getMovieCrew(API: string, movieID: number){
+    axios
+        .get(`${API}/movies/${movieID}/actors`)
+        .then((response) => {
+          this.$data.movieCrew = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+  }
 }
 </script>
 

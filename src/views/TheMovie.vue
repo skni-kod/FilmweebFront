@@ -7,13 +7,18 @@
             :movieData="movieData"
         />
         <movie-overview
+            class="movie-overview"
             :movieData="movieData"
-            class="movie-overview"/>
+        />
       </v-col>
     </v-row>
     <v-row class="main-blk">
       <v-col class="movie-info" cols="8">
-        <movie-crew class="movie-crew"/>
+        <movie-crew
+            class="movie-crew"
+            :API="API"
+            :movieID="movieID"
+        />
         <movie-reviews class="movie-reviews"/>
         <movie-comments class="movie-comments"/>
         <div style="min-height: 500px;"></div>
@@ -34,6 +39,7 @@ import MovieCrew from "@/components/movie/MovieCrew.vue";
 import MovieReviews from "@/components/movie/MovieReviews.vue";
 import MovieComments from "@/components/movie/MovieComments.vue";
 import MovieSidetool from "@/components/movie/MovieSidetool.vue";
+import axios from "axios";
 
 @Component({
   components: {
@@ -46,17 +52,25 @@ import MovieSidetool from "@/components/movie/MovieSidetool.vue";
   },
 })
 export default class TheMovie extends Vue {
-  public movieData: object = {
-    id_filmu: 1 as Number,
-    typ: 'film' as String,
-    tytul: "Lorem Ipsum: Dolor sit amet" as String,
-    oryginalny_tytul: "Lorem Ipsum: Dolor sit amet" as String,
-    kraj_produkcji: 'Country' as String,
-    rok_produkcji: 2022 as Number,
-    premiera: 'XX-XX-XXXX' as String,
-    czas_trwania: 1297 as Number,
-    opis_filmu: 'Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique. Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique.' as String,
-  };
+  movieData = [];
+  API : string = 'http://localhost:8080';
+  movieID : any = Object.keys(this.$route.query).includes("id") ? this.$route.query.id : "1";
+
+  created(){
+    this.getMovieInfo(this.API, this.movieID);
+    console.log(this.movieID);
+  }
+
+  getMovieInfo(API: string, movieID: string){
+    axios
+        .get(`${API}/movies/${movieID}/`)
+        .then((response) => {
+          this.movieData = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+  }
 }
 </script>
 

@@ -4,8 +4,7 @@
       <v-img lazy-src="../../assets/logo.svg" src="../../assets/logo.svg" />
     </div>
     <div class="plot">
-      Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id
-      sem lacinia egestas. Phasellus egestas facilisis diam non tristique.
+      {{ movieData.description }}
     </div>
     <ul class="tag-ul">
       <li class="detail-li">
@@ -16,16 +15,16 @@
       </li>
       <li class="detail-li">
         <div class="tag tags--text">Kraj produkcji:</div>
-        <div class="value" tabindex="0">{{ movieData.kraj_produkcji }}</div>
+        <div class="value" tabindex="0">{{ movieData.production_country }}</div>
       </li>
       <li class="detail-li">
         <div class="tag tags--text">Rok produkcji</div>
-        <div class="value" tabindex="0">{{ movieData.rok_produkcji }}</div>
+        <div class="value" tabindex="0">{{ movieData.production_year }}</div>
       </li>
       <li class="detail-li">
         <div class="tag tags--text">Czas trwania:</div>
         <div class="value" tabindex="0">
-          {{ durationFormat(movieData.czas_trwania) }}
+          {{ durationFormat(movieData.duration) }}
         </div>
       </li>
       <li class="buttons">
