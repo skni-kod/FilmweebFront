@@ -17,6 +17,8 @@ export default new Vuetify({
                 break: '#808080',
                 more: '#808080',
                 extlink: '#808080',
+                mark_avg: '#FFD700',
+                mark_own: '#1565C0',
             },
             dark: {
                 primary: '#FFF', //do zmiany
@@ -26,6 +28,8 @@ export default new Vuetify({
                 break: '#808080',
                 more: '#959595',
                 extlink: '#959595',
+                mark_avg: '#FFD700',
+                mark_own: '#1565C0',
             }
         },
     },

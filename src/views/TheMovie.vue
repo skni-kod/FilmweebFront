@@ -1,5 +1,5 @@
 <template>
-  <v-container style="min-height: 1000px">
+  <v-container style="min-height: 1000px;">
     <v-row class="header-blk">
       <v-col class="header-blk__wrapper">
         <movie-cover
