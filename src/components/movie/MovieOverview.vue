@@ -1,8 +1,10 @@
 <template>
   <div class="wrapper-blk">
     <div class="poster">
-      <v-img :lazy-src="this.$store.state.moviePage.movieData.poster"
-             :src="this.$store.state.moviePage.movieData.poster"/>
+<!--      <v-img :lazy-src="this.$store.state.moviePage.movieData.poster"-->
+<!--             :src="this.$store.state.moviePage.movieData.poster"/>-->
+      <v-img lazy-src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg"
+             src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg"/>
     </div>
     <div class="plot">
       {{ this.$store.state.moviePage.movieData.description }}
@@ -119,12 +121,18 @@ export default class MovieOverview extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.wrapper-blk > div {
-  padding: 16px;
+.wrapper-blk {
+  grid-gap: 16px;
 }
 
 .movie-overview .poster {
   grid-area: 1 / 1 / 3 / 2;
+  width: 100%;
+  max-width: 285px;
+}
+
+.movie-overview .plot {
+  padding: 32px 16px 0 16px;
 }
 
 .movie-overview .poster > div {
@@ -138,7 +146,6 @@ export default class MovieOverview extends Vue {
 .movie-overview .tag-ul {
   grid-area: 2 / 2 / 3 / 3;
   list-style: none;
-  margin-top: 16px;
 }
 
 .tag-ul .detail-li {

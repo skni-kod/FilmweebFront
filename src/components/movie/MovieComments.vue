@@ -1,7 +1,7 @@
 <template>
-  <div v-if="Object.keys(movieComments).length > 0">
+  <div>
     <h3 class="general-section-title">Komentarze użytkowników</h3>
-    <div class="comm-blk">
+    <div class="comm-blk" v-if="Object.keys(movieComments).length > 0">
       <div class="comm-list">
         <div class="single-comm" v-for="(comment, i) in movieComments" :key="i">
           <div class="avatar"><img :src="comment.avatar.at(0).avatar" alt/></div>
@@ -19,6 +19,9 @@
           <span>Zobacz wszystkie komentarze</span>
         </div>
       </div>
+    </div>
+    <div v-else>
+      <div class="lack-info more--text">Brak informacji</div>
     </div>
   </div>
 </template>

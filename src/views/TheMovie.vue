@@ -115,4 +115,10 @@ export default class TheMovie extends Vue {
   align-self: flex-start;
 }
 
+.lack-info {
+  display: flex;
+  justify-content: center;
+  padding: 6px 0;
+}
+
 </style>

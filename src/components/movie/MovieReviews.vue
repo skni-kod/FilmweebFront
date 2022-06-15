@@ -1,7 +1,7 @@
 <template>
-  <div v-if="Object.keys(movieReviews).length > 0">
+  <div>
     <h3 class="general-section-title">Recenzje użytkowników</h3>
-    <div class="review-blk">
+    <div class="review-blk" v-if="Object.keys(movieReviews).length > 0">
       <div class="review-list">
         <div class="single-review" v-for="(review, i) in movieReviews" :key="i">
           <div class="review-head">
@@ -29,7 +29,9 @@
         <span>Zobacz wszystkie recenzje</span>
       </div>
     </div>
-
+    <div v-else>
+      <div class="lack-info more--text">Brak informacji</div>
+    </div>
   </div>
 </template>
 

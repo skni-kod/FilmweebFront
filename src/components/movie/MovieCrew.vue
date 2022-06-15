@@ -1,11 +1,11 @@
 <template>
-  <div class="wrapper-blk" v-if="Object.keys(movieCrew).length > 0">
+  <div class="wrapper-blk">
     <h3 class="general-section-title">Obsada filmu</h3>
-    <div class="crew-blk">
+    <div class="crew-blk" v-if="Object.keys(movieCrew).length > 0">
       <div class="crew-list">
         <div class="crew-item" v-for="(actor, i) in movieCrew" :key="i">
           <div class="avatar">
-            <img :src="actor.poster" alt="" />
+            <img src="../../assets/unknown_person.png" alt="" />
           </div>
           <div class="details">
             <div class="name">{{ actor.first_name }} {{ actor.last_name }}</div>
@@ -16,6 +16,9 @@
       <div class="crew-more more--text">
         <span>Zobacz całą obsadę</span>
       </div>
+    </div>
+    <div v-else>
+      <div class="lack-info more--text">Brak informacji</div>
     </div>
   </div>
 </template>
@@ -67,7 +70,7 @@ export default class MovieCrew extends Vue {
   padding: 6px;
 }
 
-.crew-blk .crew-more {
+.crew-blk .crew-more, .lack-info {
   display: flex;
   justify-content: center;
   padding: 6px 0;
