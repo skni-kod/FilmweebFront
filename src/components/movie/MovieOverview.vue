@@ -1,10 +1,11 @@
 <template>
   <div class="wrapper-blk">
     <div class="poster">
-      <v-img lazy-src="../../assets/logo.svg" src="../../assets/logo.svg" />
+      <v-img :lazy-src="this.$store.state.moviePage.movieData.poster"
+             :src="this.$store.state.moviePage.movieData.poster"/>
     </div>
     <div class="plot">
-      {{ movieData.description }}
+      {{ this.$store.state.moviePage.movieData.description }}
     </div>
     <ul class="tag-ul">
       <li class="detail-li">
@@ -15,16 +16,16 @@
       </li>
       <li class="detail-li">
         <div class="tag tags--text">Kraj produkcji:</div>
-        <div class="value" tabindex="0">{{ movieData.production_country }}</div>
+        <div class="value" tabindex="0">{{ this.$store.state.moviePage.movieData.production_country }}</div>
       </li>
       <li class="detail-li">
         <div class="tag tags--text">Rok produkcji</div>
-        <div class="value" tabindex="0">{{ movieData.production_year }}</div>
+        <div class="value" tabindex="0">{{ this.$store.state.moviePage.movieData.production_year }}</div>
       </li>
       <li class="detail-li">
         <div class="tag tags--text">Czas trwania:</div>
         <div class="value" tabindex="0">
-          {{ durationFormat(movieData.duration) }}
+          {{ durationFormat(this.$store.state.moviePage.movieData.duration) }}
         </div>
       </li>
       <li class="buttons">
@@ -32,28 +33,28 @@
         <v-row>
           <v-col v-for="(r, i) in downloadRefs" :key="r.id" cols="auto">
             <a
-              v-if="r.type.charAt(0) == references[i].letter"
-              :href="r.link"
-              target="_blank"
+                v-if="r.type.charAt(0) == references[i].letter"
+                :href="r.link"
+                target="_blank"
             >
               <v-img
-                class="mt-3"
-                contain
-                position="left"
-                rounded
-                height="35px"
-                width="35px"
-                :src="references[i].img"
+                  class="mt-3"
+                  contain
+                  position="left"
+                  rounded
+                  height="35px"
+                  width="35px"
+                  :src="references[i].img"
               >
                 <template v-slot:placeholder>
                   <v-row
-                    class="fill-height ma-0"
-                    align="center"
-                    justify="center"
+                      class="fill-height ma-0"
+                      align="center"
+                      justify="center"
                   >
                     <v-progress-circular
-                      indeterminate
-                      color="grey lighten-5"
+                        indeterminate
+                        color="grey lighten-5"
                     ></v-progress-circular>
                   </v-row>
                 </template>
@@ -68,11 +69,10 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import {Component, Prop} from "vue-property-decorator";
 
 @Component({})
 export default class MovieOverview extends Vue {
-  @Prop({ required: true }) movieData: any;
 
   private durationFormat(duration: number) {
     let hours = Math.trunc(duration / 60);

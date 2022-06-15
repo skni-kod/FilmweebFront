@@ -11,8 +11,8 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
-    path: '/film',
-    name: 'Movie',
+    path: '/film/:id',
+    name: 'MoviePerID',
     component: () => import(/* webpackChunkName: "film" */ '../views/TheMovie.vue'),
   },
   {

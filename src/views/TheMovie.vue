@@ -4,21 +4,15 @@
       <v-col class="header-blk__wrapper">
         <movie-cover
             class="movie-cover"
-            :movieData="movieData"
         />
         <movie-overview
             class="movie-overview"
-            :movieData="movieData"
         />
       </v-col>
     </v-row>
     <v-row class="main-blk">
       <v-col class="movie-info" cols="8">
-        <movie-crew
-            class="movie-crew"
-            :API="API"
-            :movieID="movieID"
-        />
+        <movie-crew class="movie-crew"/>
         <movie-reviews class="movie-reviews"/>
         <movie-comments class="movie-comments"/>
         <div style="min-height: 500px;"></div>
@@ -52,20 +46,21 @@ import axios from "axios";
   },
 })
 export default class TheMovie extends Vue {
-  movieData = [];
-  API : string = 'http://localhost:8080';
-  movieID : any = Object.keys(this.$route.query).includes("id") ? this.$route.query.id : "1";
+  //movieID : any = Object.keys(this.$route.query).includes("id") ? this.$route.query.id : "1";
 
-  created(){
-    this.getMovieInfo(this.API, this.movieID);
-    console.log(this.movieID);
+  created() {
+    if (this.$router.currentRoute.path === '/film') {
+      this.$router.replace( { name: 'MoviePerID', params: { id: this.$store.state.moviePage.movieID } } );
+    }
+    this.$store.commit("setMovieID", this.$route.params.id);
+    this.getMovieInfo(this.$route.params.id);
   }
 
-  getMovieInfo(API: string, movieID: string){
+  getMovieInfo(movieID: string) {
     axios
-        .get(`${API}/movies/${movieID}/`)
+        .get(`/api/movies/${movieID}/`)
         .then((response) => {
-          this.movieData = response.data;
+          this.$store.commit("setMovieData", response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -78,6 +73,7 @@ export default class TheMovie extends Vue {
 .container {
   padding-top: 32px;
 }
+
 .movie-cover, .movie-overview {
   display: grid;
   margin-bottom: 16px;

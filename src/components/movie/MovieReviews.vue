@@ -1,17 +1,17 @@
 <template>
-  <div>
+  <div v-if="Object.keys(movieReviews).length > 0">
     <h3 class="general-section-title">Recenzje użytkowników</h3>
     <div class="review-blk">
       <div class="review-list">
         <div class="single-review" v-for="(review, i) in movieReviews" :key="i">
           <div class="review-head">
-            <div class="avatar"><img src="../../assets/unknown_person.png" alt/></div>
+            <div class="avatar"><img :src="review.avatar.at(0).avatar" alt=""/></div>
             <div class="details">
-              <div class="nick">{{ review.nick }}</div>
-              <div class="type">{{ review.typ_receznji }}</div>
+              <div class="nick">{{ review.nick.at(0).nick }}</div>
+              <div class="type">{{ review.review_type }}</div>
             </div>
           </div>
-          <div class="review-content">{{ review.tresc_recenzji }}</div>
+          <div class="review-content">{{ review.review }}</div>
           <div class="review-footer tags--text">
             <div class="rev-comment extlink--text">
               <router-link :to="'/film'">Skomentuj</router-link>
@@ -20,7 +20,7 @@
               </router-link>
             </div>
             <div class="create-time">
-              XX.XX.XXXX
+              {{ review.creation_date }}
             </div>
           </div>
         </div>
@@ -36,32 +36,26 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import axios from "axios";
 
 @Component({})
 export default class MovieReviews extends Vue {
-  public movieReviews: object = [
-    {
-      id_recenzji: 1,
-      tresc_recenzji: 'Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique. Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique.',
-      typ_receznji: 'pozytywna',
-      nazwa_roli: 'XX.XX.XXXX',
-      nick: 'Nick1',
-    },
-    {
-      id_recenzji: 3,
-      tresc_recenzji: 'Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique. Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique.',
-      typ_receznji: 'negatywna',
-      nazwa_roli: 'XX.XX.XXXX',
-      nick: 'Nick3',
-    },
-    {
-      id_recenzji: 2,
-      tresc_recenzji: 'Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique. Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique.',
-      typ_receznji: 'pozytywna',
-      nazwa_roli: 'XX.XX.XXXX',
-      nick: 'Nick2',
-    },
-  ];
+  movieReviews: object = [];
+
+  created() {
+    this.getMovieReviews(this.$store.state.moviePage.movieID);
+  }
+
+  getMovieReviews(movieID: string){
+    axios
+        .get(`/api/movies/${movieID}/reviews/`)
+        .then((response) => {
+          this.movieReviews = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+  }
 }
 </script>
 

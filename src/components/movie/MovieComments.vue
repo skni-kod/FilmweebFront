@@ -1,17 +1,17 @@
 <template>
-  <div>
+  <div v-if="Object.keys(movieComments).length > 0">
     <h3 class="general-section-title">Komentarze użytkowników</h3>
     <div class="comm-blk">
       <div class="comm-list">
         <div class="single-comm" v-for="(comment, i) in movieComments" :key="i">
-          <div class="avatar"><img src="../../assets/unknown_person.png" alt/></div>
+          <div class="avatar"><img :src="comment.avatar.at(0).avatar" alt/></div>
           <div class="comm-wrapper">
             <div class="comm-header">
-              <div class="nick">{{ comment.nick }}</div>
-              <div class="created-time tags--text">x lat temu</div>
+              <div class="nick">{{ comment.nick.at(0).nick }}</div>
+<!--              <div class="created-time tags&#45;&#45;text">x lat temu</div>-->
             </div>
             <div class="comm-content">
-              {{ comment.tresc_komentarza }}
+              {{ comment.comment }}
             </div>
           </div>
         </div>
@@ -26,29 +26,26 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import axios from "axios";
 
 @Component({})
 export default class MovieComments extends Vue {
-  public movieComments: object = [
-    {
-      id_komentarza: 1,
-      tresc_komentarza: 'Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique. Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique.',
-      data_utworzenia: 'XX.XX.XXXX',
-      nick: 'Nick1',
-    },
-    {
-      id_komentarza: 3,
-      tresc_komentarza: 'Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique. Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique.',
-      data_utworzenia: 'XX.XX.XXXX',
-      nick: 'Nick3',
-    },
-    {
-      id_komentarza: 2,
-      tresc_komentarza: 'Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique. Sed iaculis elit sed leo accumsan consectetur. Quisque sagittis libero id sem lacinia egestas. Phasellus egestas facilisis diam non tristique.',
-      data_utworzenia: 'XX.XX.XXXX',
-      nick: 'Nick2',
-    },
-  ];
+  movieComments: object = [];
+
+  created() {
+    this.getMovieComments(this.$store.state.moviePage.movieID);
+  }
+
+  getMovieComments(movieID: string){
+    axios
+        .get(`/api/movies/${movieID}/comments/`)
+        .then((response) => {
+          this.movieComments = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+  }
 }
 </script>
 

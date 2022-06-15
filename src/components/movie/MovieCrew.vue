@@ -1,15 +1,15 @@
 <template>
-  <div class="wrapper-blk">
+  <div class="wrapper-blk" v-if="Object.keys(movieCrew).length > 0">
     <h3 class="general-section-title">Obsada filmu</h3>
     <div class="crew-blk">
       <div class="crew-list">
         <div class="crew-item" v-for="(actor, i) in movieCrew" :key="i">
           <div class="avatar">
-            <img src="../../assets/unknown_person.png" alt />
+            <img :src="actor.poster" alt="" />
           </div>
           <div class="details">
             <div class="name">{{ actor.first_name }} {{ actor.last_name }}</div>
-            <div class="role tags--text">jako ???</div>
+            <div class="role tags--text">jako {{ actor.role.at(0).role }}</div>
           </div>
         </div>
       </div>
@@ -22,29 +22,22 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})
 export default class MovieCrew extends Vue {
-  @Prop({ required: true}) readonly API: any;
-  @Prop({ required: true}) readonly movieID: any;
-
-  data() {
-    return {
-      movieCrew : [],
-    }
-  }
+  movieCrew : object = [];
 
   created() {
-    this.getMovieCrew(this.API, this.movieID);
+    this.getMovieCrew(this.$store.state.moviePage.movieID);
   }
 
-  getMovieCrew(API: string, movieID: number){
+  getMovieCrew(movieID: string){
     axios
-        .get(`${API}/movies/${movieID}/actors`)
+        .get(`/api/movies/${movieID}/actors/`)
         .then((response) => {
-          this.$data.movieCrew = response.data;
+          this.movieCrew = response.data;
         })
         .catch((error) => {
           console.log(error);

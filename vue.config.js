@@ -3,6 +3,13 @@ module.exports = {
     'vuetify'
   ],
   devServer: {
-    proxy: 'http://127.0.0.1:8000'
+    proxy: {
+      "^/api/": {
+        target: "https://filmweebback.herokuapp.com",
+        pathRewrite: { "^/api/": "/" },
+        changeOrigin: true,
+        logLevel: "debug"
+      }
+    }
   }
 }

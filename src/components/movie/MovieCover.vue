@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="title">{{ movieData.title }}</div>
+    <div class="title">{{ this.$store.state.moviePage.movieData.title }}</div>
     <div class="details tags--text">
-      <div class="title-orig tags--text">{{ movieData.original_title }}</div>
+      <div class="title-orig tags--text">{{ this.$store.state.moviePage.movieData.original_title }}</div>
       <div class="type">
         <div>FILM</div>
       </div>
@@ -28,11 +28,13 @@
     <div class="rate-setter-blk" v-if="visible">
       <div class="accent rate-form">
         <div class="rate-form-close">
-          <button @click="visible = !visible"><v-icon class="secondary--text">mdi-close</v-icon></button>
+          <button @click="visible = !visible">
+            <v-icon class="secondary--text">mdi-close</v-icon>
+          </button>
         </div>
         <div class="rate-form-head">
           <v-icon class="mark_avg--text">mdi-star-outline</v-icon>
-          <span>{{ movieData.title }}</span>
+          <span>{{ this.$store.state.moviePage.movieData.title }}</span>
         </div>
         <div class="rate-form-cnt">
           <v-rating
@@ -53,12 +55,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 
 @Component({})
 export default class MovieCover extends Vue {
-  @Prop({required: true}) readonly movieData: any;
-
   data() {
     return {
       visible: false,
