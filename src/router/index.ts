@@ -16,6 +16,11 @@ const routes: Array<RouteConfig> = [
     component: () => import(/* webpackChunkName: "film" */ '../views/TheMovie.vue'),
   },
   {
+    path: '/aktor/:id',
+    name: 'ActorPerID',
+    component: () => import(/* webpackChunkName: "aktor" */ '../views/TheActor.vue'),
+  },
+  {
     path: '/wyszukiwanie',
     name: 'Search',
     component: () => import(/* webpackChunkName: "film" */ '../views/TheSearch.vue'),
@@ -58,7 +63,7 @@ const routes: Array<RouteConfig> = [
             name: 'admin-import-movie',
             path: 'import-filmu',
             component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/ImportMovieForm.vue'),
-          },          
+          },
           {
             name: 'admin-add-person',
             path: 'dodawanie-osoby',

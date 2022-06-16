@@ -12,16 +12,23 @@ export default new Vuex.Store({
             movieID: 1,
             movieData: {},
         },
+        actorPage: {
+            actorID: 1,
+            actorData: {},
+        },
     },
     mutations: {
-        setProfileSidebarShown(state, newVal) {
-            state.userProfile.sidebarShown = newVal;
-        },
         setMovieID(state, movieID) {
             state.moviePage.movieID = movieID;
         },
         setMovieData(state, movieData) {
             state.moviePage.movieData = movieData;
+        },
+        setActorID(state, actorID) {
+            state.actorPage.actorID = actorID;
+        },
+        setActorData(state, actorData) {
+            state.actorPage.actorData = actorData;
         },
     },
     actions: {},
