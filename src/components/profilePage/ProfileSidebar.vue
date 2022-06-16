@@ -5,9 +5,9 @@
         <v-list-item-content>
           <v-list-item-title>
             <v-list-item-avatar>
-              <v-img :src="user.avatar"></v-img>
+              <v-img :src="profileData.avatar"></v-img>
             </v-list-item-avatar>
-            {{ user.nickName }}
+            {{ profileData.nick }}
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -35,6 +35,10 @@ import { Component } from "vue-property-decorator";
 
 @Component
 export default class ProfileSidebar extends Vue {
+  get profileData() {
+    return this.$store.getters.profileData;
+  }
+
   data() {
     return {
       pages: [
@@ -64,10 +68,6 @@ export default class ProfileSidebar extends Vue {
           icon: "mdi-account-supervisor",
         },
       ],
-      user: {
-        nickName: "jankowalski123",
-        avatar: "https://images.nintendolife.com/670d42b50d6d5/1280x720.jpg",
-      },
     };
   }
 

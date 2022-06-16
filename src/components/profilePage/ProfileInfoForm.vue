@@ -22,12 +22,27 @@ import { Component } from "vue-property-decorator";
 
 @Component
 export default class ProfileInfoForm extends Vue {
+  mounted() {
+    this.$data.formData[0].value = this.profileData.first_name;
+    this.$data.formData[1].value = this.profileData.last_name;
+    this.$data.formData[2].value = this.profileData.nick;
+    this.$data.formData[3].value = this.userData.email;
+    this.$data.formData[4].value = this.profileData.avatar;
+  }
+
+  get profileData() {
+    return this.$store.getters.profileData;
+  }
+  get userData() {
+    return this.$store.getters.userData;
+  }
+
   data() {
     return {
       formData: [
         {
           label: "Imię",
-          value: "Jan",
+          value: "",
           minLength: 3,
           maxLength: 32,
           rules: [
@@ -40,7 +55,7 @@ export default class ProfileInfoForm extends Vue {
         },
         {
           label: "Nazwisko",
-          value: "Kowalski",
+          value: "",
           rules: [
             (v: string) => !!v || "Nazwisko jest wymagane",
             (v: string) =>
@@ -51,7 +66,7 @@ export default class ProfileInfoForm extends Vue {
         },
         {
           label: "Nazwa użytkowika",
-          value: "jankowalski123",
+          value: "",
           rules: [
             (v: string) => !!v || "Nazwa użytkowika jest wymagane",
             (v: string) =>
@@ -64,7 +79,7 @@ export default class ProfileInfoForm extends Vue {
         },
         {
           label: "Adres e-mail",
-          value: "jankowalski@gmail.com",
+          value: "",
           rules: [
             (v: string) => !!v || "Adres e-mail jest wymagany",
             (v: string) =>
