@@ -4,11 +4,13 @@
     <div class="comm-blk" v-if="Object.keys(movieComments).length > 0">
       <div class="comm-list">
         <div class="single-comm" v-for="(comment, i) in movieComments" :key="i">
-          <div class="avatar"><img :src="comment.avatar.at(0).avatar" alt/></div>
+          <div class="avatar">
+            <img :src="comment.avatar.at(0).avatar" alt />
+          </div>
           <div class="comm-wrapper">
             <div class="comm-header">
               <div class="nick">{{ comment.nick.at(0).nick }}</div>
-<!--              <div class="created-time tags&#45;&#45;text">x lat temu</div>-->
+              <!--              <div class="created-time tags&#45;&#45;text">x lat temu</div>-->
             </div>
             <div class="comm-content">
               {{ comment.comment }}
@@ -27,8 +29,8 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})
@@ -36,24 +38,23 @@ export default class MovieComments extends Vue {
   movieComments: object = [];
 
   created() {
-    this.getMovieComments(this.$store.state.moviePage.movieID);
+    this.getMovieComments(this.$store.getters.moviePage.movieID);
   }
 
-  getMovieComments(movieID: string){
+  getMovieComments(movieID: string) {
     axios
-        .get(`/api/movies/${movieID}/comments/`)
-        .then((response) => {
-          this.movieComments = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+      .get(`/api/movies/${movieID}/comments/`)
+      .then((response) => {
+        this.movieComments = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
 .comm-blk .comment-more {
   display: flex;
   justify-content: center;
@@ -66,8 +67,8 @@ export default class MovieComments extends Vue {
   margin: 7px 5px;
   padding: 10px;
   box-shadow: 0 8px 14px 0 #00000014, 0 -8px 14px 0 #0000000a;
-  border: 1px solid #87877D1F;
-  font-size: .95rem;
+  border: 1px solid #87877d1f;
+  font-size: 0.95rem;
 }
 
 .single-comm .avatar {
@@ -87,6 +88,4 @@ export default class MovieComments extends Vue {
 .single-comm .comm-header > div {
   margin-right: 6px;
 }
-
-
 </style>

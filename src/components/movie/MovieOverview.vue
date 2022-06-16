@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper-blk">
     <div class="poster">
-      <v-img :lazy-src="movieData.poster" :src="movieData.poster"/>
+      <v-img :lazy-src="movieData.poster" :src="movieData.poster" />
     </div>
     <div class="plot">
       {{ movieData.description }}
@@ -36,16 +36,15 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {Component, Prop} from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 import MovieOverviewLinks from "@/components/movie/MovieOverviewLinks.vue";
 
 @Component({
   components: {
-    MovieOverviewLinks
+    MovieOverviewLinks,
   },
 })
 export default class MovieOverview extends Vue {
-
   private durationFormat(duration: number) {
     let hours = Math.trunc(duration / 60);
     let minutes = duration - hours * 60;
@@ -53,9 +52,8 @@ export default class MovieOverview extends Vue {
   }
 
   get movieData() {
-    return this.$store.state.moviePage.movieData;
+    return this.$store.getters.moviePage.movieData;
   }
-
 }
 </script>
 

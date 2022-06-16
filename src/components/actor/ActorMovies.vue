@@ -5,16 +5,22 @@
       <div class="crew-list">
         <div class="crew-item" v-for="(movie, i) in actorMovies" :key="i">
           <div class="poster">
-            <img :src="movie.poster" alt=""/>
+            <img :src="movie.poster" alt="" />
           </div>
           <div class="details">
             <div class="detail-name">
-              <router-link class="movie-link" :to="{ name: 'MoviePerID', params: { id: movie.id }}">
+              <router-link
+                class="movie-link"
+                :to="{ name: 'MoviePerID', params: { id: movie.id } }"
+              >
                 {{ movie.title }}
               </router-link>
             </div>
             <div class="prod-year tags--text">
-              <router-link class="movie-link tags--text" :to="{ name: 'MoviePerID', params: { id: movie.id }}">
+              <router-link
+                class="movie-link tags--text"
+                :to="{ name: 'MoviePerID', params: { id: movie.id } }"
+              >
                 {{ movie.production_year }}
               </router-link>
             </div>
@@ -30,7 +36,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {Component} from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})
@@ -38,18 +44,18 @@ export default class ActorMovies extends Vue {
   private actorMovies: object = [];
 
   created() {
-    this.getActorMovies(this.$store.state.actorPage.actorID);
+    this.getActorMovies(this.$store.getters.actorPage.actorID);
   }
 
   getActorMovies(actorID: string) {
     axios
-        .get(`/api/actors/${actorID}/movies/`)
-        .then((response) => {
-          this.actorMovies = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+      .get(`/api/actors/${actorID}/movies/`)
+      .then((response) => {
+        this.actorMovies = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
 </script>
@@ -75,7 +81,8 @@ export default class ActorMovies extends Vue {
   padding: 6px;
 }
 
-.crew-blk .crew-more, .lack-info {
+.crew-blk .crew-more,
+.lack-info {
   display: flex;
   justify-content: center;
   padding: 6px 0;

@@ -5,7 +5,9 @@
       <div class="review-list">
         <div class="single-review" v-for="(review, i) in movieReviews" :key="i">
           <div class="review-head">
-            <div class="avatar"><img :src="review.avatar.at(0).avatar" alt=""/></div>
+            <div class="avatar">
+              <img :src="review.avatar.at(0).avatar" alt="" />
+            </div>
             <div class="details">
               <div class="nick">{{ review.nick.at(0).nick }}</div>
               <div class="type">{{ review.review_type }}</div>
@@ -15,7 +17,8 @@
           <div class="review-footer tags--text">
             <div class="rev-comment extlink--text">
               <router-link :to="'/film'">Skomentuj</router-link>
-              <router-link :to="'/film'">XX
+              <router-link :to="'/film'"
+                >XX
                 <v-icon>mdi-message-text</v-icon>
               </router-link>
             </div>
@@ -36,8 +39,8 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})
@@ -45,36 +48,34 @@ export default class MovieReviews extends Vue {
   movieReviews: object = [];
 
   created() {
-    this.getMovieReviews(this.$store.state.moviePage.movieID);
+    this.getMovieReviews(this.$store.getters.moviePage.movieID);
   }
 
-  getMovieReviews(movieID: string){
+  getMovieReviews(movieID: string) {
     axios
-        .get(`/api/movies/${movieID}/reviews/`)
-        .then((response) => {
-          this.movieReviews = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+      .get(`/api/movies/${movieID}/reviews/`)
+      .then((response) => {
+        this.movieReviews = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
 .review-blk .review-more {
   display: flex;
   justify-content: center;
   padding: 6px 0;
 }
 
-
 .single-review {
   margin: 10px 5px;
   padding: 10px;
   box-shadow: 0 8px 14px 0 #00000014, 0 -8px 14px 0 #0000000a;
-  border: 1px solid #87877D1F;
+  border: 1px solid #87877d1f;
 }
 
 .single-review .review-content {
@@ -123,5 +124,4 @@ export default class MovieReviews extends Vue {
 .review-footer .rev-comment a > * {
   color: inherit;
 }
-
 </style>

@@ -73,5 +73,3 @@ export default class ChangePasswordForm extends Vue {
   }
 }
 </script>
-
-<style scoped>
