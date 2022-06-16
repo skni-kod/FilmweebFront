@@ -11,6 +11,11 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
+    path: '/logowanie',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "film" */ '../views/TheLogin.vue'),
+  },
+  {
     path: '/film/:id',
     name: 'MoviePerID',
     component: () => import(/* webpackChunkName: "film" */ '../views/TheMovie.vue'),

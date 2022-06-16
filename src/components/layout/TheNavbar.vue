@@ -9,7 +9,7 @@ export default class Navbar extends Vue {
       icons: [
         { name: "mdi-magnify", text: "Wyszukiwanie", link: { name: "Search" } },
         { name: "mdi-account-outline", text: "Profil", link: { name: "User" } },
-        { name: "mdi-login", text: "Zaloguj się", link: { name: "Home" } },
+        { name: "mdi-login", text: "Zaloguj się", link: { name: "Login" } },
       ],
     };
   }
