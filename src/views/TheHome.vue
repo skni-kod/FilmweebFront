@@ -72,7 +72,6 @@ export default class Home extends Vue {
 
   created() {
     this.getMoviesRandom();
-    console.log(this.moviesData);
   }
 
   getMoviesRandom(){

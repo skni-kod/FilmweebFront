@@ -8,8 +8,8 @@
             <img src="../../assets/unknown_person.png" alt="" />
           </div>
           <div class="details">
-            <div class="name">{{ actor.first_name }} {{ actor.last_name }}</div>
-            <div class="role tags--text">jako {{ actor.role.at(0).role }}</div>
+            <div class="detail-name"><router-link class="actor-link" :to="{ name: 'ActorPerID', params: { id: actor.id }}">{{ actor.first_name }} {{ actor.last_name }}</router-link></div>
+            <div class="role tags--text"><router-link class="actor-link tags--text" :to="{ name: 'ActorPerID', params: { id: actor.id }}">jako {{ actor.role.at(0).role }}</router-link></div>
           </div>
         </div>
       </div>
@@ -105,5 +105,9 @@ export default class MovieCrew extends Vue {
 
 .crew-item .details .role {
   grid-area: 2 / 2 / 3 / 3;
+}
+
+.crew-item .details .actor-link {
+  text-decoration: none;
 }
 </style>

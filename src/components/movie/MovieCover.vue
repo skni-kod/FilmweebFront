@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="title">{{ this.$store.state.moviePage.movieData.title }}</div>
+    <div class="title">{{ movieData.title }}</div>
     <div class="details tags--text">
-      <div class="title-orig tags--text">{{ this.$store.state.moviePage.movieData.original_title }}</div>
+      <div class="title-orig tags--text">{{ movieData.original_title }}</div>
       <div class="type">
         <div>FILM</div>
       </div>
@@ -13,7 +13,7 @@
         <button>
           <v-icon class="mark_avg--text">mdi-star</v-icon>
           <span>
-            <span>4.4</span> / 5
+            <span>{{ avgMark }}</span> / 5
           </span>
         </button>
       </div>
@@ -34,7 +34,7 @@
         </div>
         <div class="rate-form-head">
           <v-icon class="mark_avg--text">mdi-star-outline</v-icon>
-          <span>{{ this.$store.state.moviePage.movieData.title }}</span>
+          <span>{{ movieData.title }}</span>
         </div>
         <div class="rate-form-cnt">
           <v-rating
@@ -56,17 +56,37 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import axios from "axios";
 
 @Component({})
 export default class MovieCover extends Vue {
+  private avgMark : number = 0;
+
   data() {
     return {
       visible: false,
     }
   }
 
-  private srednia: Number = 1.1;
-  private wszystkich_ocen: Number = 2137;
+  created(){
+    this.getAvgMark(this.$store.state.moviePage.movieID);
+  }
+
+  getAvgMark(movieID: string) {
+    axios
+        .get(`/api/movies/${movieID}/marks/avgmark/`)
+        .then((response) => {
+          this.avgMark = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+  }
+
+  get movieData(){
+    return this.$store.state.moviePage.movieData;
+  }
+
 }
 </script>
 
