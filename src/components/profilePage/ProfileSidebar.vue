@@ -1,10 +1,5 @@
 <template>
-  <v-navigation-drawer
-    app
-    hide-overlay
-    v-model="sidebarShown"
-    :style="{ top: $vuetify.application.top + 'px', zIndex: 4 }"
-  >
+  <div class="sidebar-wrapper">
     <v-list>
       <v-list-item>
         <v-list-item-content>
@@ -31,7 +26,7 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
-  </v-navigation-drawer>
+  </div>
 </template>
 
 <script lang="ts">
@@ -78,14 +73,6 @@ export default class ProfileSidebar extends Vue {
 
   get TopbarPos(): number {
     return this.$vuetify.application.top / 2;
-  }
-
-  get sidebarShown(): boolean {
-    return this.$store.state.userProfile.sidebarShown;
-  }
-
-  set sidebarShown(newVal: boolean) {
-    this.$store.commit("setProfileSidebarShown", newVal);
   }
 }
 </script>
