@@ -28,13 +28,6 @@ import ProfileSidebar from "../components/profilePage/ProfileSidebar.vue";
   },
 })
 export default class UserProfile extends Vue {
-  beforeCreate() {
-    if (this.$store.getters.userData) {
-      //this.$store.dispatch("getUserData");
-      this.$store.dispatch("getProfileData");
-      //console.table(this.$store.getters.userData);
-    }
-  }
   get TopbarPos(): number {
     return this.$vuetify.application.top / 2;
   }
