@@ -2,11 +2,12 @@ import { Module } from 'vuex';
 import axios from 'axios';
 import router from '../../router/index';
 
+// eslint-disable-next-line
 const userModule: Module<any, any> = {
     state: {
         token: "",
         refreshToken: "",
-        userId: 1,
+        userId: null,
         isAdmin: false,
         profileData: {},
         userData: {}
@@ -20,7 +21,7 @@ const userModule: Module<any, any> = {
         clearAuthData(state) {
             state.token = "";
             state.refreshToken = "";
-            state.userId = undefined;
+            state.userId = null;
             state.isAdmin = false;
             state.profileData = {};
             state.userData = {};
@@ -36,9 +37,9 @@ const userModule: Module<any, any> = {
     },
 
     actions: {
-        async login({ commit }, data) {
+        async login({ commit, dispatch }, data) {
             await axios
-                .post('/api/token/', {
+                .post('/api/token', {
                     email: data.email,
                     password: data.password,
                 })
@@ -48,6 +49,7 @@ const userModule: Module<any, any> = {
                             token: res.data.access,
                             refreshToken: res.data.refresh,
                         });
+                        dispatch('getUserData');
                         router.push({ name: 'Home' });
                     }
                 })
@@ -58,21 +60,21 @@ const userModule: Module<any, any> = {
         },
         async logout({ commit, getters }) {
             await axios
-                .get('/api/logout/', {
+                .get('/api/logout', {
                     headers: {
                         token: getters.token,
                     }
                 })
                 .catch((error) => {
-                    alert(error);
+                    console.table(error);
                 })
             commit('clearAuthData');
             router.replace({ name: 'Login' });
         },
 
-        async getUserData({ commit, getters }) {
+        async getUserData({ commit, getters, dispatch }) {
             await axios
-                .get('/api/check/', {
+                .get('/api/check', {
                     headers: {
                         Authorization: 'Bearer ' + getters.token,
                     }
@@ -84,11 +86,12 @@ const userModule: Module<any, any> = {
                             data: res.data,
                             admin: res.data.is_admin,
                         });
+                        dispatch('getProfileData');
                     }
                 })
                 .catch((error) => {
-                    alert('Błąd w uzyskaniu danych użytkownika.');
-                    console.log(error);
+                    //alert('Błąd w uzyskaniu danych użytkownika.');
+                    console.table(error);
                 })
         },
         async getProfileData({ commit, getters }) {
@@ -100,15 +103,15 @@ const userModule: Module<any, any> = {
                     }
                 })
                 .catch((error) => {
-                    alert('Błąd w uzyskaniu danych profilowych użytkownika.');
-                    console.log(error);
+                    //alert('Błąd w uzyskaniu danych profilowych użytkownika.');
+                    console.table(error);
                 })
         }
     },
 
     getters: {
         token: state => state.token,
-        isAuthenticated: state => state.token !== undefined,
+        isAuthenticated: state => state.token !== "",
         userId: state => state.userId,
         isAdmin: state => state.isAdmin,
         profileData: state => state.profileData,

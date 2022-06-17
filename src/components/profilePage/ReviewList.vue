@@ -43,21 +43,5 @@ export default class ReviewList extends Vue {
   }
 
   private reviews: Object = [];
-  data() {
-    return {
-      // reviews: [
-      //   {
-      //     movieTitle: "aaa  bbbb ccc",
-      //     content: "dfgv dsg sdfg fsdg fsdg sdfg fsdg sdg fsd",
-      //     date: "24-05-2022",
-      //   },
-      //   {
-      //     movieTitle: "ccc dede  sss",
-      //     content: "fvcdgvsd ve vsd vfffffffff fffffffffffffff",
-      //     date: "24-05-2025",
-      //   },
-      // ],
-    };
-  }
 }
 </script>

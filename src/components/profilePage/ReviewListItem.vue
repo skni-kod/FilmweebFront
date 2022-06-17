@@ -1,7 +1,9 @@
 <template>
   <v-list-item>
     <v-card outlined class="review">
-      <!-- <v-card-title class="text-h6">{{ review.title.title }}</v-card-title> -->
+      <!-- <v-card-title class="text-h6">{{
+        review.title.at(0).title
+      }}</v-card-title> -->
       <v-card-title class="text-h6">{{ "Tytuł filmu" }}</v-card-title>
       <v-card-subtitle>
         Data dodania: {{ review.creation_date }}
