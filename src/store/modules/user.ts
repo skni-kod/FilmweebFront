@@ -80,11 +80,12 @@ const userModule: Module<any, any> = {
                     }
                 })
                 .then((res) => {
+                    console.table(res)
                     if (res.status == 200) {
                         commit('setUserData', {
                             id: res.data.id,
                             data: res.data,
-                            admin: res.data.is_admin,
+                            admin: res.data.is_superuser,
                         });
                         dispatch('getProfileData');
                     }
