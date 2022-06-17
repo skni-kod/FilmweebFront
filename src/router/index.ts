@@ -68,7 +68,7 @@ const routes: Array<RouteConfig> = [
         name: 'user-admin',
         path: 'administrator',
         component: () => import(/* webpackChunkName: "group-user" */ '../components/profilePage/Admin.vue'),
-        meta: { requiresAuth: true },
+        meta: { requiresAdmin: true },
         children: [
           {
             name: 'admin-add-movie',

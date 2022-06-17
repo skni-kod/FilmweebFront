@@ -18,20 +18,23 @@ export default class Navbar extends Vue {
 
 <template>
   <v-app-bar app dark color="grey darken-3">
-    <v-toolbar-title>
-      <router-link :to="{ name: 'Home' }" class="text-decoration-none">
-        <v-img
-          v-if="!$vuetify.breakpoint.xs"
-          contain
-          position="left"
-          rounded
-          max-height="35px"
-          :src="require('@/assets/logo_serwisu.png')"
-        >
-        </v-img>
-        <div v-if="$vuetify.breakpoint.xs">Filmweeb</div>
-      </router-link>
-    </v-toolbar-title>
+    <router-link :to="{ name: 'Home' }">
+      <v-img
+        contain
+        position="left"
+        rounded
+        max-height="35px"
+        max-width="45px"
+        :src="require('@/assets/logo_serwisu.png')"
+      />
+    </router-link>
+    <v-toolbar-title
+      class="text-no-wrap"
+      v-if="!$vuetify.breakpoint.xs"
+      style="float: left"
+      >Filmweeb</v-toolbar-title
+    >
+
     <v-spacer></v-spacer>
     <v-btn
       class="mx-1"
