@@ -14,7 +14,7 @@
         <div style="min-height: 500px"></div>
       </v-col>
       <v-col class="movie-sidebar" cols="4">
-        <movie-sidetool class="movie-sidetool" />
+        <movie-sidetools class="movie-sidetool" />
       </v-col>
     </v-row>
   </v-container>

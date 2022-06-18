@@ -12,7 +12,7 @@
         <div style="min-height: 500px"></div>
       </v-col>
       <v-col class="actor-sidebar" cols="4">
-        <actor-sidetool class="actor-sidetool" />
+        <actor-sidetools class="actor-sidetool" />
       </v-col>
     </v-row>
   </v-container>
