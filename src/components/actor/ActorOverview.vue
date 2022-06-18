@@ -4,8 +4,9 @@
       <!--      <v-img :lazy-src="this.$store.state.moviePage.movieData.poster"-->
       <!--             :src="this.$store.state.moviePage.movieData.poster"/>-->
       <v-img
-          lazy-src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg"
-          src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg"/>
+        lazy-src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg"
+        src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg"
+      />
     </div>
     <div class="plot">
       {{ actorData.bio }}
@@ -25,23 +26,33 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {Component} from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 @Component({})
 export default class ActorOverview extends Vue {
-
   private dateFormat(dateOld: string) {
     let months = [
-      "styczeń", "luty", "marzec", "kwiecień", "maj",
-      "czerwiec", "lipiec", "sierpień", "wrzesień",
-      "październik", "listopad", "grudzień"
+      "styczeń",
+      "luty",
+      "marzec",
+      "kwiecień",
+      "maj",
+      "czerwiec",
+      "lipiec",
+      "sierpień",
+      "wrzesień",
+      "październik",
+      "listopad",
+      "grudzień",
     ];
-    let dateSplit = dateOld.split('-');
-    return `${dateSplit[2]} ${months[parseInt(dateSplit[1]) - 1]} ${dateSplit[0]}`;
+    let dateSplit = dateOld.split("-");
+    return `${dateSplit[2]} ${months[parseInt(dateSplit[1]) - 1]} ${
+      dateSplit[0]
+    }`;
   }
 
   get actorData() {
-    return this.$store.state.actorPage.actorData;
+    return this.$store.getters.actorPage.actorData;
   }
 }
 </script>

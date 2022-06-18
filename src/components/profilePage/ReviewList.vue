@@ -15,6 +15,7 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import ReviewListItem from "@/components/profilePage/ReviewListItem.vue";
+import axios from "axios";
 
 @Component({
   components: {
@@ -22,21 +23,25 @@ import ReviewListItem from "@/components/profilePage/ReviewListItem.vue";
   },
 })
 export default class ReviewList extends Vue {
-  data() {
-    return {
-      reviews: [
-        {
-          movieTitle: "aaa  bbbb ccc",
-          content: "dfgv dsg sdfg fsdg fsdg sdfg fsdg sdg fsd",
-          date: "24-05-2022",
-        },
-        {
-          movieTitle: "ccc dede  sss",
-          content: "fvcdgvsd ve vsd vfffffffff fffffffffffffff",
-          date: "24-05-2025",
-        },
-      ],
-    };
+  created() {
+    this.getUserReviews(this.$store.getters.userId);
   }
+
+  getUserReviews(userId: string) {
+    axios
+      .get(`/api/users/${userId}/reviews/`)
+      .then((response) => {
+        this.reviews = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  get movieData() {
+    return this.$store.getters.moviePage.movieData;
+  }
+
+  private reviews: Object = [];
 }
 </script>

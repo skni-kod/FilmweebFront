@@ -1,13 +1,13 @@
 <template>
   <v-container>
     <v-app-bar app clipped-left :style="{ top: TopbarPos + 'px' }">
-      <v-spacer/>
+      <v-spacer />
       <v-toolbar-title class="text-h6">Profil użytkownika</v-toolbar-title>
-      <v-spacer/>
+      <v-spacer />
     </v-app-bar>
     <v-row>
       <v-col class="profile-sidebar">
-        <ProfileSidebar/>
+        <ProfileSidebar />
       </v-col>
       <v-col>
         <v-spacer></v-spacer>
@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {Component} from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import ProfileSidebar from "../components/profilePage/ProfileSidebar.vue";
 
 @Component({

@@ -4,7 +4,7 @@ import { Component } from "vue-property-decorator";
 
 @Component
 export default class Search extends Vue {
-  data() {
+  private data() {
     return {
       sortResults: [
         "Nazwa, rosnąco",
@@ -138,7 +138,7 @@ export default class Search extends Vue {
                 color="secondary"
                 :thumb-label="true"
                 :thumb-size="24"
-                :thumb-color="secondary"
+                thumb-color="secondary"
               ></v-range-slider>
             </v-col>
             <v-col class="white--text" cols="12" md="12" lg="4">

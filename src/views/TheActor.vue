@@ -1,22 +1,18 @@
 <template>
-  <v-container style="min-height: 1000px;">
+  <v-container style="min-height: 1000px">
     <v-row class="header-blk">
       <v-col class="header-blk__wrapper">
-        <actor-cover
-            class="actor-cover"
-        />
-        <actor-overview
-            class="actor-overview"
-        />
+        <actor-cover class="actor-cover" />
+        <actor-overview class="actor-overview" />
       </v-col>
     </v-row>
     <v-row class="main-blk">
       <v-col class="actor-info" cols="8">
-        <actor-movies class="actor-movies"/>
-        <div style="min-height: 500px;"></div>
+        <actor-movies class="actor-movies" />
+        <div style="min-height: 500px"></div>
       </v-col>
       <v-col class="actor-sidebar" cols="4">
-        <actor-sidetool class="actor-sidetool"/>
+        <actor-sidetool class="actor-sidetool" />
       </v-col>
     </v-row>
   </v-container>
@@ -24,7 +20,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {Component} from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import ActorCover from "@/components/actor/ActorCover.vue";
 import ActorOverview from "@/components/actor/ActorOverview.vue";
 import ActorSidetool from "@/components/actor/ActorSidetool.vue";
@@ -40,10 +36,12 @@ import axios from "axios";
   },
 })
 export default class TheActor extends Vue {
-
   created() {
-    if (this.$router.currentRoute.path === '/aktor') {
-      this.$router.replace( { name: 'ActorPerID', params: { id: this.$store.state.moviePage.actorID } } );
+    if (this.$router.currentRoute.path === "/aktor") {
+      this.$router.replace({
+        name: "ActorPerID",
+        params: { id: this.$store.getters.moviePage.actorID },
+      });
     }
     this.$store.commit("setActorID", this.$route.params.id);
     this.getMovieInfo(this.$route.params.id);
@@ -51,13 +49,13 @@ export default class TheActor extends Vue {
 
   getMovieInfo(actorID: string) {
     axios
-        .get(`/api/people/${actorID}/`)
-        .then((response) => {
-          this.$store.commit("setActorData", response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+      .get(`/api/people/${actorID}/`)
+      .then((response) => {
+        this.$store.commit("setActorData", response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
 </script>
@@ -67,7 +65,8 @@ export default class TheActor extends Vue {
   padding-top: 32px;
 }
 
-.actor-cover, .actor-overview {
+.actor-cover,
+.actor-overview {
   display: grid;
   margin-bottom: 16px;
 }
@@ -103,7 +102,7 @@ export default class TheActor extends Vue {
   height: 40px;
   width: 4px;
   position: absolute;
-  margin-left: -.8rem;
+  margin-left: -0.8rem;
   background: #fff;
   align-self: flex-start;
 }
@@ -113,5 +112,4 @@ export default class TheActor extends Vue {
   justify-content: center;
   padding: 6px 0;
 }
-
 </style>

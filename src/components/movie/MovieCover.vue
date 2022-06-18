@@ -38,15 +38,17 @@
         </div>
         <div class="rate-form-cnt">
           <v-rating
-              v-model.lazy="rating"
-              background-color="white"
-              color="blue darken-4"
-              x-large
-              clearable
-              hover
+            v-model.lazy="rating"
+            background-color="white"
+            color="blue darken-4"
+            x-large
+            clearable
+            hover
           >
           </v-rating>
-          <button class="rate-setter-confirm" @click="visible = !visible">PRZEŚLIJ OCENĘ</button>
+          <button class="rate-setter-confirm" @click="visible = !visible">
+            PRZEŚLIJ OCENĘ
+          </button>
         </div>
       </div>
     </div>
@@ -54,39 +56,38 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})
 export default class MovieCover extends Vue {
-  private avgMark : number = 0;
+  private avgMark: number = 0;
 
   data() {
     return {
       visible: false,
-    }
+    };
   }
 
-  created(){
-    this.getAvgMark(this.$store.state.moviePage.movieID);
+  created() {
+    this.getAvgMark(this.$store.getters.moviePage.movieID);
   }
 
   getAvgMark(movieID: string) {
     axios
-        .get(`/api/movies/${movieID}/marks/avgmark/`)
-        .then((response) => {
-          this.avgMark = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+      .get(`/api/movies/${movieID}/marks/avgmark/`)
+      .then((response) => {
+        this.avgMark = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
-  get movieData(){
-    return this.$store.state.moviePage.movieData;
+  get movieData() {
+    return this.$store.getters.moviePage.movieData;
   }
-
 }
 </script>
 
@@ -106,12 +107,12 @@ export default class MovieCover extends Vue {
   display: flex;
   justify-content: right;
   align-items: center;
-  letter-spacing: .6px;
+  letter-spacing: 0.6px;
 }
 
 .rates > div {
   margin-left: 12px;
-  font-size: .875rem;
+  font-size: 0.875rem;
 }
 
 .rates > div > div:first-child {
@@ -210,5 +211,4 @@ export default class MovieCover extends Vue {
 .rate-form-cnt .rate-setter-confirm:hover {
   background-color: #252525;
 }
-
 </style>

@@ -1,13 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import user from './modules/user';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        userProfile: {
-            sidebarShown: true
-        },
         moviePage: {
             movieID: 1,
             movieData: {},
@@ -32,5 +30,9 @@ export default new Vuex.Store({
         },
     },
     actions: {},
-    modules: {}
+    modules: { user },
+    getters: {
+        moviePage: state => state.moviePage,
+        actorPage: state => state.actorPage
+    }
 })

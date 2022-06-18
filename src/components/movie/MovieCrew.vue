@@ -8,8 +8,20 @@
             <img src="../../assets/unknown_person.png" alt="" />
           </div>
           <div class="details">
-            <div class="detail-name"><router-link class="actor-link" :to="{ name: 'ActorPerID', params: { id: actor.id }}">{{ actor.first_name }} {{ actor.last_name }}</router-link></div>
-            <div class="role tags--text"><router-link class="actor-link tags--text" :to="{ name: 'ActorPerID', params: { id: actor.id }}">jako {{ actor.role.at(0).role }}</router-link></div>
+            <div class="detail-name">
+              <router-link
+                class="actor-link"
+                :to="{ name: 'ActorPerID', params: { id: actor.id } }"
+                >{{ actor.first_name }} {{ actor.last_name }}</router-link
+              >
+            </div>
+            <div class="role tags--text">
+              <router-link
+                class="actor-link tags--text"
+                :to="{ name: 'ActorPerID', params: { id: actor.id } }"
+                >jako {{ actor.role.at(0).role }}</router-link
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -30,21 +42,21 @@ import axios from "axios";
 
 @Component({})
 export default class MovieCrew extends Vue {
-  movieCrew : object = [];
+  movieCrew: object = [];
 
   created() {
-    this.getMovieCrew(this.$store.state.moviePage.movieID);
+    this.getMovieCrew(this.$store.getters.moviePage.movieID);
   }
 
-  getMovieCrew(movieID: string){
+  getMovieCrew(movieID: string) {
     axios
-        .get(`/api/movies/${movieID}/actors/`)
-        .then((response) => {
-          this.movieCrew = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+      .get(`/api/movies/${movieID}/actors/`)
+      .then((response) => {
+        this.movieCrew = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
 </script>
@@ -70,7 +82,8 @@ export default class MovieCrew extends Vue {
   padding: 6px;
 }
 
-.crew-blk .crew-more, .lack-info {
+.crew-blk .crew-more,
+.lack-info {
   display: flex;
   justify-content: center;
   padding: 6px 0;

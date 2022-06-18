@@ -1,11 +1,16 @@
 <template>
   <v-list-item>
     <v-card outlined class="review">
-      <v-card-title class="text-h6">{{ review.movieTitle }}</v-card-title>
-      <v-card-subtitle> Data dodania: {{ review.date }} </v-card-subtitle>
+      <!-- <v-card-title class="text-h6">{{
+        review.title.at(0).title
+      }}</v-card-title> -->
+      <v-card-title class="text-h6">{{ "Tytuł filmu" }}</v-card-title>
+      <v-card-subtitle>
+        Data dodania: {{ review.creation_date }}
+      </v-card-subtitle>
       <v-divider></v-divider>
       <v-card-text>
-        <p>{{ review.content }}</p>
+        <p>{{ review.review }}</p>
       </v-card-text>
       <v-card-actions>
         <v-btn text> Edytuj </v-btn>

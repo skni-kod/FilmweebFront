@@ -16,7 +16,7 @@ export default class Footer extends Vue {
 </script>
 
 <template>
-  <v-footer padless color="secondary">
+  <v-footer padless class="secondary">
     <v-col class="text-center" cols="12">
       {{ year }} — <strong>Filmweeb</strong>
     </v-col>
