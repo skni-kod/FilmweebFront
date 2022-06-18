@@ -23,7 +23,7 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import ActorCover from "@/components/actor/ActorCover.vue";
 import ActorOverview from "@/components/actor/ActorOverview.vue";
-import ActorSidetool from "@/components/actor/ActorSidetool.vue";
+import ActorSidetools from "@/components/actor/ActorSidetools.vue";
 import ActorMovies from "@/components/actor/ActorMovies.vue";
 import axios from "axios";
 
@@ -31,7 +31,7 @@ import axios from "axios";
   components: {
     ActorCover,
     ActorOverview,
-    ActorSidetool,
+    ActorSidetools,
     ActorMovies,
   },
 })

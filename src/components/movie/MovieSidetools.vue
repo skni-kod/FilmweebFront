@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      Sidetool section or something like that.
+      Sidetools section or something like that.
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
 @Component({})
-export default class MovieSidetool extends Vue {
+export default class MovieSidetools extends Vue {
 }
 </script>
 

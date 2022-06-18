@@ -11,7 +11,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
 @Component({})
-export default class MovieSidetool extends Vue {
+export default class MovieSidetools extends Vue {
 }
 </script>
 
