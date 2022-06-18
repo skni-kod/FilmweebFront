@@ -28,7 +28,7 @@ import MovieOverview from "@/components/movie/MovieOverview.vue";
 import MovieCrew from "@/components/movie/MovieCrew.vue";
 import MovieReviews from "@/components/movie/MovieReviews.vue";
 import MovieComments from "@/components/movie/MovieComments.vue";
-import MovieSidetool from "@/components/movie/MovieSidetool.vue";
+import MovieSidetools from "@/components/movie/MovieSidetools.vue";
 import axios from "axios";
 
 @Component({
@@ -38,7 +38,7 @@ import axios from "axios";
     MovieCrew,
     MovieReviews,
     MovieComments,
-    MovieSidetool,
+    MovieSidetools,
   },
 })
 export default class TheMovie extends Vue {

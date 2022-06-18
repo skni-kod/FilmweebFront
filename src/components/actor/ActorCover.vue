@@ -39,12 +39,12 @@
         </div>
         <div class="rate-form-cnt">
           <v-rating
-            v-model.lazy="rating"
-            background-color="white"
-            color="blue darken-4"
-            x-large
-            clearable
-            hover
+              v-model.lazy="rating"
+              background-color="white"
+              color="blue darken-4"
+              x-large
+              clearable
+              hover
           >
           </v-rating>
           <button class="rate-setter-confirm" @click="visible = !visible">
@@ -58,7 +58,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})
@@ -77,13 +77,14 @@ export default class ActorCover extends Vue {
 
   getAvgMark(actorID: string) {
     axios
-      .get(`/api/actors/${actorID}/marks/avgmark/`)
-      .then((response) => {
-        this.avgMark = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .get(`/api/actors/${actorID}/marks/avgmark/`)
+        .then((response) => {
+          this.avgMark = response.data.at(0).average_mark;
+          this.avgMark = Math.round(this.avgMark * 10) / 10;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
   }
 
   get actorData() {
