@@ -41,6 +41,18 @@ const routes: Array<RouteConfig> = [
     path: '/wyszukiwanie',
     name: 'Search',
     component: () => import(/* webpackChunkName: "film" */ '../views/TheSearch.vue'),
+    children: [
+      {
+        name: 'search-movies',
+        path: 'movies',
+        component: () => import(/* webpackChunkName: "group-user" */ '../components/search/MovieSearch.vue'),
+      },
+      {
+        name: 'search-actors',
+        path: 'actors',
+        component: () => import(/* webpackChunkName: "group-user" */ '../components/search/ActorSearch.vue'),
+      }
+    ]
   },
   {
     path: '/uzytkownik',
