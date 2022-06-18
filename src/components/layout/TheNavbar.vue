@@ -23,6 +23,12 @@ export default class Navbar extends Vue {
     };
   }
 
+  logout(): void {
+    if (this.authState) {
+      this.$store.dispatch("logout");
+    }
+  }
+
   get authState() {
     return this.$store.getters.isAuthenticated;
   }
@@ -69,6 +75,7 @@ export default class Navbar extends Vue {
       rounded
       color="secondary"
       :to="login_state_btn.at(authState).link"
+      @click="logout()"
     >
       <v-icon> {{ login_state_btn.at(authState).icon }}</v-icon>
       <span class="white--text" v-if="!$vuetify.breakpoint.xs">{{
