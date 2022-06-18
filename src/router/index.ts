@@ -21,6 +21,13 @@ const routes: Array<RouteConfig> = [
     },
   },
   {
+    path: '/',
+    name: 'Logout',
+    beforeEnter() {
+      location.href = '/logout';
+    },
+  },
+  {
     path: '/film/:id',
     name: 'MoviePerID',
     component: () => import(/* webpackChunkName: "film" */ '../views/TheMovie.vue'),

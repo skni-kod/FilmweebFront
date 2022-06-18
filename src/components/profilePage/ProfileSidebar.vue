@@ -12,67 +12,76 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
-      <v-list-item
-        v-for="(page, i) in pages"
-        :key="i"
-        link
-        :to="{ name: page.link.name }"
+      <div style="display: unset;" v-for="(page, i) in pages"
+            :key="i"
       >
-        <v-list-item-icon>
-          <v-icon v-text="page.icon"></v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title v-text="page.name"></v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+        <v-list-item
+            v-if="!page.admin || page.admin === adminState"
+            link
+            :to="{ name: page.link.name }"
+        >
+          <v-list-item-icon>
+            <v-icon v-text="page.icon"></v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title v-text="page.name"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </div>
     </v-list>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 
 @Component
 export default class ProfileSidebar extends Vue {
-  get profileData() {
-    return this.$store.getters.profileData;
-  }
 
   data() {
     return {
       pages: [
         {
           name: "Dane użytkownika",
-          link: { name: "User" },
+          link: {name: "User"},
           icon: "mdi-account-box",
+          admin: false,
         },
         {
           name: "Zmiana hasła",
-          link: { name: "user-password" },
+          link: {name: "user-password"},
           icon: "mdi-shield",
+          admin: false,
         },
         {
           name: "Recenzje użytkownika",
-          link: { name: "user-reviews" },
+          link: {name: "user-reviews"},
           icon: "mdi-file-document",
+          admin: false,
         },
         {
           name: "Listy użytkownika",
-          link: { name: "user-lists" },
+          link: {name: "user-lists"},
           icon: "mdi-playlist-play",
+          admin: false,
         },
         {
           name: "Administrator",
-          link: { name: "user-admin" },
+          link: {name: "user-admin"},
           icon: "mdi-account-supervisor",
+          admin: true,
         },
-      ],
-    };
+      ]
+    }
   }
 
-  get TopbarPos(): number {
-    return this.$vuetify.application.top / 2;
+  get profileData() {
+    return this.$store.getters.profileData;
+  }
+
+  get adminState() {
+    return this.$store.getters.isAdmin;
   }
 }
 </script>
