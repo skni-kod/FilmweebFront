@@ -12,6 +12,10 @@ export default class Search extends Vue {
         "Data urodzenia, rosnąco",
         "Data urodzenia, malejąco",
       ],
+      dateRules: [
+        (v: string) =>
+          /^([1][9]\d\d|20[0-9][0-9])$/.test(v) || "Nieprawidłowy rok",
+      ],
       search: null,
       filtering: false,
       birthDate: null,
@@ -19,13 +23,10 @@ export default class Search extends Vue {
       rating: null,
     };
   }
-  asd() {
-    console.log(
-      this.$data.search,
-      this.$data.country,
-      this.$data.birthDate,
-      this.$data.rating
-    );
+  submit() {
+    if (!(this.$refs.form as Vue & { validate: () => boolean }).validate()) {
+      return;
+    }
   }
 }
 </script>
@@ -64,7 +65,7 @@ export default class Search extends Vue {
           rounded
           class="px-3"
           color="secondary"
-          @click="asd()"
+          @click="submit()"
         >
           Szukaj
         </v-btn>
@@ -96,6 +97,7 @@ export default class Search extends Vue {
                 label="Wpisz rok urodzenia"
                 clearable
                 type="number"
+                :rules="dataRules"
               >
               </v-text-field>
             </v-col>
