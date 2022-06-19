@@ -35,7 +35,7 @@
         </div>
         <div class="rate-form-head">
           <v-icon class="mark_avg--text">mdi-star-outline</v-icon>
-          <span>{{ actorData.title }}</span>
+          <span>{{ actorData.first_name }} {{ actorData.last_name }}</span>
         </div>
         <div class="rate-form-cnt">
           <v-rating

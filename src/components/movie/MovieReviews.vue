@@ -1,6 +1,19 @@
 <template>
   <div>
     <h3 class="general-section-title">Recenzje użytkowników</h3>
+    <div class="review-blk">
+      <div class="review-list">
+        <div class="review-btns" v-if="!userState">
+          <v-btn class="review-btn" v-for="(btn, i) in reviewBtns" :key="i" @click="reviewTool = btn.link">
+            <v-icon>{{ btn.icon }}</v-icon>
+            <span class="white--text"> {{ btn.text }}</span>
+          </v-btn>
+          <keep-alive>
+            <component class="single-form review-btn-cnt" v-bind:is="reviewTool"></component>
+          </keep-alive>
+        </div>
+      </div>
+    </div>
     <div class="review-blk" v-if="Object.keys(movieReviews).length > 0">
       <div class="review-list">
         <div class="single-review" v-for="(review, i) in movieReviews" :key="i">
@@ -10,7 +23,7 @@
             </div>
             <div class="details">
               <div class="nick">{{ review.nick.at(0).nick }}</div>
-              <div class="type">{{ review.review_type }}</div>
+              <div :class="['type', typeFormatClass(review.review_type)]">{{ review.review_type }}</div>
             </div>
           </div>
           <div class="review-content">{{ review.review }}</div>
@@ -39,13 +52,46 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
 import axios from "axios";
+import ReviewAdd from "@/components/movie/reviewtools/ReviewAdd.vue";
+import ReviewEdit from "@/components/movie/reviewtools/ReviewEdit.vue";
+import ReviewRemove from "@/components/movie/reviewtools/ReviewRemove.vue";
 
-@Component({})
+@Component({
+  components: {
+    ReviewAdd,
+    ReviewEdit,
+    ReviewRemove,
+  }
+})
+
 export default class MovieReviews extends Vue {
   movieReviews: object = [];
+
+  data() {
+    return {
+      reviewTool: null,
+      reviewBtns: [
+        {
+          text: "Dodaj recenzje",
+          icon: "mdi-playlist-plus",
+          link: 'ReviewAdd',
+        },
+        {
+          text: "Edytuj recenzje",
+          icon: "mdi-playlist-edit",
+          link: 'ReviewEdit',
+        },
+        {
+          text: "Usuń recenzje",
+          icon: "mdi-playlist-remove",
+          link: 'ReviewRemove',
+        }
+      ]
+    }
+  }
 
   created() {
     this.getMovieReviews(this.$store.getters.moviePage.movieID);
@@ -61,6 +107,18 @@ export default class MovieReviews extends Vue {
         console.log(error);
       });
   }
+
+  private typeFormatClass(type : string){
+    if(!!type) {
+      if (type == 'pozytywna') return 'pos';
+      if (type == 'negatywna') return 'neg';
+    }
+    return null;
+  }
+
+  get userState() {
+    return this.$store.getters.isAuthenticated;
+  }
 }
 </script>
 
@@ -71,7 +129,7 @@ export default class MovieReviews extends Vue {
   padding: 6px 0;
 }
 
-.single-review {
+.single-review, .single-form {
   margin: 10px 5px;
   padding: 10px;
   box-shadow: 0 8px 14px 0 #00000014, 0 -8px 14px 0 #0000000a;
@@ -107,11 +165,11 @@ export default class MovieReviews extends Vue {
   padding-left: 5px;
 }
 
-.details .type .positive {
+.details .pos {
   color: green;
 }
 
-.details .type .negative {
+.details .neg {
   color: red;
 }
 
@@ -124,4 +182,22 @@ export default class MovieReviews extends Vue {
 .review-footer .rev-comment a > * {
   color: inherit;
 }
+
+.review-btn-cnt {
+  width: 100%;
+}
+
+.review-btns {
+  margin: 10px 5px;
+}
+
+.review-btn {
+  width: calc(100% / 3);
+}
+
+.single-form {
+  margin-left: unset;
+  margin-right: unset;
+}
+
 </style>
