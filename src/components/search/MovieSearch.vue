@@ -22,7 +22,10 @@ export default class MovieSearch extends Vue {
       ],
       dateRules: [
         (v: string) =>
-          /^([1][9]\d\d|20[0-9][0-9])$/.test(v) || "Nieprawidłowy rok",
+          v === "" ||
+          v === null ||
+          (parseInt(v) > 1900 && parseInt(v) < 2100) ||
+          "Nieprawidłowy rok",
       ],
       search: null,
       valueSlider: 240,
@@ -100,7 +103,7 @@ export default class MovieSearch extends Vue {
 </script>
 
 <template>
-  <v-form ref="form">
+  <v-form ref="form" @submit.prevent="submit()">
     <v-container>
       <v-row class="px-3">
         <v-text-field
@@ -111,6 +114,7 @@ export default class MovieSearch extends Vue {
           label="Szukaj filmów, seriali"
           solo
           v-model="search"
+          v-on:keyup.enter="submit()"
         >
         </v-text-field>
       </v-row>
@@ -153,6 +157,7 @@ export default class MovieSearch extends Vue {
                   v-model.lazy="genre"
                   label="Wpisz gatunek produkcji"
                   clearable
+                  v-on:keyup.enter="submit()"
                 >
                 </v-text-field>
               </v-col>
@@ -165,6 +170,7 @@ export default class MovieSearch extends Vue {
                   v-model.lazy="country"
                   label="Wpisz kraj wydania produkcji"
                   clearable
+                  v-on:keyup.enter="submit()"
                 >
                 </v-text-field>
               </v-col>
@@ -179,6 +185,7 @@ export default class MovieSearch extends Vue {
                   label="Wpisz rok wydania tytułu"
                   clearable
                   :rules="dateRules"
+                  v-on:keyup.enter="submit()"
                 >
                 </v-text-field>
               </v-col>
