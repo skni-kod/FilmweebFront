@@ -43,8 +43,6 @@
           </template>
           <span>{{ movie.title }}</span>
         </v-tooltip>
-
-        <!-- <p id="releaseDate" class="pt-1">{{ movie.release_date }}</p> -->
       </v-card-text>
     </v-card>
   </v-container>
