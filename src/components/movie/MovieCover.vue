@@ -78,7 +78,7 @@ export default class MovieCover extends Vue {
     axios
       .get(`/api/movies/${movieID}/marks/avgmark/`)
       .then((response) => {
-        this.avgMark = response.data;
+        this.avgMark = response.data.at(0).average_mark.toFixed(2);
       })
       .catch((error) => {
         console.log(error);
