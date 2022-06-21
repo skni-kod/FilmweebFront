@@ -14,6 +14,9 @@ export default new Vuex.Store({
             actorID: 1,
             actorData: {},
         },
+        profilePage: { 
+            movieLists: [],
+        }
     },
     mutations: {
         setMovieID(state, movieID) {
