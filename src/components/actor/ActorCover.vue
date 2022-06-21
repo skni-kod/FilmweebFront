@@ -79,7 +79,7 @@ export default class ActorCover extends Vue {
     axios
       .get(`/api/actors/${actorID}/marks/avgmark/`)
       .then((response) => {
-        this.avgMark = response.data;
+        this.avgMark = response.data.at(0).average_mark.toFixed(2);
       })
       .catch((error) => {
         console.log(error);
