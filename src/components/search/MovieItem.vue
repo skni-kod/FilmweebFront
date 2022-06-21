@@ -3,7 +3,7 @@
     <router-link :to="{ name: 'MoviePerID', params: { id: movie.id } }">
       <v-img
         rounded
-        src="http://www.personal.psu.edu/tot5139/hw3/minions.jpg"
+        :src="movie.poster"
         aspect-ratio="0.72"
         class="grey lighten-2"
       >

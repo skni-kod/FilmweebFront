@@ -26,7 +26,7 @@ export default class Search extends Vue {}
           link
           :to="{ name: 'search-movies' }"
         >
-          Wyszukiwanie filmów, seriali
+          Wyszukiwanie filmów
         </v-btn>
       </v-col>
       <v-col cols="12" md="6" lg="6">
