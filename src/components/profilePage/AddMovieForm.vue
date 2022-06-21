@@ -47,8 +47,11 @@ export default class AddMovieForm extends Vue {
           value: null,
           type: "number",
           rules: [
-            (v: number) =>
-              (v <= 2100 && v >= 1900) || v == 0 || "Niepoprawna wartość",
+            (v: string) =>
+              v === "" ||
+              v === null ||
+              (parseInt(v) > 1900 && parseInt(v) < 2100) ||
+              "Nieprawidłowy rok",
           ],
         },
         {
