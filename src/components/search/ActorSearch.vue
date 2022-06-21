@@ -1,34 +1,57 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import axios from "axios";
+import PersonItem from "./PersonItem.vue";
 
-@Component
+@Component({
+  components: {
+    PersonItem,
+  },
+})
 export default class Search extends Vue {
   private data() {
     return {
-      sortResults: [
-        "Imię i nazwisko, rosnąco",
-        "Imię i nazwisko, malejąco",
-        "Data urodzenia, rosnąco",
-        "Data urodzenia, malejąco",
-      ],
-      dateRules: [
-        (v: string) =>
-          v === "" ||
-          v === null ||
-          (parseInt(v) > 1900 && parseInt(v) < 2100) ||
-          "Nieprawidłowy rok",
-      ],
-      search: null,
+      sortResults: ["Nazwisko, rosnąco", "Nazwisko, malejąco"],
       filtering: false,
-      birthDate: null,
-      country: null,
-      rating: null,
+      sortSelection: null,
+      first_name: null,
+      last_name: null,
+      actors: [],
     };
   }
-  submit() {
+  async submit() {
     if (!(this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       return;
+    }
+
+    let request = "/api/search/person/?";
+    if (this.$data.first_name) {
+      request += "&first_name=" + this.$data.first_name;
+    }
+    if (this.$data.last_name) {
+      request += "&last_name=" + this.$data.last_name;
+    }
+    await axios
+      .get(request)
+      .then((response) => {
+        this.$data.actors = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    this.sortActors();
+  }
+
+  sortActors() {
+    if (this.$data.sortSelection === this.$data.sortResults[0]) {
+      this.$data.actors.sort((a: any, b: any) =>
+        a.last_name > b.last_name ? 1 : b.last_name > a.last_name ? -1 : 0
+      );
+    } else if (this.$data.sortSelection === this.$data.sortResults[1]) {
+      this.$data.actors.sort((a: any, b: any) =>
+        a.last_name > b.last_name ? -1 : b.last_name > a.last_name ? 1 : 0
+      );
     }
   }
 }
@@ -38,17 +61,32 @@ export default class Search extends Vue {
   <v-form ref="form" v-on:submit.prevent="submit()">
     <v-container>
       <v-row class="px-3">
-        <v-text-field
-          background-color="grey darken-4"
-          color="grey lighten-1"
-          class="pt-5 mt-5"
-          clearable
-          label="Szukaj aktorów"
-          solo
-          v-model="search"
-          v-on:keyup.enter="submit()"
-        >
-        </v-text-field>
+        <v-col cols="12" lg="6" class="white--text">
+          Imię
+          <v-text-field
+            color="black"
+            solo
+            flat
+            v-model.lazy="first_name"
+            label="Podaj imię aktora"
+            clearable
+            v-on:keyup.enter="submit()"
+          >
+          </v-text-field>
+        </v-col>
+        <v-col cols="12" lg="4" class="white--text">
+          Nazwisko
+          <v-text-field
+            color="black"
+            solo
+            flat
+            v-model.lazy="last_name"
+            label="Podaj nazwisko aktora"
+            clearable
+            v-on:keyup.enter="submit()"
+          >
+          </v-text-field>
+        </v-col>
       </v-row>
       <v-row class="mt-n7">
         <v-col cols="12" md="6" lg="6">
@@ -60,7 +98,7 @@ export default class Search extends Vue {
             color="secondary"
             @click="filtering = !filtering"
           >
-            Filtrowanie i sortowanie
+            Sortowanie
           </v-btn>
         </v-col>
         <v-col cols="12" md="6" lg="6">
@@ -80,34 +118,6 @@ export default class Search extends Vue {
         <v-container>
           <v-sheet class="pa-7 grey darken-3 rounded" dense>
             <v-row :column="$vuetify.breakpoint.mdAndDown">
-              <v-col cols="12" lg="4" class="white--text">
-                Miejsce urodzenia
-                <v-text-field
-                  color="black"
-                  solo
-                  flat
-                  v-model.lazy="country"
-                  label="Wpisz kraj urodzenia"
-                  clearable
-                  v-on:keyup.enter="submit()"
-                >
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" lg="4" class="white--text">
-                Rok urodzenia
-                <v-text-field
-                  color="black"
-                  solo
-                  flat
-                  v-model.lazy="birthDate"
-                  label="Wpisz rok urodzenia"
-                  clearable
-                  type="number"
-                  :rules="dateRules"
-                  v-on:keyup.enter="submit()"
-                >
-                </v-text-field>
-              </v-col>
               <v-col class="white--text" cols="12" md="12" lg="4">
                 Sortowanie
                 <v-select
@@ -119,26 +129,28 @@ export default class Search extends Vue {
                   solo
                   dense
                   flat
+                  v-model="sortSelection"
+                  @change="sortActors"
                 >
                 </v-select>
               </v-col>
             </v-row>
-            <v-row :column="$vuetify.breakpoint.mdAndDown" class="mt-n5">
-              <v-col class="white--text" cols="12" md="6" lg="4">
-                Min. ilość gwiazdek
-                <v-rating
-                  v-model.lazy="rating"
-                  background-color="white"
-                  color="blue darken-4"
-                  x-large
-                  clearable
-                  hover
-                >
-                </v-rating>
-              </v-col>
-            </v-row>
           </v-sheet>
         </v-container>
+      </v-row>
+
+      <v-row class="ma-2 mx-5">
+        <v-col
+          v-for="actor in actors"
+          :key="actor.id"
+          class="flex-column"
+          cols="12"
+          sm="6"
+          md="3"
+          lg="3"
+        >
+          <PersonItem :actor="actor"></PersonItem>
+        </v-col>
       </v-row>
     </v-container>
   </v-form>
