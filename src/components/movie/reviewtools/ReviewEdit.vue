@@ -69,7 +69,7 @@ export default class ReviewEdit extends Vue {
       review_type: this.reviewData.review_type,
       id: this.reviewData.id,
       review: this.$data.formData[0].value,
-      movie_id: this.$store.getters.moviePage.movieID,
+      movie: this.$store.getters.moviePage.movieID,
       user: this.$store.getters.userId,
       creation_date: '2022-06-22',
     };
