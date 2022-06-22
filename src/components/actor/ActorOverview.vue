@@ -1,11 +1,9 @@
 <template>
   <div class="wrapper-blk">
     <div class="poster">
-      <!--      <v-img :lazy-src="this.$store.state.moviePage.movieData.poster"-->
-      <!--             :src="this.$store.state.moviePage.movieData.poster"/>-->
       <v-img
-          lazy-src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg"
-          src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg"
+          :lazy-src="require('./../../assets/unknown_person.png')"
+          :src="require('./../../assets/unknown_person.png')"
       />
     </div>
     <div class="plot">

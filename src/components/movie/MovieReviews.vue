@@ -3,20 +3,20 @@
     <h3 class="general-section-title">Recenzje użytkowników</h3>
     <div class="review-blk">
       <div class="review-list">
-        <div class="review-btns" v-if="!userState">
-          <v-btn class="review-btn" v-for="(btn, i) in reviewBtns" :key="i" @click="reviewTool = btn.link">
-            <v-icon>{{ btn.icon }}</v-icon>
-            <span class="white--text"> {{ btn.text }}</span>
+        <div class="review-btns" v-if="userState">
+          <v-btn class="review-btn" @click="addReview.visible = !addReview.visible">
+            <v-icon>{{ addReview.icon }}</v-icon>
+            <span class="white--text">{{ addReview.text }}</span>
           </v-btn>
           <keep-alive>
-            <component class="single-form review-btn-cnt" v-bind:is="reviewTool"></component>
+            <component class="single-form review-btn-cnt" @visibility="hideAddForm" v-if="addReview.visible" v-bind:is="addReview.link"></component>
           </keep-alive>
         </div>
       </div>
     </div>
     <div class="review-blk" v-if="Object.keys(movieReviews).length > 0">
       <div class="review-list">
-        <div class="single-review" v-for="(review, i) in movieReviews" :key="i">
+        <div class="single-review" v-for="review in movieReviews" :key="review.id">
           <div class="review-head">
             <div class="avatar">
               <img :src="review.avatar.at(0).avatar" alt="" />
@@ -31,12 +31,22 @@
             <div class="rev-comment extlink--text">
               <router-link :to="'/film'">Skomentuj</router-link>
               <router-link :to="'/film'"
-                >XX
+              >XX
                 <v-icon>mdi-message-text</v-icon>
               </router-link>
             </div>
-            <div class="create-time">
-              {{ review.creation_date }}
+            <div class="rev-tooldate">
+              <div class="rev-tool" v-for="btn in reviewFooterBtns" :key="btn.id">
+                <button class="mark_own--text" v-if="(userState && review.user === userID) || (btn.id === 2 && btn.admin === adminState)" @click="btn.visible = !btn.visible">
+                  <span>{{ btn.text }}</span>
+                </button>
+                <keep-alive>
+                  <component class="tooldate-form-blk" v-if="btn.visible" @visibility="changeVisibility" v-bind:is="btn.link" :reviewData="review"></component>
+                </keep-alive>
+              </div>
+              <div class="create-date">
+                {{ review.creation_date }}
+              </div>
             </div>
           </div>
         </div>
@@ -73,24 +83,38 @@ export default class MovieReviews extends Vue {
   data() {
     return {
       reviewTool: null,
-      reviewBtns: [
+      reviewFooterBtns: [
         {
-          text: "Dodaj recenzje",
+          id: 1,
+          text: "Edytuj",
+          link: 'ReviewEdit',
+          visible: false,
+          admin: false,
+        },
+        {
+          id: 2,
+          text: "Usuń",
+          link: 'ReviewRemove',
+          visible: false,
+          admin: true,
+        },
+      ],
+      addReview:
+        {
+          text: "Dodaj recenzję",
           icon: "mdi-playlist-plus",
           link: 'ReviewAdd',
-        },
-        {
-          text: "Edytuj recenzje",
-          icon: "mdi-playlist-edit",
-          link: 'ReviewEdit',
-        },
-        {
-          text: "Usuń recenzje",
-          icon: "mdi-playlist-remove",
-          link: 'ReviewRemove',
+          visible: false,
         }
-      ]
     }
+  }
+
+  hideAddForm() {
+    this.$data.addReview.visible = false;
+  }
+
+  changeVisibility(btnID: number){
+    this.$data.reviewFooterBtns.at(btnID).visible = false;
   }
 
   created() {
@@ -118,6 +142,14 @@ export default class MovieReviews extends Vue {
 
   get userState() {
     return this.$store.getters.isAuthenticated;
+  }
+
+  get adminState() {
+    return this.$store.getters.isAdmin;
+  }
+
+  get userID() {
+    return this.$store.getters.userId;
   }
 }
 </script>
@@ -200,4 +232,79 @@ export default class MovieReviews extends Vue {
   margin-right: unset;
 }
 
+.rev-tooldate {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.rev-tooldate > * {
+  margin-left: 12px;
+}
+
+</style>
+<style lang="scss">
+.tooldate-form-blk {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #0008;
+  z-index: 998;
+  transition: visibility 0s, opacity 0.5s ease-in-out;
+  overflow: hidden;
+}
+
+.tooldate-form-blk .tooldate-form {
+  aspect-ratio: 568 / 320;
+  width: 700px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tooldate-form .tooldate-form-close {
+  text-align: right;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.tooldate-form .tooldate-form-close button {
+  padding: 2.5px;
+}
+
+.tooldate-form .tooldate-form-close i {
+  font-size: 2.5rem;
+}
+
+.tooldate-form .tooldate-form-head {
+  width: 100%;
+  padding-top: 20px;
+}
+
+.tooldate-form .tooldate-form-head > * {
+  width: 100%;
+  display: block;
+  margin: 4px 0;
+  text-align: center;
+}
+
+.tooldate-form .tooldate-form-head > i {
+  font-size: 5rem;
+}
+
+.tooldate-form-cnt {
+  width: 90%;
+}
+
+.tooldate-form-blk button {
+  margin: 0 auto;
+}
 </style>

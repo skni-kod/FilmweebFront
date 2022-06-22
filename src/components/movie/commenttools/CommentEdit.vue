@@ -8,25 +8,16 @@
       </div>
       <div class="tooldate-form-head">
         <v-icon>mdi-playlist-plus</v-icon>
-        <span>Edytuj recenzję</span>
+        <span>Edytuj komentarz</span>
       </div>
       <div class="tooldate-form-cnt">
         <v-form class="pa-4 form-cnt" ref="form">
-          <v-select
-              v-model="reviewData.review_type"
-              :items="formDataTypes"
-              label="typ"
-              dense
-              solo
-          ></v-select>
           <v-textarea
-              v-for="(input, i) in formData"
-              :key="i"
-              v-model="input.value"
-              :label="input.label"
+              v-model="formData.value"
+              :label="formData.label"
               color="dark"
               required
-              :rules="input.rules"
+              :rules="formData.rules"
           ></v-textarea>
           <v-btn type="submit" @click.prevent="submit"> Zapisz </v-btn>
         </v-form>
@@ -41,22 +32,21 @@ import {Component, Prop} from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})
-export default class ReviewEdit extends Vue {
-  @Prop({required: true}) readonly reviewData: any;
+export default class CommentEdit extends Vue {
+  @Prop({required: true}) readonly commentData: any;
 
   mounted() {
-    this.$data.formData[0].value = this.reviewData.review;
+    this.$data.formData.value = this.commentData.comment;
   }
 
   data() {
     return {
-      formDataTypes: ['pozytywna', 'neutralna', 'negatywna'],
-      formData: [
+      formData:
         {
+          label: "",
           value: "",
           rules: [ (v: string) => !!v || "Treść jest wymagana" ],
         },
-      ],
     };
   }
 
@@ -66,16 +56,14 @@ export default class ReviewEdit extends Vue {
     }
 
     let formDataValue: object = {
-      review_type: this.reviewData.review_type,
-      id: this.reviewData.id,
-      review: this.$data.formData[0].value,
-      movie_id: this.$store.getters.moviePage.movieID,
+      id: this.commentData.id,
+      comment: this.$data.formData.value,
+      movie: this.$store.getters.moviePage.movieID,
       user: this.$store.getters.userId,
-      creation_date: '2022-06-22',
     };
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    axios.put(`/api/reviews/${this.reviewData.id}/`, formDataValue, config)
+    axios.put(`/api/moviecomments/${this.commentData.id}/`, formDataValue, config)
         .then((response) => {
           console.log(response);
         })
@@ -86,7 +74,7 @@ export default class ReviewEdit extends Vue {
   }
 
   private emitParent() {
-    this.$emit('visibility', 0);
+    this.$emit('visibilityComm', 0);
   }
 }
 </script>

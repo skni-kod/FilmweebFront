@@ -25,7 +25,7 @@
         </button>
       </div>
     </div>
-    <div class="rate-setter-blk" v-if="visible">
+    <div class="rate-setter-blk" v-if="visible && userState">
       <div class="accent rate-form">
         <div class="rate-form-close">
           <button @click="visible = !visible">
@@ -37,18 +37,20 @@
           <span>{{ movieData.title }}</span>
         </div>
         <div class="rate-form-cnt">
-          <v-rating
-              v-model.lazy="rating"
-              background-color="white"
-              color="blue darken-4"
-              x-large
-              clearable
-              hover
-          >
-          </v-rating>
-          <button class="rate-setter-confirm" @click="visible = !visible">
-            PRZEŚLIJ OCENĘ
-          </button>
+          <v-form class="pa-4 form-cnt" ref="form">
+            <v-rating
+                v-model.lazy="mark"
+                background-color="white"
+                color="blue darken-4"
+                x-large
+                clearable
+                hover
+            >
+            </v-rating>
+            <v-btn class="rate-setter-confirm" type="submit" @click.prevent="submit" @click="visible = 0"> Przeslij
+              ocenę
+            </v-btn>
+          </v-form>
         </div>
       </div>
     </div>
@@ -67,6 +69,7 @@ export default class MovieCover extends Vue {
   data() {
     return {
       visible: false,
+      mark: 0,
     };
   }
 
@@ -76,17 +79,43 @@ export default class MovieCover extends Vue {
 
   getAvgMark(movieID: string) {
     axios
-      .get(`/api/movies/${movieID}/marks/avgmark/`)
-      .then((response) => {
-        this.avgMark = response.data.at(0).average_mark.toFixed(2);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .get(`/api/movies/${movieID}/marks/avgmark/`)
+        .then((response) => {
+          if (Object.keys(response.data).length > 0)
+            this.avgMark = response.data.at(0).average_mark.toFixed(1);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }
+
+  submit(): void {
+    if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
+      //console.log("submit");
+    }
+
+    let formDataValue: object = {
+      mark: this.$data.mark,
+      movie: this.$store.getters.moviePage.movieID,
+      user: this.$store.getters.userId
+    };
+
+    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+    axios.post(`/api/moviemarks/`, formDataValue, config)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   }
 
   get movieData() {
     return this.$store.getters.moviePage.movieData;
+  }
+
+  get userState() {
+    return this.$store.getters.isAuthenticated;
   }
 }
 </script>

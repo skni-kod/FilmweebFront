@@ -6,22 +6,6 @@
     </v-btn>
     <div class="sidetool-form-blk" v-if="visible">
       <div class="accent sidetool-form">
-        <div class="sidetool-form-close">
-          <button @click="visible = false">
-            <v-icon class="secondary--text">mdi-close</v-icon>
-          </button>
-        </div>
-        <div class="sidetool-form-cnt">
-          <div class="form-head">
-            <v-icon class="mark_avg--text">mdi-star-outline</v-icon>
-            <span>{{ movieData.title }}</span>
-          </div>
-          <div class="form-cnt">
-            <button class="sidetool-confirm" @click="visible = false">
-              PRZEŚLIJ COKOLWIEK
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   </div>

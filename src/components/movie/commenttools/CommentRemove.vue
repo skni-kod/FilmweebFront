@@ -8,12 +8,12 @@
       </div>
       <div class="tooldate-form-head">
         <v-icon>mdi-playlist-plus</v-icon>
-        <span>Usuń recenzję</span>
+        <span>Usuń komentarz</span>
       </div>
       <div class="tooldate-form-cnt">
         <v-form class="pa-4 form-cnt" ref="form">
           <div>
-            <h2>Czy na pewno chcesz usunąć recenzję?</h2>
+            <h2>Czy na pewno chcesz usunąć komentarz?</h2>
           </div>
           <v-btn type="submit" @click.prevent="submit"> Potwierdź </v-btn>
         </v-form>
@@ -28,7 +28,7 @@ import {Component, Prop} from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})
-export default class ReviewRemove extends Vue {
+export default class CommentRemove extends Vue {
   @Prop({required: true}) readonly reviewData: any;
 
   submit(): void {
@@ -37,7 +37,7 @@ export default class ReviewRemove extends Vue {
     }
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    axios.delete(`/api/reviews/`, config)
+    axios.delete(`/api/moviecomments/`, config)
         .then((response) => {
           console.log(response);
         })
@@ -48,7 +48,7 @@ export default class ReviewRemove extends Vue {
   }
 
   private emitParent() {
-    this.$emit('visibility', 0);
+    this.$emit('visibilityComm', 1);
   }
 }
 </script>

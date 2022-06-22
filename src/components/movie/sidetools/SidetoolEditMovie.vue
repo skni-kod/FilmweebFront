@@ -28,6 +28,7 @@ import axios from "axios";
 export default class SidetoolEditMovie extends Vue {
   data() {
     return {
+      visible: false,
       sidetool: {
           text: "Edytuj film",
           icon: "mdi-playlist-edit",

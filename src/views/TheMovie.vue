@@ -42,7 +42,6 @@ import axios from "axios";
   },
 })
 export default class TheMovie extends Vue {
-  //movieID : any = Object.keys(this.$route.query).includes("id") ? this.$route.query.id : "1";
 
   created() {
     if (this.$router.currentRoute.path === "/film") {
