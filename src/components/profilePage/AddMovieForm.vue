@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts">
+import axios from "axios";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
@@ -24,6 +25,7 @@ import { Component } from "vue-property-decorator";
 export default class AddMovieForm extends Vue {
   data() {
     return {
+      generated_id: null,
       formData: [
         {
           label: "Oryginalny tytuł",
@@ -122,7 +124,28 @@ export default class AddMovieForm extends Vue {
 
   submit(): void {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      console.log("submit");
+      axios
+        .post(
+          `/api/movies/`,
+          {
+            original_title: this.$data.formData[0].value,
+            production_year: this.$data.formData[2].value,
+            production_country: this.$data.formData[3].value,
+            airing_date: this.$data.formData[4].value,
+            duration: this.$data.formData[5].value,
+            description: this.$data.formData[6].value,
+            title: this.$data.formData[1].value,
+            poster: this.$data.formData[7].value,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.getters.token,
+            },
+          }
+        )
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
 }

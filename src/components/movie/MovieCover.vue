@@ -38,12 +38,12 @@
         </div>
         <div class="rate-form-cnt">
           <v-rating
-            v-model.lazy="rating"
-            background-color="white"
-            color="blue darken-4"
-            x-large
-            clearable
-            hover
+              v-model.lazy="rating"
+              background-color="white"
+              color="blue darken-4"
+              x-large
+              clearable
+              hover
           >
           </v-rating>
           <button class="rate-setter-confirm" @click="visible = !visible">
@@ -57,7 +57,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})

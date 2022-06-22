@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts">
+import axios from "axios";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
@@ -71,7 +72,25 @@ export default class AddPersonForm extends Vue {
 
   submit(): void {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      console.log("submit");
+      axios
+        .post(
+          `/api/people/`,
+          {
+            first_name: this.$data.formData[0].value,
+            last_name: this.$data.formData[1].value,
+            bio: this.$data.formData[2].value,
+            birth_date: this.$data.formData[3].value,
+            birth_place: this.$data.formData[4].value,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + this.$store.getters.token,
+            },
+          }
+        )
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
 }
