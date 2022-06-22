@@ -1,11 +1,9 @@
 <template>
   <div class="wrapper-blk">
     <div class="poster">
-      <!--      <v-img :lazy-src="this.$store.state.moviePage.movieData.poster"-->
-      <!--             :src="this.$store.state.moviePage.movieData.poster"/>-->
       <v-img
-        lazy-src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg"
-        src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg"
+          :lazy-src="require('./../../assets/unknown_person.png')"
+          :src="require('./../../assets/unknown_person.png')"
       />
     </div>
     <div class="plot">
@@ -14,7 +12,7 @@
     <ul class="tag-ul">
       <li class="detail-li">
         <div class="tag tags--text">Data urodzenia</div>
-        <div class="value" tabindex="0">{{ actorData.birth_date }}</div>
+        <div class="value" tabindex="0">{{ dateFormat(actorData.birth_date) }}</div>
       </li>
       <li class="detail-li">
         <div class="tag tags--text">Miejsce urodzenia</div>
@@ -26,7 +24,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 
 @Component({})
 export default class ActorOverview extends Vue {
@@ -45,10 +43,10 @@ export default class ActorOverview extends Vue {
       "listopad",
       "grudzień",
     ];
-    let dateSplit = dateOld.split("-");
-    return `${dateSplit[2]} ${months[parseInt(dateSplit[1]) - 1]} ${
-      dateSplit[0]
-    }`;
+    if (!!dateOld) {
+      let dateSplit = dateOld.split("-");
+      return `${parseInt(dateSplit[2])} ${months[parseInt(dateSplit[1]) - 1]} ${dateSplit[0]}`;
+    } else return "";
   }
 
   get actorData() {

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper-blk">
     <div class="poster">
-      <v-img :lazy-src="movieData.poster" :src="movieData.poster" />
+      <v-img :lazy-src="movieData.poster" :src="movieData.poster"/>
     </div>
     <div class="plot">
       {{ movieData.description }}
@@ -10,7 +10,7 @@
       <li class="detail-li">
         <div class="tag tags--text">Gatunek:</div>
         <div class="value" tabindex="0">
-          <span> --- </span>
+          <span v-for="(genre, i) in movieGenres" :key="i">{{ genre.name + setComma(i) }}   </span>
         </div>
       </li>
       <li class="detail-li">
@@ -36,8 +36,9 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import {Component, Prop} from "vue-property-decorator";
 import MovieOverviewLinks from "@/components/movie/MovieOverviewLinks.vue";
+import axios from "axios";
 
 @Component({
   components: {
@@ -45,14 +46,35 @@ import MovieOverviewLinks from "@/components/movie/MovieOverviewLinks.vue";
   },
 })
 export default class MovieOverview extends Vue {
+  private movieGenres: object = [];
+
   private durationFormat(duration: number) {
     let hours = Math.trunc(duration / 60);
     let minutes = duration - hours * 60;
     return `${hours}h ${minutes}min`;
   }
 
+  created() {
+    this.getMovieGenres(this.$store.getters.moviePage.movieID);
+  }
+
+  getMovieGenres(movieID: string) {
+    axios
+        .get(`/api/movies/${movieID}/genre/`)
+        .then((response) => {
+          this.movieGenres = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }
+
   get movieData() {
     return this.$store.getters.moviePage.movieData;
+  }
+
+  setComma(id: number) {
+    return (id + 1 < Object.keys(this.movieGenres).length) ? " / " : "";
   }
 }
 </script>

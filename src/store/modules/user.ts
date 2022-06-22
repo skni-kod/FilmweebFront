@@ -69,7 +69,7 @@ const userModule: Module<any, any> = {
                     console.table(error);
                 })
             commit('clearAuthData');
-            router.replace({ name: 'Login' });
+            router.replace({ name: 'Home' });
         },
 
         async getUserData({ commit, getters, dispatch }) {

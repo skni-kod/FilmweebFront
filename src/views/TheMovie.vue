@@ -14,7 +14,7 @@
         <div style="min-height: 500px"></div>
       </v-col>
       <v-col class="movie-sidebar" cols="4">
-        <movie-sidetool class="movie-sidetool" />
+        <movie-sidetools class="movie-sidetool" />
       </v-col>
     </v-row>
   </v-container>
@@ -28,7 +28,7 @@ import MovieOverview from "@/components/movie/MovieOverview.vue";
 import MovieCrew from "@/components/movie/MovieCrew.vue";
 import MovieReviews from "@/components/movie/MovieReviews.vue";
 import MovieComments from "@/components/movie/MovieComments.vue";
-import MovieSidetool from "@/components/movie/MovieSidetool.vue";
+import MovieSidetools from "@/components/movie/MovieSidetools.vue";
 import axios from "axios";
 
 @Component({
@@ -38,11 +38,10 @@ import axios from "axios";
     MovieCrew,
     MovieReviews,
     MovieComments,
-    MovieSidetool,
+    MovieSidetools,
   },
 })
 export default class TheMovie extends Vue {
-  //movieID : any = Object.keys(this.$route.query).includes("id") ? this.$route.query.id : "1";
 
   created() {
     if (this.$router.currentRoute.path === "/film") {
