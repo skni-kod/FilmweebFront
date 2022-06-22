@@ -37,7 +37,7 @@ export default class ReviewRemove extends Vue {
     }
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    axios.delete(`/api/reviews/`, config)
+    axios.delete(`/api/reviews/${this.reviewData.id}/`, config)
         .then((response) => {
           console.log(response);
         })
@@ -48,7 +48,7 @@ export default class ReviewRemove extends Vue {
   }
 
   private emitParent() {
-    this.$emit('visibility', 0);
+    this.$emit('visibility', 1);
   }
 }
 </script>

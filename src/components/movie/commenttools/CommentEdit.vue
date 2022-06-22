@@ -1,16 +1,16 @@
 <template>
-  <div class="tooldate-form-blk">
-    <div class="accent tooldate-form">
-      <div class="tooldate-form-close">
+  <div class="comm-form-blk">
+    <div class="accent comm-form">
+      <div class="comm-form-close">
         <button @click="emitParent()">
           <v-icon class="secondary--text">mdi-close</v-icon>
         </button>
       </div>
-      <div class="tooldate-form-head">
+      <div class="comm-form-head">
         <v-icon>mdi-playlist-plus</v-icon>
         <span>Edytuj komentarz</span>
       </div>
-      <div class="tooldate-form-cnt">
+      <div class="comm-form-cnt">
         <v-form class="pa-4 form-cnt" ref="form">
           <v-textarea
               v-model="formData.value"

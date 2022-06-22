@@ -28,6 +28,7 @@ import axios from "axios";
 export default class SidetoolRemoveMovie extends Vue {
   data() {
     return {
+      visible: false,
       sidetool: {
           text: "Usuń film",
           icon: "mdi-playlist-remove",

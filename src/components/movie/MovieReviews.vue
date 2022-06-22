@@ -8,9 +8,7 @@
             <v-icon>{{ addReview.icon }}</v-icon>
             <span class="white--text">{{ addReview.text }}</span>
           </v-btn>
-          <keep-alive>
             <component class="single-form review-btn-cnt" @visibility="hideAddForm" v-if="addReview.visible" v-bind:is="addReview.link"></component>
-          </keep-alive>
         </div>
       </div>
     </div>
@@ -40,9 +38,7 @@
                 <button class="mark_own--text" v-if="(userState && review.user === userID) || (btn.id === 2 && btn.admin === adminState)" @click="btn.visible = !btn.visible">
                   <span>{{ btn.text }}</span>
                 </button>
-                <keep-alive>
                   <component class="tooldate-form-blk" v-if="btn.visible" @visibility="changeVisibility" v-bind:is="btn.link" :reviewData="review"></component>
-                </keep-alive>
               </div>
               <div class="create-date">
                 {{ review.creation_date }}
@@ -111,10 +107,17 @@ export default class MovieReviews extends Vue {
 
   hideAddForm() {
     this.$data.addReview.visible = false;
+    this.reload();
   }
 
   changeVisibility(btnID: number){
     this.$data.reviewFooterBtns.at(btnID).visible = false;
+    this.reload();
+  }
+
+  reload() {
+    this.getMovieReviews(this.$store.getters.moviePage.movieID);
+    this.$forceUpdate();
   }
 
   created() {
@@ -126,6 +129,7 @@ export default class MovieReviews extends Vue {
       .get(`/api/movies/${movieID}/reviews/`)
       .then((response) => {
         this.movieReviews = response.data;
+        this.$forceUpdate();
       })
       .catch((error) => {
         console.log(error);

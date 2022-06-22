@@ -1,6 +1,6 @@
 <template>
   <div class="movie-tools">
-    <div class="tooldate-form-cnt">
+    <div class="comm-form-cnt">
       <v-form class="pa-4 form-cnt" ref="form">
         <v-textarea
             v-model="formData.value"

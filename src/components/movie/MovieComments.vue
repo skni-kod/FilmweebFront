@@ -8,9 +8,7 @@
             <v-icon>{{ addCommBtn.icon }}</v-icon>
             <span class="white--text">{{ addCommBtn.text }}</span>
           </v-btn>
-          <keep-alive>
             <component class="single-form comm-btn-cnt" @visibilityComm="hideAddFormComm" v-if="addCommBtn.visible" v-bind:is="addCommBtn.link"></component>
-          </keep-alive>
         </div>
       </div>
     </div>
@@ -32,9 +30,7 @@
                 <button class="mark_own--text" v-if="(userState && comment.user === userID) || (btn.id === 2 && btn.admin === adminState)" @click="btn.visible = !btn.visible">
                   <span>{{ btn.text }}</span>
                 </button>
-                <keep-alive>
                   <component class="comm-form-blk" v-if="btn.visible" @visibilityComm="changeVisibilityComm" v-bind:is="btn.link" :commentData="comment"></component>
-                </keep-alive>
               </div>
             </div>
           </div>
@@ -98,10 +94,17 @@ export default class MovieComments extends Vue {
 
   hideAddFormComm() {
     this.$data.addCommBtn.visible = false;
+    this.reload();
   }
 
   changeVisibilityComm(btnID: number){
     this.$data.commFooterBtns.at(btnID).visible = false;
+    this.reload();
+  }
+
+  reload() {
+    this.getMovieComments(this.$store.getters.moviePage.movieID);
+    this.$forceUpdate();
   }
 
   created() {
@@ -113,9 +116,7 @@ export default class MovieComments extends Vue {
       .get(`/api/movies/${movieID}/comments/`)
       .then((response) => {
         this.movieComments = response.data;
-
-        console.table('dadasdsadsadsadsad');
-        console.table(response.data);
+        this.$forceUpdate();
       })
       .catch((error) => {
         console.log(error);
@@ -257,5 +258,10 @@ export default class MovieComments extends Vue {
 .comm-footer {
   display: flex;
 }
+
+.comm-footer button {
+  margin-right: 5px;
+}
+
 
 </style>

@@ -1,16 +1,16 @@
 <template>
-  <div class="tooldate-form-blk">
-    <div class="accent tooldate-form">
-      <div class="tooldate-form-close">
+  <div class="comm-form-blk">
+    <div class="accent comm-form">
+      <div class="comm-form-close">
         <button @click="emitParent()">
           <v-icon class="secondary--text">mdi-close</v-icon>
         </button>
       </div>
-      <div class="tooldate-form-head">
+      <div class="comm-form-head">
         <v-icon>mdi-playlist-plus</v-icon>
         <span>Usuń komentarz</span>
       </div>
-      <div class="tooldate-form-cnt">
+      <div class="comm-form-cnt">
         <v-form class="pa-4 form-cnt" ref="form">
           <div>
             <h2>Czy na pewno chcesz usunąć komentarz?</h2>
@@ -29,7 +29,7 @@ import axios from "axios";
 
 @Component({})
 export default class CommentRemove extends Vue {
-  @Prop({required: true}) readonly reviewData: any;
+  @Prop({required: true}) readonly commentData: any;
 
   submit(): void {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
@@ -37,7 +37,7 @@ export default class CommentRemove extends Vue {
     }
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    axios.delete(`/api/moviecomments/`, config)
+    axios.delete(`/api/moviecomments/${this.commentData.id}/`, config)
         .then((response) => {
           console.log(response);
         })
@@ -54,7 +54,7 @@ export default class CommentRemove extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.tooldate-form-cnt h2 {
+.comm-form-cnt h2 {
   margin-bottom: 13px;
 }
 </style>
