@@ -1,19 +1,17 @@
 <template>
-  <div class="movie-tools">
-    <v-btn>
-      <v-icon>{{ sidetool.icon }}</v-icon>
-      <span class="white--text"> {{ sidetool.text }}</span>
-    </v-btn>
-    <div class="sidetool-form-blk" v-if="visible">
-      <div class="accent sidetool-form">
-        <div class="sidetool-form-close">
-          <button @click="visible = false">
-            <v-icon class="secondary--text">mdi-close</v-icon>
-          </button>
-        </div>
-        <div class="sidetool-form-cnt">
-            Form Here...
-        </div>
+  <div class="sidetool-form-blk">
+    <div class="accent sidetool-form">
+      <div class="sidetool-form-close">
+        <button @click="emitParent">
+          <v-icon class="secondary--text">mdi-close</v-icon>
+        </button>
+      </div>
+      <div class="sidetool-form-head">
+        <v-icon>mdi-playlist-remove</v-icon>
+        <span>Usuń film</span>
+      </div>
+      <div class="sidetool-form-cnt">
+
       </div>
     </div>
   </div>
@@ -21,24 +19,25 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {Component} from "vue-property-decorator";
+import {Component, Prop} from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})
-export default class SidetoolRemoveMovie extends Vue {
-  data() {
-    return {
-      visible: false,
-      sidetool: {
-          text: "Usuń film",
-          icon: "mdi-playlist-remove",
-          admin: true,
-        }
+export default class SidetoolAddToList extends Vue {
+
+  async submit() {
+    if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
+      //console.log("submit");
     }
+
+    this.emitParent();
+  }
+
+  private emitParent() {
+    this.$emit('visibility', 0);
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
 </style>

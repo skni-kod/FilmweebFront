@@ -27,8 +27,8 @@ export default class ReviewList extends Vue {
     this.getUserReviews(this.$store.getters.userId);
   }
 
-  getUserReviews(userId: string) {
-    axios
+  async getUserReviews(userId: string) {
+    await axios
       .get(`/api/users/${userId}/reviews/`)
       .then((response) => {
         this.reviews = response.data;

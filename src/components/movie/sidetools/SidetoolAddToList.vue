@@ -1,11 +1,17 @@
 <template>
-  <div class="movie-tools">
-    <v-btn @click="visible = true">
-      <v-icon>{{ sidetool.icon }}</v-icon>
-      <span class="white--text"> {{ sidetool.text }}</span>
-    </v-btn>
-    <div class="sidetool-form-blk" v-if="visible">
-      <div class="accent sidetool-form">
+  <div class="sidetool-form-blk">
+    <div class="accent sidetool-form">
+      <div class="sidetool-form-close">
+        <button @click="emitParent">
+          <v-icon class="secondary--text">mdi-close</v-icon>
+        </button>
+      </div>
+      <div class="sidetool-form-head">
+        <v-icon>mdi-playlist-plus</v-icon>
+        <span>Dodaj film do listy</span>
+      </div>
+      <div class="sidetool-form-cnt">
+
       </div>
     </div>
   </div>
@@ -13,36 +19,25 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {Component} from "vue-property-decorator";
+import {Component, Prop} from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})
 export default class SidetoolAddToList extends Vue {
-  data() {
-    return {
-      visible: false,
-      sidetool: {
-          text: "Dodaj do listy",
-          icon: "mdi-playlist-plus",
-          admin: false,
-        }
+
+  async submit() {
+    if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
+      //console.log("submit");
     }
+
+    this.emitParent();
   }
 
-  created() {}
-
-  get movieData() {
-    return this.$store.getters.moviePage.movieData;
+  private emitParent() {
+    this.$emit('visibility', 0);
   }
-
 }
 </script>
 
 <style lang="scss" scoped>
-.form-head {
-  background-color: green;
-}
-.form-cnt {
-  background-color: grey;
-}
 </style>

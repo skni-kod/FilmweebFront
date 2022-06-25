@@ -8,7 +8,8 @@
             <v-icon>{{ addCommBtn.icon }}</v-icon>
             <span class="white--text">{{ addCommBtn.text }}</span>
           </v-btn>
-            <component class="single-form comm-btn-cnt" @visibilityComm="hideAddFormComm" v-if="addCommBtn.visible" v-bind:is="addCommBtn.link"></component>
+          <component class="single-form comm-btn-cnt" @visibilityComm="changeVisAdd" v-if="addCommBtn.visible"
+                     v-bind:is="addCommBtn.link"></component>
         </div>
       </div>
     </div>
@@ -16,7 +17,7 @@
       <div class="comm-list">
         <div class="single-comm" v-for="comment in movieComments" :key="comment.id">
           <div class="avatar">
-            <img :src="comment.avatar.at(0).avatar" alt />
+            <img :src="comment.avatar.at(0).avatar" alt/>
           </div>
           <div class="comm-wrapper">
             <div class="comm-header">
@@ -26,17 +27,17 @@
               {{ comment.comment }}
             </div>
             <div class="comm-footer">
-              <div class="comm-tool" v-for="btn in commFooterBtns" :key="btn.id">
-                <button class="mark_own--text" v-if="(userState && comment.user === userID) || (btn.id === 2 && btn.admin === adminState)" @click="btn.visible = !btn.visible">
+              <div class="comm-tool" v-for="(btn, i) in commFooterBtns" :key="i">
+                <button class="mark_own--text"
+                        v-if="(userState && comment.user === userID) || (btn.admin && btn.admin === adminState)"
+                        @click="btn.visible = !btn.visible">
                   <span>{{ btn.text }}</span>
                 </button>
-                  <component class="comm-form-blk" v-if="btn.visible" @visibilityComm="changeVisibilityComm" v-bind:is="btn.link" :commentData="comment"></component>
+                <component class="comm-form-blk" v-if="btn.visible" @visibilityComm="changeVisOther"
+                           v-bind:is="btn.link" :btnID="i" :commentData="comment"></component>
               </div>
             </div>
           </div>
-        </div>
-        <div class="comment-more more--text">
-          <span>Zobacz wszystkie komentarze</span>
         </div>
       </div>
     </div>
@@ -48,7 +49,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 import axios from "axios";
 import CommentAdd from "@/components/movie/commenttools/CommentAdd.vue";
 import CommentEdit from "@/components/movie/commenttools/CommentEdit.vue";
@@ -66,43 +67,38 @@ export default class MovieComments extends Vue {
 
   data() {
     return {
-      commFooterBtns: [
-        {
-          id: 1,
-          text: "Edytuj",
-          link: 'CommentEdit',
-          visible: false,
-          admin: false,
-        },
-        {
-          id: 2,
-          text: "Usuń",
-          link: 'CommentRemove',
-          visible: false,
-          admin: true,
-        },
-      ],
       addCommBtn:
           {
             text: "Dodaj komentarz",
             icon: "mdi-playlist-plus",
             link: 'CommentAdd',
             visible: false,
-          }
+          },
+      commFooterBtns: [
+        {
+          text: "Edytuj",
+          link: 'CommentEdit',
+          visible: false,
+          admin: false,
+        },
+        {
+          text: "Usuń",
+          link: 'CommentRemove',
+          visible: false,
+          admin: true,
+        },
+      ]
     }
   }
 
-  hideAddFormComm() {
+  changeVisAdd() {
     this.$data.addCommBtn.visible = false;
-    this.reload();
+    this.getMovieComments(this.$store.getters.moviePage.movieID);
+    this.$forceUpdate();
   }
 
-  changeVisibilityComm(btnID: number){
+  changeVisOther(btnID: number) {
     this.$data.commFooterBtns.at(btnID).visible = false;
-    this.reload();
-  }
-
-  reload() {
     this.getMovieComments(this.$store.getters.moviePage.movieID);
     this.$forceUpdate();
   }
@@ -111,16 +107,16 @@ export default class MovieComments extends Vue {
     this.getMovieComments(this.$store.getters.moviePage.movieID);
   }
 
-  getMovieComments(movieID: string) {
-    axios
-      .get(`/api/movies/${movieID}/comments/`)
-      .then((response) => {
-        this.movieComments = response.data;
-        this.$forceUpdate();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  async getMovieComments(movieID: string) {
+    await axios
+        .get(`/api/movies/${movieID}/comments/`)
+        .then((response) => {
+          this.movieComments = response.data;
+          this.$forceUpdate();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   }
 
   get userState() {

@@ -1,36 +1,36 @@
 <template>
-  <div class="wrapper-blk">
+  <div class="movie-overview-wrapper">
     <div class="poster">
-      <v-img :lazy-src="movieData.poster" :src="movieData.poster"/>
+      <v-img class="poster-img" :lazy-src="movieData.poster" :src="movieData.poster"/>
     </div>
-    <div class="plot">
-      {{ movieData.description }}
+    <div class="plot">{{ movieData.description }}</div>
+    <div class="tags-info">
+      <ul class="tags-ul">
+        <li class="detail-li">
+          <div class="tag tags--text">Gatunek:</div>
+          <div class="value" tabindex="0">
+            <span v-for="(genre, i) in movieGenres" :key="i">{{ genre.name + setComma(i) }}   </span>
+          </div>
+        </li>
+        <li class="detail-li">
+          <div class="tag tags--text">Kraj produkcji:</div>
+          <div class="value" tabindex="0">{{ movieData.production_country }}</div>
+        </li>
+        <li class="detail-li">
+          <div class="tag tags--text">Rok produkcji</div>
+          <div class="value" tabindex="0">{{ movieData.production_year }}</div>
+        </li>
+        <li class="detail-li">
+          <div class="tag tags--text">Czas trwania:</div>
+          <div class="value" tabindex="0">
+            {{ durationFormat(movieData.duration) }}
+          </div>
+        </li>
+        <li class="buttons">
+          <movie-overview-links></movie-overview-links>
+        </li>
+      </ul>
     </div>
-    <ul class="tag-ul">
-      <li class="detail-li">
-        <div class="tag tags--text">Gatunek:</div>
-        <div class="value" tabindex="0">
-          <span v-for="(genre, i) in movieGenres" :key="i">{{ genre.name + setComma(i) }}   </span>
-        </div>
-      </li>
-      <li class="detail-li">
-        <div class="tag tags--text">Kraj produkcji:</div>
-        <div class="value" tabindex="0">{{ movieData.production_country }}</div>
-      </li>
-      <li class="detail-li">
-        <div class="tag tags--text">Rok produkcji</div>
-        <div class="value" tabindex="0">{{ movieData.production_year }}</div>
-      </li>
-      <li class="detail-li">
-        <div class="tag tags--text">Czas trwania:</div>
-        <div class="value" tabindex="0">
-          {{ durationFormat(movieData.duration) }}
-        </div>
-      </li>
-      <li class="buttons">
-        <movie-overview-links></movie-overview-links>
-      </li>
-    </ul>
   </div>
 </template>
 
@@ -58,8 +58,8 @@ export default class MovieOverview extends Vue {
     this.getMovieGenres(this.$store.getters.moviePage.movieID);
   }
 
-  getMovieGenres(movieID: string) {
-    axios
+  async getMovieGenres(movieID: string) {
+    await axios
         .get(`/api/movies/${movieID}/genre/`)
         .then((response) => {
           this.movieGenres = response.data;
@@ -80,49 +80,47 @@ export default class MovieOverview extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.wrapper-blk {
-  grid-gap: 16px;
+.movie-overview-wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 285px) 1fr;
+  gap: 16px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "poster plot"
+    "poster tags";
 }
 
-.movie-overview .poster {
-  grid-area: 1 / 1 / 3 / 2;
+.poster {
+  grid-area: poster;
   width: 100%;
-  max-width: 285px;
 }
 
-.movie-overview .plot {
+.plot {
+  grid-area: plot;
   padding: 32px 16px 0 16px;
 }
 
-.movie-overview .poster > div {
-  padding: 16px;
+.tags-info {
+  grid-area: tags;
 }
 
-.movie-overview .plot {
-  grid-area: 1 / 2 / 2 / 3;
-}
-
-.movie-overview .tag-ul {
-  grid-area: 2 / 2 / 3 / 3;
+.tags-ul {
+  display: table;
   list-style: none;
 }
 
-.tag-ul .detail-li {
-  display: flex;
+.tags-ul .detail-li {
+  display: table-row;
+  flex-wrap: wrap;
   margin: 10px 0;
 }
 
-.detail-li .tag {
-  min-width: 130px;
+.detail-li > div {
+  display: table-cell;
+}
+
+.detail-li .tag, .buttons {
+  padding: 4px 0;
   color: lightgrey;
-}
-
-.movie-overview .poster > div {
-  width: 100%;
-}
-
-a {
-  display: block;
-  width: 35px;
 }
 </style>

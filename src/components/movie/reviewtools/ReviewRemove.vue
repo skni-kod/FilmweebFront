@@ -29,17 +29,19 @@ import axios from "axios";
 
 @Component({})
 export default class ReviewRemove extends Vue {
+  @Prop({required: true}) readonly btnID: any;
   @Prop({required: true}) readonly reviewData: any;
 
-  submit(): void {
+  async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    axios.delete(`/api/reviews/${this.reviewData.id}/`, config)
+    await axios.delete(`/api/reviews/${this.reviewData.id}/`, config)
         .then((response) => {
           console.log(response);
+          if(response.status === 401) this.$store.dispatch("logout");
         })
         .catch((error) => {
           console.log(error);

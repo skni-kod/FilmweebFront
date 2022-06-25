@@ -1,9 +1,19 @@
 <template>
-  <div class="wrapper-blk">
-    <keep-alive v-for="(sidetool, i) in movieTools">
-      <component class="sidetool-form-cnt" v-bind:is="sidetool.sidetool"
-                 v-if="sidetool.user === userState && (!sidetool.admin || sidetool.admin === adminState)"></component>
-    </keep-alive>
+  <div class="sidetools-wrapper">
+    <div v-for="btn in movieTools" :key="btn.id">
+      <v-btn class="sidetools-btns"
+              v-if="btn.user === userState && (!btn.admin || btn.admin === adminState)"
+              @click="btn.visible = !btn.visible">
+        <v-icon>{{ btn.icon }}</v-icon>
+        <span>{{ btn.text }}</span>
+      </v-btn>
+      <keep-alive>
+        <component class="sidetool-form" v-if="btn.visible"
+                   @visibility="changeVisSidetool"
+                   v-bind:is="btn.link
+        "></component>
+      </keep-alive>
+    </div>
   </div>
 </template>
 
@@ -24,25 +34,37 @@ import SidetoolRemoveMovie from "@/components/movie/sidetools/SidetoolRemoveMovi
 export default class MovieSidetools extends Vue {
   data() {
     return {
-      visible: false,
       movieTools: [
-        {
-          sidetool: 'SidetoolAddToList',
+        /*{
+          text: 'Dodaj film do listy',
+          link: 'SidetoolAddToList',
+          icon: "mdi-playlist-plus",
           user: true,
           admin: false,
-        },
+          visible: false,
+        },*/
         {
-          sidetool: 'SidetoolEditMovie',
+          text: 'Edytuj film',
+          link: 'SidetoolEditMovie',
+          icon: "mdi-playlist-edit",
           user: true,
           admin: true,
+          visible: false,
         },
         {
-          sidetool: 'SidetoolRemoveMovie',
+          text: 'Usuń film',
+          link: 'SidetoolRemoveMovie',
+          icon: "mdi-playlist-remove",
           user: true,
           admin: true,
+          visible: false,
         }
       ]
     }
+  }
+
+  changeVisSidetool(btnID: number) {
+    this.$data.movieTools.at(btnID).visible = false;
   }
 
   get userState() {
@@ -55,23 +77,14 @@ export default class MovieSidetools extends Vue {
 
 }
 </script>
+<style lang="scss" scoped>
+.sidetools-btns {
+  width: 100%;
+  margin: 6px 0;
+  padding: 12px 0 !important;
+}
+</style>
 <style lang="scss">
-.sidetool-form-cnt {
-  width: 100%;
-  margin: 10px;
-}
-
-.movie-tools {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.movie-tools > button {
-  width: 100%;
-  margin: 5px 0;
-  padding: 24px 16px !important;
-}
-
 .sidetool-form-blk {
   width: 100%;
   height: 100%;
@@ -85,6 +98,7 @@ export default class MovieSidetools extends Vue {
 }
 
 .sidetool-form-blk .sidetool-form {
+  aspect-ratio: 568 / 320;
   width: 700px;
   position: absolute;
   top: 50%;
@@ -111,4 +125,42 @@ export default class MovieSidetools extends Vue {
 .sidetool-form .sidetool-form-close i {
   font-size: 2.5rem;
 }
+
+.sidetool-form .sidetool-form-head {
+  width: 100%;
+  padding-top: 20px;
+}
+
+.sidetool-form .sidetool-form-head > * {
+  width: 100%;
+  display: block;
+  margin: 4px 0;
+  text-align: center;
+}
+
+.sidetool-form .sidetool-form-head > i {
+  font-size: 5rem;
+}
+
+.sidetool-form-cnt {
+  width: 90%;
+}
+
+.sidetool-form-blk button {
+  margin: 0 auto;
+}
+
+.comm-btns {
+  margin: 10px 5px;
+}
+
+.comm-btn {
+  width: calc(100% / 3);
+}
+
+.single-form {
+  margin-left: unset;
+  margin-right: unset;
+}
+
 </style>

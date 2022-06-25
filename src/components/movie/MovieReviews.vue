@@ -8,7 +8,7 @@
             <v-icon>{{ addReview.icon }}</v-icon>
             <span class="white--text">{{ addReview.text }}</span>
           </v-btn>
-            <component class="single-form review-btn-cnt" @visibility="hideAddForm" v-if="addReview.visible" v-bind:is="addReview.link"></component>
+            <component class="single-form review-btn-cnt" @visibility="changeVisAdd" v-if="addReview.visible" v-bind:is="addReview.link"></component>
         </div>
       </div>
     </div>
@@ -34,11 +34,11 @@
               </router-link>
             </div>
             <div class="rev-tooldate">
-              <div class="rev-tool" v-for="btn in reviewFooterBtns" :key="btn.id">
-                <button class="mark_own--text" v-if="(userState && review.user === userID) || (btn.id === 2 && btn.admin === adminState)" @click="btn.visible = !btn.visible">
+              <div class="rev-tool" v-for="(btn, i) in reviewFooterBtns" :key="i">
+                <button class="mark_own--text" v-if="(userState && review.user === userID) || (btn.admin && btn.admin === adminState)" @click="btn.visible = !btn.visible">
                   <span>{{ btn.text }}</span>
                 </button>
-                  <component class="tooldate-form-blk" v-if="btn.visible" @visibility="changeVisibility" v-bind:is="btn.link" :reviewData="review"></component>
+                  <component class="tooldate-form-blk" v-if="btn.visible" @visibility="changeVisOther" v-bind:is="btn.link" :btnID="i" :reviewData="review"></component>
               </div>
               <div class="create-date">
                 {{ review.creation_date }}
@@ -46,9 +46,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="review-more more--text">
-        <span>Zobacz wszystkie recenzje</span>
       </div>
     </div>
     <div v-else>
@@ -79,57 +76,53 @@ export default class MovieReviews extends Vue {
   data() {
     return {
       reviewTool: null,
-      reviewFooterBtns: [
-        {
-          id: 1,
-          text: "Edytuj",
-          link: 'ReviewEdit',
-          visible: false,
-          admin: false,
-        },
-        {
-          id: 2,
-          text: "Usuń",
-          link: 'ReviewRemove',
-          visible: false,
-          admin: true,
-        },
-      ],
+      movieID: null,
       addReview:
         {
           text: "Dodaj recenzję",
           icon: "mdi-playlist-plus",
           link: 'ReviewAdd',
           visible: false,
-        }
+        },
+      reviewFooterBtns: [
+        {
+          text: "Edytuj",
+          link: 'ReviewEdit',
+          visible: false,
+          admin: false,
+        },
+        {
+          text: "Usuń",
+          link: 'ReviewRemove',
+          visible: false,
+          admin: true,
+        },
+      ]
     }
   }
 
-  hideAddForm() {
+  changeVisAdd() {
     this.$data.addReview.visible = false;
-    this.reload();
+    this.getMovieReviews(this.$store.getters.moviePage.movieID);
+    this.$forceUpdate();
   }
 
-  changeVisibility(btnID: number){
+  changeVisOther(btnID: number){
     this.$data.reviewFooterBtns.at(btnID).visible = false;
-    this.reload();
-  }
-
-  reload() {
     this.getMovieReviews(this.$store.getters.moviePage.movieID);
     this.$forceUpdate();
   }
 
   created() {
     this.getMovieReviews(this.$store.getters.moviePage.movieID);
+    this.$data.movieID = this.$store.getters.moviePage.movieID;
   }
 
-  getMovieReviews(movieID: string) {
-    axios
+  async getMovieReviews(movieID: string) {
+    await axios
       .get(`/api/movies/${movieID}/reviews/`)
       .then((response) => {
         this.movieReviews = response.data;
-        this.$forceUpdate();
       })
       .catch((error) => {
         console.log(error);

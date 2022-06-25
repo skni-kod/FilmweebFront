@@ -47,8 +47,8 @@ export default class TheActor extends Vue {
     this.getMovieInfo(this.$route.params.id);
   }
 
-  getMovieInfo(actorID: string) {
-    axios
+  async getMovieInfo(actorID: string) {
+    await axios
       .get(`/api/people/${actorID}/`)
       .then((response) => {
         this.$store.commit("setActorData", response.data);

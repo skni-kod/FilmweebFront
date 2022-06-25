@@ -42,7 +42,7 @@ export default class ReviewAdd extends Vue {
     };
   }
 
-  submit(): void {
+  async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
@@ -56,7 +56,7 @@ export default class ReviewAdd extends Vue {
     };
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-     axios.post(`/api/reviews/`, formDataValue, config)
+     await axios.post(`/api/reviews/`, formDataValue, config)
          .then((response) => {
            console.log(response);
          })

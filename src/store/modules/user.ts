@@ -1,6 +1,7 @@
-import { Module } from 'vuex';
+import {Module} from 'vuex';
 import axios from 'axios';
 import router from '../../router/index';
+import Vue from 'vue';
 
 // eslint-disable-next-line
 const userModule: Module<any, any> = {
@@ -33,11 +34,14 @@ const userModule: Module<any, any> = {
         },
         setProfileData(state, response) {
             state.profileData = response;
+        },
+        restoreToken(state, token) {
+            state.token = token;
         }
     },
 
     actions: {
-        async login({ commit, dispatch }, data) {
+        async login({commit, dispatch}, data) {
             await axios
                 .post('/api/token', {
                     email: data.email,
@@ -50,7 +54,8 @@ const userModule: Module<any, any> = {
                             refreshToken: res.data.refresh,
                         });
                         dispatch('getUserData');
-                        router.push({ name: 'Home' });
+                        Vue.$cookies.set('filmweeb_sess_user', res.data.access);
+                        router.push({name: 'Home'});
                     }
                 })
                 .catch((error) => {
@@ -58,7 +63,7 @@ const userModule: Module<any, any> = {
                     console.table(error);
                 })
         },
-        async logout({ commit, getters }) {
+        async logout({commit, getters}) {
             await axios
                 .get('/api/logout', {
                     headers: {
@@ -69,10 +74,11 @@ const userModule: Module<any, any> = {
                     console.table(error);
                 })
             commit('clearAuthData');
-            router.replace({ name: 'Home' });
+            Vue.$cookies.remove('filmweeb_sess_user');
+            router.replace({name: 'Home'});
         },
 
-        async getUserData({ commit, getters, dispatch }) {
+        async getUserData({commit, getters, dispatch}) {
             await axios
                 .get('/api/check', {
                     headers: {
@@ -91,10 +97,14 @@ const userModule: Module<any, any> = {
                 })
                 .catch((error) => {
                     //alert('Błąd w uzyskaniu danych użytkownika.');
+                    if (error.response.status == 401) {
+                        dispatch('logout');
+                        router.replace({name: 'Login'});
+                    }
                     console.table(error);
                 })
         },
-        async getProfileData({ commit, getters }) {
+        async getProfileData({commit, getters}) {
             await axios
                 .get(`/api/profiles/${getters.userId}/`)
                 .then((res) => {
@@ -106,6 +116,12 @@ const userModule: Module<any, any> = {
                     //alert('Błąd w uzyskaniu danych profilowych użytkownika.');
                     console.table(error);
                 })
+        },
+        async getProfileSession({commit, dispatch}) {
+            if (Vue.$cookies.isKey('filmweeb_sess_user')) {
+                commit('restoreToken', Vue.$cookies.get('filmweeb_sess_user'));
+                dispatch('getUserData');
+            }
         }
     },
 

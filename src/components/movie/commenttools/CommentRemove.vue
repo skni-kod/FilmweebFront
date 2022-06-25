@@ -29,15 +29,16 @@ import axios from "axios";
 
 @Component({})
 export default class CommentRemove extends Vue {
+  @Prop({required: true}) readonly btnID: any;
   @Prop({required: true}) readonly commentData: any;
 
-  submit(): void {
+  async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    axios.delete(`/api/moviecomments/${this.commentData.id}/`, config)
+    await axios.delete(`/api/moviecomments/${this.commentData.id}/`, config)
         .then((response) => {
           console.log(response);
         })
@@ -48,7 +49,7 @@ export default class CommentRemove extends Vue {
   }
 
   private emitParent() {
-    this.$emit('visibilityComm', 1);
+    this.$emit('visibilityComm', this.btnID);
   }
 }
 </script>

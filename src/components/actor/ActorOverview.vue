@@ -1,24 +1,24 @@
 <template>
-  <div class="wrapper-blk">
+  <div class="actor-overview-wrapper">
     <div class="poster">
       <v-img
           :lazy-src="require('./../../assets/unknown_person.png')"
           :src="require('./../../assets/unknown_person.png')"
       />
     </div>
-    <div class="plot">
-      {{ actorData.bio }}
+    <div class="bio">{{ actorData.bio }}</div>
+    <div class="tags-info">
+      <ul class="tags-ul">
+        <li class="detail-li">
+          <div class="tag tags--text">Data urodzenia:</div>
+          <div class="value" tabindex="0">{{ dateFormat(actorData.birth_date) }}</div>
+        </li>
+        <li class="detail-li">
+          <div class="tag tags--text">Miejsce urodzenia:</div>
+          <div class="value" tabindex="0">{{ actorData.birth_place }}</div>
+        </li>
+      </ul>
     </div>
-    <ul class="tag-ul">
-      <li class="detail-li">
-        <div class="tag tags--text">Data urodzenia</div>
-        <div class="value" tabindex="0">{{ dateFormat(actorData.birth_date) }}</div>
-      </li>
-      <li class="detail-li">
-        <div class="tag tags--text">Miejsce urodzenia</div>
-        <div class="value" tabindex="0">{{ actorData.birth_place }}</div>
-      </li>
-    </ul>
   </div>
 </template>
 
@@ -55,50 +55,55 @@ export default class ActorOverview extends Vue {
 }
 </script>
 
+
+
 <style lang="scss" scoped>
-.wrapper-blk {
-  grid-gap: 16px;
+.actor-overview-wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 285px) 1fr;
+  gap: 16px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "poster bio"
+    "poster tags";
 }
 
-.actor-overview .poster {
-  grid-area: 1 / 1 / 3 / 2;
+.poster {
+  grid-area: poster;
   width: 100%;
-  max-width: 285px;
 }
 
-.actor-overview .plot {
+.bio {
+  grid-area: bio;
   padding: 32px 16px 0 16px;
 }
 
-.actor-overview .poster > div {
-  padding: 16px;
+.tags-info {
+  grid-area: tags;
 }
 
-.actor-overview .plot {
-  grid-area: 1 / 2 / 2 / 3;
-}
-
-.actor-overview .tag-ul {
-  grid-area: 2 / 2 / 3 / 3;
+.tags-ul {
+  display: table;
   list-style: none;
 }
 
-.tag-ul .detail-li {
-  display: flex;
+.tags-ul .detail-li {
+  display: table-row;
+  flex-wrap: wrap;
   margin: 10px 0;
 }
 
+.detail-li > div {
+  display: table-cell;
+}
+
 .detail-li .tag {
-  min-width: 150px;
+  padding: 4px 0;
   color: lightgrey;
 }
 
-.actor-overview .poster > div {
-  width: 100%;
+.detail-li .value {
+  padding-left: 16px;
 }
 
-a {
-  display: block;
-  width: 35px;
-}
 </style>

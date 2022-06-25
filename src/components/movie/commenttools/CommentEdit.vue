@@ -19,7 +19,7 @@
               required
               :rules="formData.rules"
           ></v-textarea>
-          <v-btn type="submit" @click.prevent="submit"> Zapisz </v-btn>
+          <v-btn type="submit" @click.prevent="submit"> Zapisz</v-btn>
         </v-form>
       </div>
     </div>
@@ -33,6 +33,7 @@ import axios from "axios";
 
 @Component({})
 export default class CommentEdit extends Vue {
+  @Prop({required: true}) readonly btnID: any;
   @Prop({required: true}) readonly commentData: any;
 
   mounted() {
@@ -41,16 +42,15 @@ export default class CommentEdit extends Vue {
 
   data() {
     return {
-      formData:
-        {
-          label: "",
-          value: "",
-          rules: [ (v: string) => !!v || "Treść jest wymagana" ],
-        },
+      formData: {
+        label: "",
+        value: "",
+        rules: [(v: string) => !!v || "Treść jest wymagana"],
+      },
     };
   }
 
-  submit(): void {
+  async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
@@ -63,7 +63,7 @@ export default class CommentEdit extends Vue {
     };
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    axios.put(`/api/moviecomments/${this.commentData.id}/`, formDataValue, config)
+    await axios.put(`/api/moviecomments/${this.commentData.id}/`, formDataValue, config)
         .then((response) => {
           console.log(response);
         })
@@ -74,7 +74,7 @@ export default class CommentEdit extends Vue {
   }
 
   private emitParent() {
-    this.$emit('visibilityComm', 0);
+    this.$emit('visibilityComm', this.btnID);
   }
 }
 </script>

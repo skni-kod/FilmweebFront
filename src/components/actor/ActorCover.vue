@@ -78,8 +78,8 @@ export default class ActorCover extends Vue {
     this.getAvgMark(this.$route.params.id);
   }
 
-  getAvgMark(actorID: string) {
-    axios
+  async getAvgMark(actorID: string) {
+    await axios
         .get(`/api/actors/${actorID}/marks/avgmark/`)
         .then((response) => {
           if (Object.keys(response.data).length > 0)
@@ -90,21 +90,23 @@ export default class ActorCover extends Vue {
         });
   }
 
-  submit(): void {
+  async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
 
     let formDataValue: object = {
       mark: this.$data.mark,
-      actor: this.$store.getters.actorPage.actorID,
+      person: this.$store.getters.actorPage.actorID,
       user: this.$store.getters.userId
     };
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    axios.post(`/api/personmarks/`, formDataValue, config)
+    await axios.post(`/api/personmarks/`, formDataValue, config)
         .then((response) => {
           console.log(response);
+          this.getAvgMark(this.$route.params.id);
+          this.$forceUpdate();
         })
         .catch((error) => {
           console.log(error);
