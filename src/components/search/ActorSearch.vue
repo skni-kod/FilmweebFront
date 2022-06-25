@@ -160,7 +160,7 @@ export default class Search extends Vue {
       </v-row>
       <v-card v-if="showNoResults">
         <div class="text-center text-h6 pa-1">
-          Brak filmów spełniających dane kryteria
+          Brak aktorów spełniających dane kryteria
         </div>
       </v-card>
     </v-container>
