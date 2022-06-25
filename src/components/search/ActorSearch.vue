@@ -18,6 +18,7 @@ export default class Search extends Vue {
       first_name: null,
       last_name: null,
       actors: [],
+      showNoResults: false,
     };
   }
   async submit() {
@@ -41,6 +42,11 @@ export default class Search extends Vue {
         console.log(error);
       });
     this.sortActors();
+    if (this.$data.actors.length === 0) {
+      this.$data.showNoResults = true;
+    } else {
+      this.$data.showNoResults = false;
+    }
   }
 
   sortActors() {
@@ -152,6 +158,11 @@ export default class Search extends Vue {
           <PersonItem :actor="actor"></PersonItem>
         </v-col>
       </v-row>
+      <v-card v-if="showNoResults">
+        <div class="text-center text-h6 pa-1">
+          Brak filmów spełniających dane kryteria
+        </div>
+      </v-card>
     </v-container>
   </v-form>
 </template>

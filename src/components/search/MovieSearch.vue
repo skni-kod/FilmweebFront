@@ -36,6 +36,7 @@ export default class MovieSearch extends Vue {
       rating: null,
       sortSelection: null,
       movies: [],
+      showNoResults: false,
     };
   }
   async submit() {
@@ -70,6 +71,11 @@ export default class MovieSearch extends Vue {
         console.log(error);
       });
     this.sortMovies();
+    if (this.$data.movies.length === 0) {
+      this.$data.showNoResults = true;
+    } else {
+      this.$data.showNoResults = false;
+    }
   }
 
   sortMovies() {
@@ -259,6 +265,12 @@ export default class MovieSearch extends Vue {
           <MovieItem :movie="movie"></MovieItem>
         </v-col>
       </v-row>
+
+      <v-card v-if="showNoResults">
+        <div class="text-center text-h6 pa-1">
+          Brak filmów spełniających dane kryteria
+        </div>
+      </v-card>
     </v-container>
   </v-form>
 </template>
