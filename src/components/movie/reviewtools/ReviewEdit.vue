@@ -20,13 +20,11 @@
               solo
           ></v-select>
           <v-textarea
-              v-for="(input, i) in formData"
-              :key="i"
-              v-model="input.value"
-              :label="input.label"
+              v-model="formData.value"
+              :label="formData.label"
               color="dark"
               required
-              :rules="input.rules"
+              :rules="formData.rules"
           ></v-textarea>
           <v-btn type="submit" @click.prevent="submit"> Zapisz </v-btn>
         </v-form>
@@ -42,25 +40,25 @@ import axios from "axios";
 
 @Component({})
 export default class ReviewEdit extends Vue {
+  @Prop() readonly movieID: any;
+  @Prop({required: true}) readonly btnID: any;
   @Prop({required: true}) readonly reviewData: any;
 
   mounted() {
-    this.$data.formData[0].value = this.reviewData.review;
+    this.$data.formData.value = this.reviewData.review;
   }
 
   data() {
     return {
       formDataTypes: ['pozytywna', 'neutralna', 'negatywna'],
-      formData: [
-        {
+      formData: {
           value: "",
           rules: [ (v: string) => !!v || "Treść jest wymagana" ],
         },
-      ],
     };
   }
 
-  submit(): void {
+  async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
@@ -68,14 +66,14 @@ export default class ReviewEdit extends Vue {
     let formDataValue: object = {
       review_type: this.reviewData.review_type,
       id: this.reviewData.id,
-      review: this.$data.formData[0].value,
-      movie: this.$store.getters.moviePage.movieID,
+      review: this.$data.formData.value,
+      movie: this.movieID === undefined ? this.$store.getters.moviePage.movieID : this.movieID,
       user: this.$store.getters.userId,
       creation_date: '2022-06-22',
     };
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    axios.put(`/api/reviews/${this.reviewData.id}/`, formDataValue, config)
+    await axios.put(`/api/reviews/${this.reviewData.id}/`, formDataValue, config)
         .then((response) => {
           console.log(response);
         })

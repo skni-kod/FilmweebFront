@@ -74,11 +74,11 @@ export default class MovieCover extends Vue {
   }
 
   created() {
-    this.getAvgMark(this.$store.getters.moviePage.movieID);
+    this.getAvgMark(this.$route.params.id);
   }
 
-  getAvgMark(movieID: string) {
-    axios
+  async getAvgMark(movieID: string) {
+    await axios
         .get(`/api/movies/${movieID}/marks/avgmark/`)
         .then((response) => {
           if (Object.keys(response.data).length > 0)
@@ -89,7 +89,7 @@ export default class MovieCover extends Vue {
         });
   }
 
-  submit(): void {
+  async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
@@ -101,9 +101,11 @@ export default class MovieCover extends Vue {
     };
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    axios.post(`/api/moviemarks/`, formDataValue, config)
+    await axios.post(`/api/moviemarks/`, formDataValue, config)
         .then((response) => {
           console.log(response);
+          this.getAvgMark(this.$route.params.id);
+          this.$forceUpdate();
         })
         .catch((error) => {
           console.log(error);

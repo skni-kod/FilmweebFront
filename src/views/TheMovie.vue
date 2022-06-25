@@ -54,8 +54,8 @@ export default class TheMovie extends Vue {
     this.getMovieInfo(this.$route.params.id);
   }
 
-  getMovieInfo(movieID: string) {
-    axios
+  async getMovieInfo(movieID: string) {
+    await axios
       .get(`/api/movies/${movieID}/`)
       .then((response) => {
         this.$store.commit("setMovieData", response.data);

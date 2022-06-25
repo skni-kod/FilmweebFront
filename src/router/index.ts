@@ -26,9 +26,6 @@ const routes: Array<RouteConfig> = [
     {
         path: '/',
         name: 'Logout',
-        beforeEnter() {
-            location.href = '/logout';
-        },
     },
     {
         path: '/film/:id',

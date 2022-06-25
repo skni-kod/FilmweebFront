@@ -74,8 +74,8 @@ export default class Home extends Vue {
     this.getMoviesRandom();
   }
 
-  getMoviesRandom() {
-    axios
+  async getMoviesRandom() {
+    await axios
       .get(`/api/movies/1/random/`)
       .then((response) => {
         this.moviesData = response.data;

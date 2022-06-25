@@ -25,9 +25,6 @@
           </div>
         </div>
       </div>
-      <div class="crew-more more--text">
-        <span>Zobacz całą obsadę</span>
-      </div>
     </div>
     <div v-else>
       <div class="lack-info more--text">Brak informacji</div>
@@ -48,8 +45,8 @@ export default class MovieCrew extends Vue {
     this.getMovieCrew(this.$store.getters.moviePage.movieID);
   }
 
-  getMovieCrew(movieID: string) {
-    axios
+  async getMovieCrew(movieID: string) {
+    await axios
       .get(`/api/movies/${movieID}/actors/`)
       .then((response) => {
         this.movieCrew = response.data;

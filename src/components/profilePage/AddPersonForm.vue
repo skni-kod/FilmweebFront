@@ -70,9 +70,9 @@ export default class AddPersonForm extends Vue {
     };
   }
 
-  submit(): void {
+  async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      axios
+      await axios
         .post(
           `/api/people/`,
           {

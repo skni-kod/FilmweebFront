@@ -47,8 +47,8 @@ export default class ActorMovies extends Vue {
     this.getActorMovies(this.$store.getters.actorPage.actorID);
   }
 
-  getActorMovies(actorID: string) {
-    axios
+  async getActorMovies(actorID: string) {
+    await axios
       .get(`/api/actors/${actorID}/movies/`)
       .then((response) => {
         this.actorMovies = response.data;
