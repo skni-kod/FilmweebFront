@@ -42,7 +42,6 @@ export default class MovieSearch extends Vue {
     if (!(this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       return;
     }
-
     let request = "/api/search/movie/?";
     if (this.$data.search) {
       request += "&title=" + this.$data.search;
@@ -52,6 +51,15 @@ export default class MovieSearch extends Vue {
     }
     if (this.$data.valueSlider < 240 && this.$data.valueSlider > 0) {
       request += "&duration=" + this.$data.valueSlider.toString();
+    }
+    if (this.$data.rating) {
+      request += "&stars=" + this.$data.rating.toString();
+    }
+    if (this.$data.genre) {
+      request += "&genre=" + this.$data.genre.toString();
+    }
+    if (this.$data.releaseDate) {
+      request += "&aired=" + this.$data.releaseDate.toString();
     }
     await axios
       .get(request)
