@@ -8,12 +8,12 @@
       </div>
       <div class="sidetool-form-head">
         <v-icon>mdi-playlist-remove</v-icon>
-        <span>Usuń film</span>
+        <span>Usuń aktora</span>
       </div>
       <div class="sidetool-form-cnt">
         <v-form class="pa-4 form-cnt" ref="form">
           <div>
-            <h2>Czy na pewno chcesz usunąć film?</h2>
+            <h2>Czy na pewno chcesz usunąć aktora?</h2>
           </div>
           <v-btn type="submit" class="remove-confirm" @click.prevent="submit"> Potwierdź</v-btn>
         </v-form>
@@ -28,14 +28,14 @@ import {Component, Prop} from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})
-export default class SidetoolRemoveMovie extends Vue {
+export default class SidetoolRemoveActor extends Vue {
 
   async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    await axios.delete(`/api/movies/${this.$store.getters.moviePage.movieID}/`, config)
+    await axios.delete(`/api/people/${this.$store.getters.actorPage.actorID}/`, config)
         .then((response) => {
           console.log(response);
           if (response.status === 401) this.$store.dispatch("logout");

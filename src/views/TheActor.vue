@@ -54,6 +54,7 @@ export default class TheActor extends Vue {
         this.$store.commit("setActorData", response.data);
       })
       .catch((error) => {
+        if(typeof error.response.data.detail !== 'undefined' && error.response.data.detail === "Nie znaleziono.") this.$router.replace({name: 'Home'});
         console.log(error);
       });
   }

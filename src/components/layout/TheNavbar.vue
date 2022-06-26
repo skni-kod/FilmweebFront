@@ -31,6 +31,7 @@ export default class Navbar extends Vue {
 
   created() {
     this.$store.dispatch("getProfileSession");
+    this.$store.commit('setDebug', false);
   }
 
   get authState() {

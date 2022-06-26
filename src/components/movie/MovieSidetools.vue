@@ -1,5 +1,5 @@
 <template>
-  <div class="sidetools-wrapper">
+  <div class="movie-sidetools-wrapper">
     <div v-for="btn in movieTools" :key="btn.id">
       <v-btn class="sidetools-btns"
               v-if="btn.user === userState && (!btn.admin || btn.admin === adminState)"
@@ -8,7 +8,7 @@
         <span>{{ btn.text }}</span>
       </v-btn>
       <keep-alive>
-        <component class="sidetool-form" v-if="btn.visible"
+        <component class="movie-sidetool-form" v-if="btn.visible"
                    @visibility="changeVisSidetool"
                    v-bind:is="btn.link
         "></component>
@@ -65,7 +65,7 @@ export default class MovieSidetools extends Vue {
 
   changeVisSidetool(btnID: number, state: boolean) {
     this.$data.movieTools.at(btnID).visible = false;
-    if(state) window.location.reload();
+    if(state === 1) window.location.reload();
   }
 
   get userState() {
@@ -86,7 +86,7 @@ export default class MovieSidetools extends Vue {
 }
 </style>
 <style lang="scss">
-.sidetool-form-blk {
+.movie-sidetool-form {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -98,7 +98,7 @@ export default class MovieSidetools extends Vue {
   overflow: hidden;
 }
 
-.sidetool-form-blk .sidetool-form {
+.movie-sidetool-form .sidetool-form {
   aspect-ratio: 568 / 320;
   width: 700px;
   position: absolute;
@@ -110,11 +110,11 @@ export default class MovieSidetools extends Vue {
   flex-wrap: wrap;
 }
 
-.sidetool-form {
+.movie-sidetool-form .sidetool-form {
   padding-bottom: 16px;
 }
 
-.sidetool-form .sidetool-form-close {
+.movie-sidetool-form  .sidetool-form-close {
   text-align: right;
   width: 100%;
   position: absolute;
@@ -123,35 +123,35 @@ export default class MovieSidetools extends Vue {
   z-index: 100;
 }
 
-.sidetool-form .sidetool-form-close button {
+.movie-sidetool-form  .sidetool-form-close button {
   padding: 2.5px;
 }
 
-.sidetool-form .sidetool-form-close i {
+.movie-sidetool-form .sidetool-form-close i {
   font-size: 2.5rem;
 }
 
-.sidetool-form .sidetool-form-head {
+.movie-sidetool-form  .sidetool-form-head {
   width: 100%;
   padding-top: 20px;
 }
 
-.sidetool-form .sidetool-form-head > * {
+.movie-sidetool-form  .sidetool-form-head > * {
   width: 100%;
   display: block;
   margin: 4px 0;
   text-align: center;
 }
 
-.sidetool-form .sidetool-form-head > i {
+.movie-sidetool-form  .sidetool-form-head > i {
   font-size: 5rem;
 }
 
-.sidetool-form-cnt {
+.movie-sidetool-form .sidetool-form-cnt {
   width: 90%;
 }
 
-.sidetool-form-blk button {
+.movie-sidetool-form button {
   margin: 0 auto;
 }
 
@@ -167,5 +167,13 @@ export default class MovieSidetools extends Vue {
   margin-left: unset;
   margin-right: unset;
 }
+
+.movie-sidetools-wrapper .sidetools-btns {
+  width: 100%;
+  margin: 5px 0;
+  height: 40px !important;
+  padding: 0 16px !important;
+}
+
 
 </style>
