@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        debug: false,
         moviePage: {
             movieID: 1,
             movieData: {},
@@ -31,11 +32,15 @@ export default new Vuex.Store({
         setActorData(state, actorData) {
             state.actorPage.actorData = actorData;
         },
+        setDebug(state, debug : boolean) {
+            state.debug = debug;
+        }
     },
     actions: {},
     modules: { user },
     getters: {
         moviePage: state => state.moviePage,
-        actorPage: state => state.actorPage
+        actorPage: state => state.actorPage,
+        debug: state => state.debug
     }
 })

@@ -91,7 +91,7 @@ export default class MovieCover extends Vue {
 
   async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      //console.log("submit");
+      // console.log("submit");
     }
 
     let formDataValue: object = {

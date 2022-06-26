@@ -46,8 +46,7 @@ export default class TheMovie extends Vue {
   created() {
     if (this.$router.currentRoute.path === "/film") {
       this.$router.replace({
-        name: "MoviePerID",
-        params: { id: this.$store.getters.moviePage.movieID },
+        name: 'Home',
       });
     }
     this.$store.commit("setMovieID", this.$route.params.id);
@@ -61,6 +60,7 @@ export default class TheMovie extends Vue {
         this.$store.commit("setMovieData", response.data);
       })
       .catch((error) => {
+        if(typeof error.response.data.detail !== 'undefined' && error.response.data.detail === "Nie znaleziono.") this.$router.replace({name: 'Home'});
         console.log(error);
       });
   }

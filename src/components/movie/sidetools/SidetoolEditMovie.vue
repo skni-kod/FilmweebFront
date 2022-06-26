@@ -1,5 +1,5 @@
 <template>
-  <div class="sidetool-form-blk">
+  <div class="m-s-f-wrapper">
     <div class="accent sidetool-form">
       <div class="sidetool-form-close">
         <button @click="emitParent(0)">
@@ -107,8 +107,8 @@ export default class SidetoolAddToList extends Vue {
           label: "Opis filmu",
           value: "",
           rules: [
-            (v: string) =>
-                v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
+            /*(v: string) =>
+                v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",*/
           ],
         },
         {
