@@ -2,7 +2,7 @@
   <div class="sidetool-form-blk">
     <div class="accent sidetool-form">
       <div class="sidetool-form-close">
-        <button @click="emitParent">
+        <button @click="emitParent(0)">
           <v-icon class="secondary--text">mdi-close</v-icon>
         </button>
       </div>
@@ -30,11 +30,11 @@ export default class SidetoolAddToList extends Vue {
       //console.log("submit");
     }
 
-    this.emitParent();
+    this.emitParent(1);
   }
 
-  private emitParent() {
-    this.$emit('visibility', 0);
+  private emitParent(state: boolean) {
+    this.$emit('visibility', 1, state);
   }
 }
 </script>

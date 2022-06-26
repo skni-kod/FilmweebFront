@@ -1,16 +1,16 @@
 <template>
-  <div class="tooldate-form-blk">
-    <div class="accent tooldate-form">
-      <div class="tooldate-form-close">
+  <div class="rev-form-blk">
+    <div class="accent rev-form">
+      <div class="rev-form-close">
         <button @click="emitParent()">
           <v-icon class="secondary--text">mdi-close</v-icon>
         </button>
       </div>
-      <div class="tooldate-form-head">
+      <div class="rev-form-head">
         <v-icon>mdi-playlist-plus</v-icon>
         <span>Edytuj recenzję</span>
       </div>
-      <div class="tooldate-form-cnt">
+      <div class="rev-form-cnt">
         <v-form class="pa-4 form-cnt" ref="form">
           <v-select
               v-model="reviewData.review_type"
@@ -26,7 +26,7 @@
               required
               :rules="formData.rules"
           ></v-textarea>
-          <v-btn type="submit" @click.prevent="submit"> Zapisz </v-btn>
+          <v-btn type="submit" class="edit-confirm" @click.prevent="submit"> Zapisz </v-btn>
         </v-form>
       </div>
     </div>
@@ -40,7 +40,6 @@ import axios from "axios";
 
 @Component({})
 export default class ReviewEdit extends Vue {
-  @Prop() readonly movieID: any;
   @Prop({required: true}) readonly btnID: any;
   @Prop({required: true}) readonly reviewData: any;
 
@@ -67,7 +66,7 @@ export default class ReviewEdit extends Vue {
       review_type: this.reviewData.review_type,
       id: this.reviewData.id,
       review: this.$data.formData.value,
-      movie: this.movieID === undefined ? this.$store.getters.moviePage.movieID : this.movieID,
+      movie: this.reviewData.movie_id,
       user: this.$store.getters.userId,
       creation_date: '2022-06-22',
     };
@@ -90,4 +89,8 @@ export default class ReviewEdit extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.edit-confirm {
+  display: block;
+  margin: 0 auto;
+}
 </style>

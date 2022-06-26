@@ -8,7 +8,8 @@
             <v-icon>{{ addReview.icon }}</v-icon>
             <span class="white--text">{{ addReview.text }}</span>
           </v-btn>
-            <component class="single-form review-btn-cnt" @visibility="changeVisAdd" v-if="addReview.visible" v-bind:is="addReview.link"></component>
+          <component class="single-form review-btn-cnt" @visibility="changeVisAdd" v-if="addReview.visible"
+                     v-bind:is="addReview.link"></component>
         </div>
       </div>
     </div>
@@ -17,7 +18,7 @@
         <div class="single-review" v-for="review in movieReviews" :key="review.id">
           <div class="review-head">
             <div class="avatar">
-              <img :src="review.avatar.at(0).avatar" alt="" />
+              <img :src="review.avatar.at(0).avatar" alt=""/>
             </div>
             <div class="details">
               <div class="nick">{{ review.nick.at(0).nick }}</div>
@@ -27,18 +28,21 @@
           <div class="review-content">{{ review.review }}</div>
           <div class="review-footer tags--text">
             <div class="rev-comment extlink--text">
-              <router-link :to="'/film'">Skomentuj</router-link>
-              <router-link :to="'/film'"
-              >XX
-                <v-icon>mdi-message-text</v-icon>
-              </router-link>
+              <!--              <router-link :to="'/film'">Skomentuj</router-link>
+                            <router-link :to="'/film'"
+                            >XX
+                              <v-icon>mdi-message-text</v-icon>
+                            </router-link>-->
             </div>
             <div class="rev-tooldate">
               <div class="rev-tool" v-for="(btn, i) in reviewFooterBtns" :key="i">
-                <button class="mark_own--text" v-if="(userState && review.user === userID) || (btn.admin && btn.admin === adminState)" @click="btn.visible = !btn.visible">
+                <button class="mark_own--text"
+                        v-if="(userState && review.user === userID) || (btn.admin && btn.admin === adminState)"
+                        @click="btn.visible = !btn.visible">
                   <span>{{ btn.text }}</span>
                 </button>
-                  <component class="tooldate-form-blk" v-if="btn.visible" @visibility="changeVisOther" v-bind:is="btn.link" :btnID="i" :reviewData="review"></component>
+                <component class="rev-form-blk" v-if="btn.visible" @visibility="changeVisOther" v-bind:is="btn.link"
+                           :btnID="i" :reviewData="review"></component>
               </div>
               <div class="create-date">
                 {{ review.creation_date }}
@@ -78,12 +82,12 @@ export default class MovieReviews extends Vue {
       reviewTool: null,
       movieID: null,
       addReview:
-        {
-          text: "Dodaj recenzję",
-          icon: "mdi-playlist-plus",
-          link: 'ReviewAdd',
-          visible: false,
-        },
+          {
+            text: "Dodaj recenzję",
+            icon: "mdi-playlist-plus",
+            link: 'ReviewAdd',
+            visible: false,
+          },
       reviewFooterBtns: [
         {
           text: "Edytuj",
@@ -107,7 +111,7 @@ export default class MovieReviews extends Vue {
     this.$forceUpdate();
   }
 
-  changeVisOther(btnID: number){
+  changeVisOther(btnID: number) {
     this.$data.reviewFooterBtns.at(btnID).visible = false;
     this.getMovieReviews(this.$store.getters.moviePage.movieID);
     this.$forceUpdate();
@@ -120,17 +124,17 @@ export default class MovieReviews extends Vue {
 
   async getMovieReviews(movieID: string) {
     await axios
-      .get(`/api/movies/${movieID}/reviews/`)
-      .then((response) => {
-        this.movieReviews = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .get(`/api/movies/${movieID}/reviews/`)
+        .then((response) => {
+          this.movieReviews = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   }
 
-  private typeFormatClass(type : string){
-    if(!!type) {
+  private typeFormatClass(type: string) {
+    if (!!type) {
       if (type == 'pozytywna') return 'pos';
       if (type == 'negatywna') return 'neg';
     }
@@ -240,7 +244,7 @@ export default class MovieReviews extends Vue {
 
 </style>
 <style lang="scss">
-.tooldate-form-blk {
+.rev-form-blk {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -252,7 +256,7 @@ export default class MovieReviews extends Vue {
   overflow: hidden;
 }
 
-.tooldate-form-blk .tooldate-form {
+.rev-form-blk .rev-form {
   aspect-ratio: 568 / 320;
   width: 700px;
   position: absolute;
@@ -264,7 +268,7 @@ export default class MovieReviews extends Vue {
   flex-wrap: wrap;
 }
 
-.tooldate-form .tooldate-form-close {
+.rev-form .rev-form-close {
   text-align: right;
   width: 100%;
   position: absolute;
@@ -273,35 +277,36 @@ export default class MovieReviews extends Vue {
   z-index: 100;
 }
 
-.tooldate-form .tooldate-form-close button {
+.rev-form .rev-form-close button {
   padding: 2.5px;
 }
 
-.tooldate-form .tooldate-form-close i {
+.rev-form .rev-form-close i {
   font-size: 2.5rem;
 }
 
-.tooldate-form .tooldate-form-head {
+.rev-form .rev-form-head {
   width: 100%;
   padding-top: 20px;
 }
 
-.tooldate-form .tooldate-form-head > * {
+.rev-form .rev-form-head > * {
   width: 100%;
   display: block;
   margin: 4px 0;
   text-align: center;
 }
 
-.tooldate-form .tooldate-form-head > i {
+.rev-form .rev-form-head > i {
   font-size: 5rem;
 }
 
-.tooldate-form-cnt {
+.rev-form-blk button {
+  margin: 0 auto;
+}
+
+.rev-form-cnt {
   width: 90%;
 }
 
-.tooldate-form-blk button {
-  margin: 0 auto;
-}
 </style>
