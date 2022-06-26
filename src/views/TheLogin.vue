@@ -2,10 +2,12 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import RegistrationForm from "@/components/registration/RegistrationForm.vue";
+import PasswordRetrieveForm from "@/components/registration/PasswordRetrieveForm.vue";
 
 @Component({
   components: {
     RegistrationForm,
+    PasswordRetrieveForm,
   },
 })
 export default class Login extends Vue {
@@ -37,16 +39,25 @@ export default class Login extends Vue {
       ],
       showLogin: true,
       showRegistration: false,
+      showRetrievePassword: false,
     };
   }
   private sshowLogin() {
     this.$data.showLogin = true;
     this.$data.showRegistration = false;
+    this.$data.showRetrievePassword = false;
   }
 
   private sshowRegistration() {
     this.$data.showLogin = false;
     this.$data.showRegistration = true;
+    this.$data.showRetrievePassword = false;
+  }
+
+  private showRetrieve() {
+    this.$data.showLogin = false;
+    this.$data.showRegistration = false;
+    this.$data.showRetrievePassword = true;
   }
   private submit(): void {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
@@ -107,7 +118,9 @@ export default class Login extends Vue {
               </v-text-field>
             </v-card-text>
             <v-card-actions>
-              <v-btn class="secondary roundend-xl mr-2 mb-2"
+              <v-btn
+                class="secondary roundend-xl mr-2 mb-2"
+                @click="showRetrieve()"
                 >Odzyskiwanie hasła
               </v-btn>
               <v-spacer></v-spacer>
@@ -120,6 +133,9 @@ export default class Login extends Vue {
           </v-form>
         </v-card>
         <RegistrationForm v-if="showRegistration"></RegistrationForm>
+        <PasswordRetrieveForm
+          v-if="showRetrievePassword"
+        ></PasswordRetrieveForm>
       </v-flex>
     </v-layout>
   </v-container>
