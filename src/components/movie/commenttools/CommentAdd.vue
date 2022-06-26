@@ -10,7 +10,7 @@
             :rules="formData.rules"
             placeholder="Treść komentarza"
         ></v-textarea>
-        <v-btn type="submit" @click.prevent="submit"> Zapisz</v-btn>
+        <v-btn type="submit" class="add-confirm" @click.prevent="submit"> Dodaj</v-btn>
       </v-form>
     </div>
   </div>
@@ -62,4 +62,8 @@ export default class CommentAdd extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.add-confirm {
+  display: block;
+  margin: 0 auto;
+}
 </style>

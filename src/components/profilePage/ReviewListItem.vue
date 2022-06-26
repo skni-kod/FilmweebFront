@@ -12,11 +12,11 @@
         <p>{{ review.review }}</p>
       </v-card-text>
       <div class="profile-review-btns">
-        <v-card-actions class="" v-for="btn in reviewProfileBtns" :key="btn.id">
+        <v-card-actions class="" v-for="(btn, i) in reviewProfileBtns" :key="i">
           <v-btn class="mark_own--text" @click="btn.visible = !btn.visible">
             <span>{{ btn.text }}</span>
           </v-btn>
-          <component class="tooldate-form-blk" v-if="btn.visible" @visibility="changeVisibility" v-bind:is="btn.link" :reviewData="review"></component>
+          <component class="tooldate-form-blk" v-if="btn.visible" @visibility="changeVisibility" v-bind:is="btn.link" :btnID="i" :reviewData="review"></component>
         </v-card-actions>
       </div>
     </v-card>
@@ -43,13 +43,11 @@ export default class ReviewListItem extends Vue {
     return {
       reviewProfileBtns: [
         {
-          id: 1,
           text: "Edytuj",
           link: 'ReviewEdit',
           visible: false,
         },
         {
-          id: 2,
           text: "Usuń",
           link: 'ReviewRemove',
           visible: false,
@@ -60,6 +58,7 @@ export default class ReviewListItem extends Vue {
 
   changeVisibility(btnID: number){
     this.$data.reviewProfileBtns.at(btnID).visible = false;
+    this.$emit('update');
   }
 }
 </script>

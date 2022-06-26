@@ -6,6 +6,7 @@
         v-for="(reviewItem, i) in reviews"
         :key="i"
         :review="reviewItem"
+        @update="update"
       />
     </v-list>
   </v-container>
@@ -23,6 +24,8 @@ import axios from "axios";
   },
 })
 export default class ReviewList extends Vue {
+  private reviews: Object = [];
+
   created() {
     this.getUserReviews(this.$store.getters.userId);
   }
@@ -42,6 +45,9 @@ export default class ReviewList extends Vue {
     return this.$store.getters.moviePage.movieData;
   }
 
-  private reviews: Object = [];
+  update() {
+    this.getUserReviews(this.$store.getters.userId);
+    this.$forceUpdate();
+  }
 }
 </script>

@@ -19,7 +19,7 @@
               required
               :rules="formData.rules"
           ></v-textarea>
-          <v-btn type="submit" @click.prevent="submit"> Zapisz</v-btn>
+          <v-btn type="submit" class="edit-confirm" @click.prevent="submit"> Zapisz</v-btn>
         </v-form>
       </div>
     </div>
@@ -58,7 +58,7 @@ export default class CommentEdit extends Vue {
     let formDataValue: object = {
       id: this.commentData.id,
       comment: this.$data.formData.value,
-      movie: this.$store.getters.moviePage.movieID,
+      movie: this.commentData.movie_id,
       user: this.$store.getters.userId,
     };
 
@@ -80,4 +80,8 @@ export default class CommentEdit extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.edit-confirm {
+  display: block;
+  margin: 0 auto;
+}
 </style>

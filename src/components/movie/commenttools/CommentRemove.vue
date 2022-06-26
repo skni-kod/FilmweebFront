@@ -15,7 +15,7 @@
           <div>
             <h2>Czy na pewno chcesz usunąć komentarz?</h2>
           </div>
-          <v-btn type="submit" @click.prevent="submit"> Potwierdź </v-btn>
+          <v-btn type="submit" class="remove-confirm" @click.prevent="submit"> Potwierdź</v-btn>
         </v-form>
       </div>
     </div>
@@ -55,7 +55,19 @@ export default class CommentRemove extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.comm-form-cnt {
+  width: 90%;
+  display: block;
+}
+
 .comm-form-cnt h2 {
   margin-bottom: 13px;
+  text-align: center;
 }
+
+.remove-confirm {
+  display: block;
+  margin: 0 auto;
+}
+
 </style>

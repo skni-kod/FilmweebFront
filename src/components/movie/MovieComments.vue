@@ -4,7 +4,7 @@
     <div class="comm-blk">
       <div class="comm-list">
         <div class="comm-btns" v-if="userState">
-          <v-btn class="review-btn" @click="addCommBtn.visible = !addCommBtn.visible">
+          <v-btn class="comm-btn" @click="addCommBtn.visible = !addCommBtn.visible">
             <v-icon>{{ addCommBtn.icon }}</v-icon>
             <span class="white--text">{{ addCommBtn.text }}</span>
           </v-btn>
@@ -227,7 +227,7 @@ export default class MovieComments extends Vue {
 }
 
 .comm-form-cnt {
-  width: 90%;
+  width: 100%;
 }
 
 .comm-form-blk button {

@@ -1,6 +1,6 @@
 <template>
   <div class="movie-tools">
-    <div class="tooldate-form-cnt">
+    <div class="rev-tooldate-form-cnt">
       <v-form class="pa-4 form-cnt" ref="form">
         <v-select
             v-model="formDataTypeValue"
@@ -17,7 +17,7 @@
             :rules="formData.rules"
             placeholder="Treść recenzji"
         ></v-textarea>
-        <v-btn type="submit" @click.prevent="submit"> Zapisz</v-btn>
+        <v-btn type="submit" class="add-confirm" @click.prevent="submit"> Dodaj</v-btn>
       </v-form>
     </div>
   </div>
@@ -56,13 +56,13 @@ export default class ReviewAdd extends Vue {
     };
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-     await axios.post(`/api/reviews/`, formDataValue, config)
-         .then((response) => {
-           console.log(response);
-         })
-         .catch((error) => {
-           console.log(error);
-         });
+    await axios.post(`/api/reviews/`, formDataValue, config)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     this.emitParent();
   }
 
@@ -73,4 +73,12 @@ export default class ReviewAdd extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.form-cnt {
+  width: 100% !important;
+}
+
+.add-confirm {
+  display: block;
+  margin: 0 auto;
+}
 </style>

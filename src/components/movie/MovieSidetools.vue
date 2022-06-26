@@ -63,8 +63,9 @@ export default class MovieSidetools extends Vue {
     }
   }
 
-  changeVisSidetool(btnID: number) {
+  changeVisSidetool(btnID: number, state: boolean) {
     this.$data.movieTools.at(btnID).visible = false;
+    if(state) window.location.reload();
   }
 
   get userState() {
@@ -107,6 +108,10 @@ export default class MovieSidetools extends Vue {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.sidetool-form {
+  padding-bottom: 16px;
 }
 
 .sidetool-form .sidetool-form-close {

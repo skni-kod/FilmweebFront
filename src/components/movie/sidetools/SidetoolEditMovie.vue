@@ -2,7 +2,7 @@
   <div class="sidetool-form-blk">
     <div class="accent sidetool-form">
       <div class="sidetool-form-close">
-        <button @click="emitParent">
+        <button @click="emitParent(0)">
           <v-icon class="secondary--text">mdi-close</v-icon>
         </button>
       </div>
@@ -12,7 +12,7 @@
       </div>
       <div class="sidetool-form-cnt">
         <v-card>
-          <v-form class="pa-4" ref="form">
+          <v-form class="pa-4 form-cnt" ref="form">
             <v-text-field
                 v-for="(input, i) in formData"
                 :key="i"
@@ -106,7 +106,38 @@ export default class SidetoolAddToList extends Vue {
         {
           label: "Opis filmu",
           value: "",
-          type: "text-area",
+          rules: [
+            (v: string) =>
+                v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
+          ],
+        },
+        {
+          label: "Link do plakatu",
+          value: "",
+          rules: [
+            (v: string) =>
+                v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
+          ],
+        },
+        {
+          label: "Link do IMDb",
+          value: "",
+          rules: [
+            (v: string) =>
+                v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
+          ],
+        },
+        {
+          label: "Link do Rotten Tomatoes",
+          value: "",
+          rules: [
+            (v: string) =>
+                v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
+          ],
+        },
+        {
+          label: "Link do Filmweba",
+          value: "",
           rules: [
             (v: string) =>
                 v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
@@ -121,11 +152,11 @@ export default class SidetoolAddToList extends Vue {
       //console.log("submit");
     }
 
-    this.emitParent();
+    this.emitParent(1);
   }
 
-  private emitParent() {
-    this.$emit('visibility', 0);
+  private emitParent(state: boolean) {
+    this.$emit('visibility', 0, state);
   }
 }
 </script>
