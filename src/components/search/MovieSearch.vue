@@ -28,7 +28,7 @@ export default class MovieSearch extends Vue {
           "Nieprawidłowy rok",
       ],
       search: null,
-      valueSlider: 240,
+      valueSlider: 0,
       filtering: false,
       genre: null,
       country: null,
@@ -50,7 +50,7 @@ export default class MovieSearch extends Vue {
     if (this.$data.country) {
       request += "&country=" + this.$data.country;
     }
-    if (this.$data.valueSlider < 240 && this.$data.valueSlider > 0) {
+    if (this.$data.valueSlider <= 240 && this.$data.valueSlider > 0) {
       request += "&duration=" + this.$data.valueSlider.toString();
     }
     if (this.$data.rating) {
