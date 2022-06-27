@@ -40,7 +40,7 @@ import axios from "axios";
 
 @Component({})
 export default class ReviewEdit extends Vue {
-  @Prop({required: true}) readonly btnID: any;
+  @Prop() readonly btnID: any;
   @Prop({required: true}) readonly reviewData: any;
 
   mounted() {
@@ -83,7 +83,7 @@ export default class ReviewEdit extends Vue {
   }
 
   private emitParent() {
-    this.$emit('visibility', 0);
+    this.$emit('visibility', this.btnID !== 'undefined' ? 0 : this.btnID);
   }
 }
 </script>

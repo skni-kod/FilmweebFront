@@ -33,7 +33,7 @@ import axios from "axios";
 
 @Component({})
 export default class CommentEdit extends Vue {
-  @Prop({required: true}) readonly btnID: any;
+  @Prop() readonly btnID: any;
   @Prop({required: true}) readonly commentData: any;
 
   mounted() {
@@ -74,7 +74,7 @@ export default class CommentEdit extends Vue {
   }
 
   private emitParent() {
-    this.$emit('visibilityComm', this.btnID);
+    this.$emit('visibilityComm', this.btnID !== 'undefined' ? 0 : this.btnID);
   }
 }
 </script>

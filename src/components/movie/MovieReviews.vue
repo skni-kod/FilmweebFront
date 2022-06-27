@@ -38,11 +38,9 @@
               <div class="rev-tool" v-for="(btn, i) in reviewFooterBtns" :key="i">
                 <button class="mark_own--text"
                         v-if="(userState && review.user === userID) || (btn.admin && btn.admin === adminState)"
-                        @click="btn.visible = !btn.visible">
+                        @click="setPopUp(review, btn.link)">
                   <span>{{ btn.text }}</span>
                 </button>
-                <component class="rev-form-blk" v-if="btn.visible" @visibility="changeVisOther" v-bind:is="btn.link"
-                           :btnID="i" :reviewData="review"></component>
               </div>
               <div class="create-date">
                 {{ review.creation_date }}
@@ -51,6 +49,8 @@
           </div>
         </div>
       </div>
+      <component class="rev-form-blk" v-if="reviewPopUp.visible" @visibility="changeVisOther" v-bind:is="reviewPopUp.link"
+                 :reviewData="reviewPopUp.data"></component>
     </div>
     <div v-else>
       <div class="lack-info more--text">Brak informacji</div>
@@ -81,6 +81,11 @@ export default class MovieReviews extends Vue {
     return {
       reviewTool: null,
       movieID: null,
+      reviewPopUp: {
+        data: null,
+        link: null,
+        visible: false,
+      },
       addReview:
           {
             text: "Dodaj recenzję",
@@ -112,7 +117,9 @@ export default class MovieReviews extends Vue {
   }
 
   changeVisOther(btnID: number) {
-    this.$data.reviewFooterBtns.at(btnID).visible = false;
+    this.$data.reviewPopUp = {
+      data: null, link: null, visible: false,
+    };
     this.getMovieReviews(this.$store.getters.moviePage.movieID);
     this.$forceUpdate();
   }
@@ -139,6 +146,14 @@ export default class MovieReviews extends Vue {
       if (type == 'negatywna') return 'neg';
     }
     return null;
+  }
+
+  setPopUp(review: object, link: string){
+    this.$data.reviewPopUp = {
+      data: review,
+      link: link,
+      visible: true,
+    };
   }
 
   get userState() {

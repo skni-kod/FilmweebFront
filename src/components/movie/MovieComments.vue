@@ -30,16 +30,17 @@
               <div class="comm-tool" v-for="(btn, i) in commFooterBtns" :key="i">
                 <button class="mark_own--text"
                         v-if="(userState && comment.user === userID) || (btn.admin && btn.admin === adminState)"
-                        @click="btn.visible = !btn.visible">
+                        @click="setPopUp(comment, btn.link)">
                   <span>{{ btn.text }}</span>
                 </button>
-                <component class="comm-form-blk" v-if="btn.visible" @visibilityComm="changeVisOther"
-                           v-bind:is="btn.link" :btnID="i" :commentData="comment"></component>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <component class="comm-form-blk" v-if="commentPopUp.visible" @visibilityComm="changeVisOther"
+                 v-bind:is="commentPopUp.link"
+                 :commentData="commentPopUp.data"></component>
     </div>
     <div v-else>
       <div class="lack-info more--text">Brak informacji</div>
@@ -67,6 +68,11 @@ export default class MovieComments extends Vue {
 
   data() {
     return {
+      commentPopUp: {
+        data: null,
+        link: null,
+        visible: false,
+      },
       addCommBtn:
           {
             text: "Dodaj komentarz",
@@ -98,7 +104,9 @@ export default class MovieComments extends Vue {
   }
 
   changeVisOther(btnID: number) {
-    this.$data.commFooterBtns.at(btnID).visible = false;
+    this.$data.commentPopUp = {
+      data: null, link: null, visible: false,
+    };
     this.getMovieComments(this.$store.getters.moviePage.movieID);
     this.$forceUpdate();
   }
@@ -117,6 +125,14 @@ export default class MovieComments extends Vue {
         .catch((error) => {
           console.log(error);
         });
+  }
+
+  setPopUp(comment: object, link: string) {
+    this.$data.commentPopUp = {
+      data: comment,
+      link: link,
+      visible: true,
+    };
   }
 
   get userState() {

@@ -29,7 +29,7 @@ import axios from "axios";
 
 @Component({})
 export default class CommentRemove extends Vue {
-  @Prop({required: true}) readonly btnID: any;
+  @Prop() readonly btnID: any;
   @Prop({required: true}) readonly commentData: any;
 
   async submit() {
@@ -49,7 +49,7 @@ export default class CommentRemove extends Vue {
   }
 
   private emitParent() {
-    this.$emit('visibilityComm', this.btnID);
+    this.$emit('visibilityComm', this.btnID !== 'undefined' ? 0 : this.btnID);
   }
 }
 </script>

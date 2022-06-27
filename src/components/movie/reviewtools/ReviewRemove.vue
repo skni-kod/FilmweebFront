@@ -29,7 +29,7 @@ import axios from "axios";
 
 @Component({})
 export default class ReviewRemove extends Vue {
-  @Prop({required: true}) readonly btnID: any;
+  @Prop() readonly btnID: any;
   @Prop({required: true}) readonly reviewData: any;
 
   async submit() {
@@ -50,7 +50,7 @@ export default class ReviewRemove extends Vue {
   }
 
   private emitParent() {
-    this.$emit('visibility', 1);
+    this.$emit('visibility', this.btnID !== 'undefined' ? 1 : this.btnID);
   }
 }
 </script>
