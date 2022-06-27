@@ -46,7 +46,7 @@ export default class SidetoolRemoveActor extends Vue {
     this.emitParent(1);
   }
 
-  private emitParent(state: boolean) {
+  private emitParent(state: number) {
     if(state === 1) this.$router.replace({name: 'Home'});
     this.$emit('visibility', 1, state);
   }

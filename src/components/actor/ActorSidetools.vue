@@ -53,7 +53,7 @@ export default class ActorSidetools extends Vue {
     }
   }
 
-  changeVisSidetool(btnID: number, state: boolean) {
+  changeVisSidetool(btnID: number, state: number) {
     this.$data.actorTools.at(btnID).visible = false;
     if(state === 1) window.location.reload();
   }

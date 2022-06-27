@@ -102,7 +102,7 @@ export default class SidetoolAddToList extends Vue {
     this.emitParent(1);
   }
 
-  private emitParent(state: boolean) {
+  private emitParent(state: number) {
     this.$emit('visibility', 0, state);
   }
 }
