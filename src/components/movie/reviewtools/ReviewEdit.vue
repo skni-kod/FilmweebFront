@@ -40,14 +40,14 @@ import axios from "axios";
 
 @Component({})
 export default class ReviewEdit extends Vue {
-  @Prop() readonly btnID: any;
-  @Prop({required: true}) readonly reviewData: any;
+  @Prop() private  readonly btnID: any;
+  @Prop({required: true}) private readonly reviewData: any;
 
   mounted() {
     this.$data.formData.value = this.reviewData.review;
   }
 
-  data() {
+  private data() {
     return {
       formDataTypes: ['pozytywna', 'neutralna', 'negatywna'],
       formData: {
@@ -57,7 +57,7 @@ export default class ReviewEdit extends Vue {
     };
   }
 
-  async submit() {
+  private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
@@ -68,14 +68,11 @@ export default class ReviewEdit extends Vue {
       review: this.$data.formData.value,
       movie: this.reviewData.movie_id,
       user: this.$store.getters.userId,
-      creation_date: '2022-06-22',
+      creation_date: this.reviewData.creation_date,
     };
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
     await axios.put(`/api/reviews/${this.reviewData.id}/`, formDataValue, config)
-        .then((response) => {
-          console.log(response);
-        })
         .catch((error) => {
           console.log(error);
         });

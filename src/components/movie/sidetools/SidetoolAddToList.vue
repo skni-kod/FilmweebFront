@@ -25,7 +25,7 @@ import axios from "axios";
 @Component({})
 export default class SidetoolAddToList extends Vue {
 
-  async submit() {
+  private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }

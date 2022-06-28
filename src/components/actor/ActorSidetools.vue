@@ -30,7 +30,7 @@ import SidetoolRemoveActor from "@/components/actor/sidetools/SidetoolRemoveActo
   }
 })
 export default class ActorSidetools extends Vue {
-  data() {
+  private data() {
     return {
       actorTools: [
         {
@@ -53,16 +53,16 @@ export default class ActorSidetools extends Vue {
     }
   }
 
-  changeVisSidetool(btnID: number, state: number) {
+  private changeVisSidetool(btnID: number, state: number) {
     this.$data.actorTools.at(btnID).visible = false;
     if(state === 1) window.location.reload();
   }
 
-  get userState() {
+  private get userState() {
     return this.$store.getters.isAuthenticated;
   }
 
-  get adminState() {
+  private get adminState() {
     return this.$store.getters.isAdmin;
   }
 

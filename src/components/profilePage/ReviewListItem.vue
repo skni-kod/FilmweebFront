@@ -1,9 +1,9 @@
 <template>
   <v-list-item>
     <v-card outlined class="review">
-      <v-card-title class="text-h6">{{
-        review.title.at(0).title
-      }}</v-card-title>
+      <v-card-title class="text-h6">
+        <router-link :to="{ name: 'MoviePerID', params: { id: review.movie_id } }">{{ review.title.at(0).title }}</router-link>
+      </v-card-title>
       <v-card-subtitle>
         Data dodania: {{ review.creation_date }}
       </v-card-subtitle>
@@ -16,7 +16,8 @@
           <v-btn class="mark_own--text" @click="btn.visible = !btn.visible">
             <span>{{ btn.text }}</span>
           </v-btn>
-          <component class="tooldate-form-blk" v-if="btn.visible" @visibility="changeVisibility" v-bind:is="btn.link" :btnID="i" :reviewData="review"></component>
+          <component class="tooldate-form-blk" v-if="btn.visible" @visibility="changeVisibility" v-bind:is="btn.link"
+                     :btnID="i" :reviewData="review"></component>
         </v-card-actions>
       </div>
     </v-card>
@@ -25,7 +26,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import {Component, Prop} from "vue-property-decorator";
 import ReviewEdit from "@/components/movie/reviewtools/ReviewEdit.vue";
 import ReviewRemove from "@/components/movie/reviewtools/ReviewRemove.vue";
 
@@ -36,7 +37,7 @@ import ReviewRemove from "@/components/movie/reviewtools/ReviewRemove.vue";
   }
 })
 export default class ReviewListItem extends Vue {
-  @Prop({ required: true }) readonly review: any;
+  @Prop({required: true}) readonly review: any;
 
 
   data() {
@@ -56,7 +57,7 @@ export default class ReviewListItem extends Vue {
     }
   }
 
-  changeVisibility(btnID: number){
+  changeVisibility(btnID: number) {
     this.$data.reviewProfileBtns.at(btnID).visible = false;
     this.$emit('update');
   }
@@ -67,11 +68,16 @@ export default class ReviewListItem extends Vue {
 .review {
   width: 100%;
 }
+
 p {
   text-align: justify;
 }
+
 .profile-review-btns {
   display: flex;
+}
+.text-h6 a {
+  text-decoration: none;
 }
 </style>
 <style lang="scss">

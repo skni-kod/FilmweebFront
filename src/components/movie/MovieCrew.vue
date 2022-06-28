@@ -5,21 +5,28 @@
       <div class="crew-list">
         <div class="crew-item" v-for="(actor, i) in movieCrew" :key="i">
           <div class="avatar">
-            <img src="../../assets/unknown_person.png" alt="" />
+            <router-link
+                class="actor-link"
+                :to="{ name: 'ActorPerID', params: { id: actor.id } }"
+            >
+              <img src="../../assets/unknown_person.png" alt=""/>
+            </router-link>
           </div>
           <div class="details">
             <div class="detail-name">
               <router-link
-                class="actor-link"
-                :to="{ name: 'ActorPerID', params: { id: actor.id } }"
-                >{{ actor.first_name }} {{ actor.last_name }}</router-link
+                  class="actor-link"
+                  :to="{ name: 'ActorPerID', params: { id: actor.id } }"
+              >{{ actor.first_name }} {{ actor.last_name }}
+              </router-link
               >
             </div>
             <div class="role tags--text">
               <router-link
-                class="actor-link tags--text"
-                :to="{ name: 'ActorPerID', params: { id: actor.id } }"
-                >jako {{ actor.role.at(0).role }}</router-link
+                  class="actor-link tags--text"
+                  :to="{ name: 'ActorPerID', params: { id: actor.id } }"
+              >jako {{ actor.role.at(0).role }}
+              </router-link
               >
             </div>
           </div>
@@ -34,26 +41,26 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 import axios from "axios";
 
 @Component({})
 export default class MovieCrew extends Vue {
-  movieCrew: object = [];
+  private movieCrew: object = [];
 
   created() {
     this.getMovieCrew(this.$store.getters.moviePage.movieID);
   }
 
-  async getMovieCrew(movieID: string) {
+  private async getMovieCrew(movieID: string) {
     await axios
-      .get(`/api/movies/${movieID}/actors/`)
-      .then((response) => {
-        this.movieCrew = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .get(`/api/movies/${movieID}/actors/`)
+        .then((response) => {
+          this.movieCrew = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   }
 }
 </script>

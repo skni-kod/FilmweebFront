@@ -29,19 +29,16 @@ import axios from "axios";
 
 @Component({})
 export default class CommentRemove extends Vue {
-  @Prop() readonly btnID: any;
-  @Prop({required: true}) readonly commentData: any;
+  @Prop() private readonly btnID: any;
+  @Prop({required: true}) private readonly commentData: any;
 
-  async submit() {
+  private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
     await axios.delete(`/api/moviecomments/${this.commentData.id}/`, config)
-        .then((response) => {
-          console.log(response);
-        })
         .catch((error) => {
           console.log(error);
         });

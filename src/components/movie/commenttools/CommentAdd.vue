@@ -24,7 +24,7 @@ import axios from "axios";
 @Component({})
 export default class CommentAdd extends Vue {
 
-  data() {
+  private data() {
     return {
       formData: {
         value: "",
@@ -33,7 +33,7 @@ export default class CommentAdd extends Vue {
     };
   }
 
-  async submit() {
+  private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
@@ -46,12 +46,9 @@ export default class CommentAdd extends Vue {
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
     await axios.post(`/api/moviecomments/`, formDataValue, config)
-         .then((response) => {
-           console.log(response);
-         })
-         .catch((error) => {
-           console.log(error);
-         });
+        .catch((error) => {
+          console.log(error);
+        });
     this.emitParent();
   }
 

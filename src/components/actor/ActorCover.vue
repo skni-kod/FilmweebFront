@@ -67,7 +67,7 @@ import axios from "axios";
 export default class ActorCover extends Vue {
   private avgMark: number = 0;
 
-  data() {
+  private data() {
     return {
       visible: false,
       mark: 0,
@@ -78,7 +78,7 @@ export default class ActorCover extends Vue {
     this.getAvgMark(this.$route.params.id);
   }
 
-  async getAvgMark(actorID: string) {
+  private async getAvgMark(actorID: string) {
     await axios
         .get(`/api/actors/${actorID}/marks/avgmark/`)
         .then((response) => {
@@ -90,7 +90,7 @@ export default class ActorCover extends Vue {
         });
   }
 
-  async submit() {
+  private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
@@ -104,7 +104,6 @@ export default class ActorCover extends Vue {
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
     await axios.post(`/api/personmarks/`, formDataValue, config)
         .then((response) => {
-          console.log(response);
           this.getAvgMark(this.$route.params.id);
           this.$forceUpdate();
         })
@@ -113,11 +112,11 @@ export default class ActorCover extends Vue {
         });
   }
 
-  get actorData() {
+  private get actorData() {
     return this.$store.getters.actorPage.actorData;
   }
 
-  get userState() {
+  private get userState() {
     return this.$store.getters.isAuthenticated;
   }
 }

@@ -32,7 +32,8 @@ import SidetoolRemoveMovie from "@/components/movie/sidetools/SidetoolRemoveMovi
   }
 })
 export default class MovieSidetools extends Vue {
-  data() {
+
+  private data() {
     return {
       movieTools: [
         /*{
@@ -63,16 +64,16 @@ export default class MovieSidetools extends Vue {
     }
   }
 
-  changeVisSidetool(btnID: number, state: number) {
+  private changeVisSidetool(btnID: number, state: number) {
     this.$data.movieTools.at(btnID).visible = false;
     if(state === 1) window.location.reload();
   }
 
-  get userState() {
+  private get userState() {
     return this.$store.getters.isAuthenticated;
   }
 
-  get adminState() {
+  private get adminState() {
     return this.$store.getters.isAdmin;
   }
 

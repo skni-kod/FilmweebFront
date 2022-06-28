@@ -22,7 +22,7 @@
                 color="dark"
                 :rules="input.rules"
             ></v-text-field>
-            <v-btn type="submit" class="edit-confirm" @click.prevent="submit"> Dodaj osobę </v-btn>
+            <v-btn type="submit" class="edit-confirm" @click.prevent="submit"> Zapisz</v-btn>
           </v-form>
         </v-card>
       </div>
@@ -47,7 +47,7 @@ export default class SidetoolAddToList extends Vue {
     this.$data.formData[4].value = actorData.birth_place;
   }
 
-  data() {
+  private data() {
     return {
       formData: [
         {
@@ -94,10 +94,23 @@ export default class SidetoolAddToList extends Vue {
     };
   }
 
-  async submit() {
+  private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
+
+    let formDataValue: object = {
+      id: this.$store.getters.actorPage.actorID,
+      first_name: this.$data.formData.at(0).value,
+      last_name: this.$data.formData.at(1).value,
+      user: this.$store.getters.userId,
+    };
+
+    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+    await axios.put(`/api/people/${this.$store.getters.actorPage.actorID}/`, formDataValue, config)
+        .catch((error) => {
+          console.log(error);
+        });
 
     this.emitParent(1);
   }
