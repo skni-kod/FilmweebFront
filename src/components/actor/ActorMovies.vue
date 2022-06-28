@@ -5,7 +5,12 @@
       <div class="crew-list">
         <div class="crew-item" v-for="(movie, i) in actorMovies" :key="i">
           <div class="poster">
-            <img :src="movie.poster" alt=""/>
+            <router-link
+                class="movie-link tags--text"
+                :to="{ name: 'MoviePerID', params: { id: movie.id } }"
+            >
+              <img :src="movie.poster" alt=""/>
+            </router-link>
           </div>
           <div class="details">
             <div class="detail-name">

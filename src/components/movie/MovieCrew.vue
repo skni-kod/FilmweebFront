@@ -5,7 +5,12 @@
       <div class="crew-list">
         <div class="crew-item" v-for="(actor, i) in movieCrew" :key="i">
           <div class="avatar">
-            <img src="../../assets/unknown_person.png" alt=""/>
+            <router-link
+                class="actor-link"
+                :to="{ name: 'ActorPerID', params: { id: actor.id } }"
+            >
+              <img src="../../assets/unknown_person.png" alt=""/>
+            </router-link>
           </div>
           <div class="details">
             <div class="detail-name">

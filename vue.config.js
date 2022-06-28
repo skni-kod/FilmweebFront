@@ -5,7 +5,7 @@ module.exports = {
   devServer: {
     proxy: {
       "^/api/": {
-        target: "https://filmweebback.herokuapp.com",
+        target: "http://papaj.pro:6969/",
         pathRewrite: { "^/api/": "/" },
         changeOrigin: true,
         logLevel: "debug"
