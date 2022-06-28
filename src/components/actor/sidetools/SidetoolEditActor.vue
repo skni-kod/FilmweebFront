@@ -103,6 +103,9 @@ export default class SidetoolAddToList extends Vue {
       id: this.$store.getters.actorPage.actorID,
       first_name: this.$data.formData.at(0).value,
       last_name: this.$data.formData.at(1).value,
+      bio: this.$data.formData.at(2).value,
+      birth_date: this.$data.formData.at(3).value,
+      birth_place: this.$data.formData.at(4).value,
       user: this.$store.getters.userId,
     };
 
