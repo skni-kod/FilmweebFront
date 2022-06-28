@@ -64,9 +64,9 @@ import CommentRemove from "@/components/movie/commenttools/CommentRemove.vue";
   }
 })
 export default class MovieComments extends Vue {
-  movieComments: object = [];
+  private movieComments: object = [];
 
-  data() {
+  private data() {
     return {
       commentPopUp: {
         data: null,
@@ -97,25 +97,11 @@ export default class MovieComments extends Vue {
     }
   }
 
-  changeVisAdd() {
-    this.$data.addCommBtn.visible = false;
-    this.getMovieComments(this.$store.getters.moviePage.movieID);
-    this.$forceUpdate();
-  }
-
-  changeVisOther(btnID: number) {
-    this.$data.commentPopUp = {
-      data: null, link: null, visible: false,
-    };
-    this.getMovieComments(this.$store.getters.moviePage.movieID);
-    this.$forceUpdate();
-  }
-
   created() {
     this.getMovieComments(this.$store.getters.moviePage.movieID);
   }
 
-  async getMovieComments(movieID: string) {
+  private async getMovieComments(movieID: string) {
     await axios
         .get(`/api/movies/${movieID}/comments/`)
         .then((response) => {
@@ -127,7 +113,21 @@ export default class MovieComments extends Vue {
         });
   }
 
-  setPopUp(comment: object, link: string) {
+  private changeVisAdd() {
+    this.$data.addCommBtn.visible = false;
+    this.getMovieComments(this.$store.getters.moviePage.movieID);
+    this.$forceUpdate();
+  }
+
+  private changeVisOther(btnID: number) {
+    this.$data.commentPopUp = {
+      data: null, link: null, visible: false,
+    };
+    this.getMovieComments(this.$store.getters.moviePage.movieID);
+    this.$forceUpdate();
+  }
+
+  private setPopUp(comment: object, link: string) {
     this.$data.commentPopUp = {
       data: comment,
       link: link,
@@ -135,15 +135,15 @@ export default class MovieComments extends Vue {
     };
   }
 
-  get userState() {
+  private get userState() {
     return this.$store.getters.isAuthenticated;
   }
 
-  get adminState() {
+  private get adminState() {
     return this.$store.getters.isAdmin;
   }
 
-  get userID() {
+  private get userID() {
     return this.$store.getters.userId;
   }
 }

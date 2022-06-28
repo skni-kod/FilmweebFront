@@ -49,7 +49,7 @@ export default class SidetoolAddToList extends Vue {
     this.$data.formData[6].value = movieData.description;
   }
 
-  data() {
+  private data() {
     return {
       formData: [
         {
@@ -147,7 +147,7 @@ export default class SidetoolAddToList extends Vue {
     };
   }
 
-  async submit() {
+  private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }

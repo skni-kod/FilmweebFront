@@ -1,27 +1,27 @@
 <template>
   <v-row class="ma-2 mx-5">
     <v-col
-      v-for="movie in moviesData"
-      :key="movie.id"
-      class="flex-column"
-      cols="12"
-      sm="6"
-      md="3"
-      lg="3"
+        v-for="movie in moviesData"
+        :key="movie.id"
+        class="flex-column"
+        cols="12"
+        sm="6"
+        md="3"
+        lg="3"
     >
       <router-link :to="{ name: 'MoviePerID', params: { id: movie.id } }">
         <v-img
-          rounded
-          :src="movie.poster"
-          :lazy-src="movie.poster"
-          aspect-ratio="0.72"
-          class="grey lighten-2"
+            rounded
+            :src="movie.poster"
+            :lazy-src="movie.poster"
+            aspect-ratio="0.72"
+            class="grey lighten-2"
         >
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
               <v-progress-circular
-                indeterminate
-                color="grey lighten-5"
+                  indeterminate
+                  color="grey lighten-5"
               ></v-progress-circular>
             </v-row>
           </template>
@@ -29,11 +29,11 @@
       </router-link>
 
       <v-card
-        class="mx-auto"
-        height="140"
-        max-width="800"
-        rounded
-        color="grey darken-4"
+          class="mx-auto"
+          height="140"
+          max-width="800"
+          rounded
+          color="grey darken-4"
       >
         <v-card-text>
           <v-tooltip bottom open-delay="200">
@@ -63,7 +63,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 import axios from "axios";
 
 @Component
@@ -74,15 +74,15 @@ export default class Home extends Vue {
     this.getMoviesRandom();
   }
 
-  async getMoviesRandom() {
+  private async getMoviesRandom() {
     await axios
-      .get(`/api/movies/1/random/`)
-      .then((response) => {
-        this.moviesData = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .get(`/api/movies/1/random/`)
+        .then((response) => {
+          this.moviesData = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   }
 }
 </script>
@@ -96,6 +96,7 @@ export default class Home extends Vue {
   text-overflow: ellipsis;
   height: 35px;
 }
+
 #title {
   white-space: nowrap;
   word-break: normal;

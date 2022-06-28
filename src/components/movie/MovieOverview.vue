@@ -48,17 +48,11 @@ import axios from "axios";
 export default class MovieOverview extends Vue {
   private movieGenres: object = [];
 
-  private durationFormat(duration: number) {
-    let hours = Math.trunc(duration / 60);
-    let minutes = duration - hours * 60;
-    return `${hours}h ${minutes}min`;
-  }
-
   created() {
     this.getMovieGenres(this.$store.getters.moviePage.movieID);
   }
 
-  async getMovieGenres(movieID: string) {
+  private async getMovieGenres(movieID: string) {
     await axios
         .get(`/api/movies/${movieID}/genre/`)
         .then((response) => {
@@ -69,12 +63,18 @@ export default class MovieOverview extends Vue {
         });
   }
 
-  get movieData() {
-    return this.$store.getters.moviePage.movieData;
+  private durationFormat(duration: number) {
+    let hours = Math.trunc(duration / 60);
+    let minutes = duration - hours * 60;
+    return `${hours}h ${minutes}min`;
   }
 
-  setComma(id: number) {
+  private setComma(id: number) {
     return (id + 1 < Object.keys(this.movieGenres).length) ? " / " : "";
+  }
+
+  private get movieData() {
+    return this.$store.getters.moviePage.movieData;
   }
 }
 </script>

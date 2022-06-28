@@ -49,7 +49,8 @@
           </div>
         </div>
       </div>
-      <component class="rev-form-blk" v-if="reviewPopUp.visible" @visibility="changeVisOther" v-bind:is="reviewPopUp.link"
+      <component class="rev-form-blk" v-if="reviewPopUp.visible" @visibility="changeVisOther"
+                 v-bind:is="reviewPopUp.link"
                  :reviewData="reviewPopUp.data"></component>
     </div>
     <div v-else>
@@ -75,9 +76,9 @@ import ReviewRemove from "@/components/movie/reviewtools/ReviewRemove.vue";
 })
 
 export default class MovieReviews extends Vue {
-  movieReviews: object = [];
+  private movieReviews: object = [];
 
-  data() {
+  private data() {
     return {
       reviewTool: null,
       movieID: null,
@@ -110,26 +111,12 @@ export default class MovieReviews extends Vue {
     }
   }
 
-  changeVisAdd() {
-    this.$data.addReview.visible = false;
-    this.getMovieReviews(this.$store.getters.moviePage.movieID);
-    this.$forceUpdate();
-  }
-
-  changeVisOther(btnID: number) {
-    this.$data.reviewPopUp = {
-      data: null, link: null, visible: false,
-    };
-    this.getMovieReviews(this.$store.getters.moviePage.movieID);
-    this.$forceUpdate();
-  }
-
   created() {
     this.getMovieReviews(this.$store.getters.moviePage.movieID);
     this.$data.movieID = this.$store.getters.moviePage.movieID;
   }
 
-  async getMovieReviews(movieID: string) {
+  private async getMovieReviews(movieID: string) {
     await axios
         .get(`/api/movies/${movieID}/reviews/`)
         .then((response) => {
@@ -140,6 +127,20 @@ export default class MovieReviews extends Vue {
         });
   }
 
+  private changeVisAdd() {
+    this.$data.addReview.visible = false;
+    this.getMovieReviews(this.$store.getters.moviePage.movieID);
+    this.$forceUpdate();
+  }
+
+  private changeVisOther(btnID: number) {
+    this.$data.reviewPopUp = {
+      data: null, link: null, visible: false,
+    };
+    this.getMovieReviews(this.$store.getters.moviePage.movieID);
+    this.$forceUpdate();
+  }
+
   private typeFormatClass(type: string) {
     if (!!type) {
       if (type == 'pozytywna') return 'pos';
@@ -148,7 +149,7 @@ export default class MovieReviews extends Vue {
     return null;
   }
 
-  setPopUp(review: object, link: string){
+  private setPopUp(review: object, link: string) {
     this.$data.reviewPopUp = {
       data: review,
       link: link,
@@ -156,15 +157,15 @@ export default class MovieReviews extends Vue {
     };
   }
 
-  get userState() {
+  private get userState() {
     return this.$store.getters.isAuthenticated;
   }
 
-  get adminState() {
+  private get adminState() {
     return this.$store.getters.isAdmin;
   }
 
-  get userID() {
+  private get userID() {
     return this.$store.getters.userId;
   }
 }

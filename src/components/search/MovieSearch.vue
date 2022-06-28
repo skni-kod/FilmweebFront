@@ -1,6 +1,6 @@
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 import MovieItem from "@/components/search/MovieItem.vue";
 import axios from "axios";
 
@@ -22,10 +22,10 @@ export default class MovieSearch extends Vue {
       ],
       dateRules: [
         (v: string) =>
-          v === "" ||
-          v === null ||
-          (parseInt(v) > 1900 && parseInt(v) < 2100) ||
-          "Nieprawidłowy rok",
+            v === "" ||
+            v === null ||
+            (parseInt(v) > 1900 && parseInt(v) < 2100) ||
+            "Nieprawidłowy rok",
       ],
       search: null,
       valueSlider: 0,
@@ -39,6 +39,7 @@ export default class MovieSearch extends Vue {
       showNoResults: false,
     };
   }
+
   async submit() {
     if (!(this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       return;
@@ -63,13 +64,13 @@ export default class MovieSearch extends Vue {
       request += "&aired=" + this.$data.releaseDate.toString();
     }
     await axios
-      .get(request)
-      .then((response) => {
-        this.$data.movies = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .get(request)
+        .then((response) => {
+          this.$data.movies = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     this.sortMovies();
     if (this.$data.movies.length === 0) {
       this.$data.showNoResults = true;
@@ -81,35 +82,35 @@ export default class MovieSearch extends Vue {
   sortMovies() {
     if (this.$data.sortSelection === this.$data.sortResults[0]) {
       this.$data.movies.sort((a: any, b: any) =>
-        a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+          a.title > b.title ? 1 : b.title > a.title ? -1 : 0
       );
     } else if (this.$data.sortSelection === this.$data.sortResults[1]) {
       this.$data.movies.sort((a: any, b: any) =>
-        a.title > b.title ? -1 : b.title > a.title ? 1 : 0
+          a.title > b.title ? -1 : b.title > a.title ? 1 : 0
       );
     } else if (this.$data.sortSelection === this.$data.sortResults[2]) {
       this.$data.movies.sort((a: any, b: any) =>
-        a.duration > b.duration ? 1 : b.duration > a.duration ? -1 : 0
+          a.duration > b.duration ? 1 : b.duration > a.duration ? -1 : 0
       );
     } else if (this.$data.sortSelection === this.$data.sortResults[3]) {
       this.$data.movies.sort((a: any, b: any) =>
-        a.duration > b.duration ? -1 : b.duration > a.duration ? 1 : 0
+          a.duration > b.duration ? -1 : b.duration > a.duration ? 1 : 0
       );
     } else if (this.$data.sortSelection === this.$data.sortResults[4]) {
       this.$data.movies.sort((a: any, b: any) =>
-        a.production_year > b.production_year
-          ? 1
-          : b.production_year > a.production_year
-          ? -1
-          : 0
+          a.production_year > b.production_year
+              ? 1
+              : b.production_year > a.production_year
+                  ? -1
+                  : 0
       );
     } else if (this.$data.sortSelection === this.$data.sortResults[5]) {
       this.$data.movies.sort((a: any, b: any) =>
-        a.production_year > b.production_year
-          ? -1
-          : b.production_year > a.production_year
-          ? 1
-          : 0
+          a.production_year > b.production_year
+              ? -1
+              : b.production_year > a.production_year
+                  ? 1
+                  : 0
       );
     }
   }
@@ -121,38 +122,38 @@ export default class MovieSearch extends Vue {
     <v-container>
       <v-row class="px-3">
         <v-text-field
-          background-color="grey darken-4"
-          color="grey lighten-1"
-          class="pt-5 mt-5"
-          clearable
-          label="Szukaj filmów, seriali"
-          solo
-          v-model="search"
-          v-on:keyup.enter="submit()"
+            background-color="grey darken-4"
+            color="grey lighten-1"
+            class="pt-5 mt-5"
+            clearable
+            label="Szukaj filmów, seriali"
+            solo
+            v-model="search"
+            v-on:keyup.enter="submit()"
         >
         </v-text-field>
       </v-row>
       <v-row class="mt-n7">
         <v-col cols="12" md="6" lg="6">
           <v-btn
-            rounded
-            block
-            dense
-            class="px-3"
-            color="secondary"
-            @click="filtering = !filtering"
+              rounded
+              block
+              dense
+              class="px-3"
+              color="secondary"
+              @click="filtering = !filtering"
           >
             Filtrowanie i sortowanie
           </v-btn>
         </v-col>
         <v-col cols="12" md="6" lg="6">
           <v-btn
-            block
-            dense
-            rounded
-            class="px-3"
-            color="secondary"
-            @click="submit()"
+              block
+              dense
+              rounded
+              class="px-3"
+              color="secondary"
+              @click="submit()"
           >
             Szukaj
           </v-btn>
@@ -165,41 +166,41 @@ export default class MovieSearch extends Vue {
               <v-col cols="12" lg="4" class="white--text">
                 Gatunek
                 <v-text-field
-                  color="black"
-                  solo
-                  flat
-                  v-model.lazy="genre"
-                  label="Wpisz gatunek produkcji"
-                  clearable
-                  v-on:keyup.enter="submit()"
+                    color="black"
+                    solo
+                    flat
+                    v-model.lazy="genre"
+                    label="Wpisz gatunek produkcji"
+                    clearable
+                    v-on:keyup.enter="submit()"
                 >
                 </v-text-field>
               </v-col>
               <v-col cols="12" lg="4" class="white--text">
                 Kraj
                 <v-text-field
-                  color="black"
-                  solo
-                  flat
-                  v-model.lazy="country"
-                  label="Wpisz kraj wydania produkcji"
-                  clearable
-                  v-on:keyup.enter="submit()"
+                    color="black"
+                    solo
+                    flat
+                    v-model.lazy="country"
+                    label="Wpisz kraj wydania produkcji"
+                    clearable
+                    v-on:keyup.enter="submit()"
                 >
                 </v-text-field>
               </v-col>
               <v-col cols="12" lg="4" class="white--text">
                 Premiera
                 <v-text-field
-                  color="black"
-                  solo
-                  flat
-                  v-model.lazy="releaseDate"
-                  type="number"
-                  label="Wpisz rok wydania tytułu"
-                  clearable
-                  :rules="dateRules"
-                  v-on:keyup.enter="submit()"
+                    color="black"
+                    solo
+                    flat
+                    v-model.lazy="releaseDate"
+                    type="number"
+                    label="Wpisz rok wydania tytułu"
+                    clearable
+                    :rules="dateRules"
+                    v-on:keyup.enter="submit()"
                 >
                 </v-text-field>
               </v-col>
@@ -208,42 +209,42 @@ export default class MovieSearch extends Vue {
               <v-col class="white--text" cols="12" md="6" lg="4">
                 Min. ilość gwiazdek
                 <v-rating
-                  v-model.lazy="rating"
-                  background-color="white"
-                  color="blue darken-4"
-                  x-large
-                  clearable
-                  hover
+                    v-model.lazy="rating"
+                    background-color="white"
+                    color="blue darken-4"
+                    x-large
+                    clearable
+                    hover
                 >
                 </v-rating>
               </v-col>
               <v-col class="white--text" cols="12" md="6" lg="4">
                 Minimalna długość trwania
                 <v-slider
-                  class="mt-3"
-                  v-model.lazy="valueSlider"
-                  text-color="black"
-                  min="0"
-                  max="240"
-                  color="secondary"
-                  :thumb-label="true"
-                  :thumb-size="24"
-                  thumb-color="secondary"
+                    class="mt-3"
+                    v-model.lazy="valueSlider"
+                    text-color="black"
+                    min="0"
+                    max="240"
+                    color="secondary"
+                    :thumb-label="true"
+                    :thumb-size="24"
+                    thumb-color="secondary"
                 ></v-slider>
               </v-col>
               <v-col class="white--text" cols="12" md="12" lg="4">
                 Sortowanie
                 <v-select
-                  class="mt-2"
-                  :items="sortResults"
-                  label="Wybierz sortowanie"
-                  color="black"
-                  item-color="black"
-                  solo
-                  dense
-                  flat
-                  v-model="sortSelection"
-                  @change="sortMovies"
+                    class="mt-2"
+                    :items="sortResults"
+                    label="Wybierz sortowanie"
+                    color="black"
+                    item-color="black"
+                    solo
+                    dense
+                    flat
+                    v-model="sortSelection"
+                    @change="sortMovies"
                 >
                 </v-select>
               </v-col>
@@ -254,13 +255,13 @@ export default class MovieSearch extends Vue {
 
       <v-row class="ma-2 mx-5">
         <v-col
-          v-for="movie in movies"
-          :key="movie.id"
-          class="flex-column"
-          cols="12"
-          sm="6"
-          md="3"
-          lg="3"
+            v-for="movie in movies"
+            :key="movie.id"
+            class="flex-column"
+            cols="12"
+            sm="6"
+            md="3"
+            lg="3"
         >
           <MovieItem :movie="movie"></MovieItem>
         </v-col>

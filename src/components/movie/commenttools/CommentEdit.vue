@@ -33,14 +33,14 @@ import axios from "axios";
 
 @Component({})
 export default class CommentEdit extends Vue {
-  @Prop() readonly btnID: any;
-  @Prop({required: true}) readonly commentData: any;
+  @Prop() private readonly btnID: any;
+  @Prop({required: true}) private readonly commentData: any;
 
   mounted() {
     this.$data.formData.value = this.commentData.comment;
   }
 
-  data() {
+  private data() {
     return {
       formData: {
         label: "",
@@ -50,7 +50,7 @@ export default class CommentEdit extends Vue {
     };
   }
 
-  async submit() {
+  private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       //console.log("submit");
     }
@@ -64,9 +64,6 @@ export default class CommentEdit extends Vue {
 
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
     await axios.put(`/api/moviecomments/${this.commentData.id}/`, formDataValue, config)
-        .then((response) => {
-          console.log(response);
-        })
         .catch((error) => {
           console.log(error);
         });

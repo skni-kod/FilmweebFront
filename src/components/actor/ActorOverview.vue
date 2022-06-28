@@ -49,7 +49,7 @@ export default class ActorOverview extends Vue {
     } else return "";
   }
 
-  get actorData() {
+  private get actorData() {
     return this.$store.getters.actorPage.actorData;
   }
 }

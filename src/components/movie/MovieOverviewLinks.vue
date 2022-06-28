@@ -40,6 +40,7 @@ import axios from "axios";
 @Component({})
 export default class MovieOverviewLinks extends Vue {
   private moviesLinks: object = [];
+
   private references: object = [
     {
       letter: "r",
@@ -59,7 +60,7 @@ export default class MovieOverviewLinks extends Vue {
     this.getMovieLinks(this.$store.getters.moviePage.movieID);
   }
 
-  async getMovieLinks(movieID: string) {
+  private async getMovieLinks(movieID: string) {
     await axios
         .get(`/api/movies/${movieID}/links/`)
         .then((response) => {

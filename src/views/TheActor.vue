@@ -2,17 +2,17 @@
   <v-container style="min-height: 1000px">
     <v-row class="header-blk">
       <v-col class="header-blk__wrapper">
-        <actor-cover class="actor-cover" />
-        <actor-overview class="actor-overview" />
+        <actor-cover class="actor-cover"/>
+        <actor-overview class="actor-overview"/>
       </v-col>
     </v-row>
     <v-row class="main-blk">
       <v-col class="actor-info" cols="8">
-        <actor-movies class="actor-movies" />
+        <actor-movies class="actor-movies"/>
         <div style="min-height: 500px"></div>
       </v-col>
       <v-col class="actor-sidebar" cols="4">
-        <actor-sidetools class="actor-sidetool" />
+        <actor-sidetools class="actor-sidetool"/>
       </v-col>
     </v-row>
   </v-container>
@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 import ActorCover from "@/components/actor/ActorCover.vue";
 import ActorOverview from "@/components/actor/ActorOverview.vue";
 import ActorSidetools from "@/components/actor/ActorSidetools.vue";
@@ -36,27 +36,28 @@ import axios from "axios";
   },
 })
 export default class TheActor extends Vue {
+
   created() {
     if (this.$router.currentRoute.path === "/aktor") {
       this.$router.replace({
         name: "ActorPerID",
-        params: { id: this.$store.getters.moviePage.actorID },
+        params: {id: this.$store.getters.moviePage.actorID},
       });
     }
     this.$store.commit("setActorID", this.$route.params.id);
     this.getMovieInfo(this.$route.params.id);
   }
 
-  async getMovieInfo(actorID: string) {
+  private async getMovieInfo(actorID: string) {
     await axios
-      .get(`/api/people/${actorID}/`)
-      .then((response) => {
-        this.$store.commit("setActorData", response.data);
-      })
-      .catch((error) => {
-        if(typeof error.response.data.detail !== 'undefined' && error.response.data.detail === "Nie znaleziono.") this.$router.replace({name: 'Home'});
-        console.log(error);
-      });
+        .get(`/api/people/${actorID}/`)
+        .then((response) => {
+          this.$store.commit("setActorData", response.data);
+        })
+        .catch((error) => {
+          if (typeof error.response.data.detail !== 'undefined' && error.response.data.detail === "Nie znaleziono.") this.$router.replace({name: 'Home'});
+          console.log(error);
+        });
   }
 }
 </script>

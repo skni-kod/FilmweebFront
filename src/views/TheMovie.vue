@@ -2,19 +2,19 @@
   <v-container style="min-height: 1000px">
     <v-row class="header-blk">
       <v-col class="header-blk__wrapper">
-        <movie-cover class="movie-cover" />
-        <movie-overview class="movie-overview" />
+        <movie-cover class="movie-cover"/>
+        <movie-overview class="movie-overview"/>
       </v-col>
     </v-row>
     <v-row class="main-blk">
       <v-col class="movie-info" cols="8">
-        <movie-crew class="movie-crew" />
-        <movie-reviews class="movie-reviews" />
-        <movie-comments class="movie-comments" />
+        <movie-crew class="movie-crew"/>
+        <movie-reviews class="movie-reviews"/>
+        <movie-comments class="movie-comments"/>
         <div style="min-height: 500px"></div>
       </v-col>
       <v-col class="movie-sidebar" cols="4">
-        <movie-sidetools class="movie-sidetool" />
+        <movie-sidetools class="movie-sidetool"/>
       </v-col>
     </v-row>
   </v-container>
@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 import MovieCover from "@/components/movie/MovieCover.vue";
 import MovieOverview from "@/components/movie/MovieOverview.vue";
 import MovieCrew from "@/components/movie/MovieCrew.vue";
@@ -53,16 +53,16 @@ export default class TheMovie extends Vue {
     this.getMovieInfo(this.$route.params.id);
   }
 
-  async getMovieInfo(movieID: string) {
+  private async getMovieInfo(movieID: string) {
     await axios
-      .get(`/api/movies/${movieID}/`)
-      .then((response) => {
-        this.$store.commit("setMovieData", response.data);
-      })
-      .catch((error) => {
-        if(typeof error.response.data.detail !== 'undefined' && error.response.data.detail === "Nie znaleziono.") this.$router.replace({name: 'Home'});
-        console.log(error);
-      });
+        .get(`/api/movies/${movieID}/`)
+        .then((response) => {
+          this.$store.commit("setMovieData", response.data);
+        })
+        .catch((error) => {
+          if (typeof error.response.data.detail !== 'undefined' && error.response.data.detail === "Nie znaleziono.") this.$router.replace({name: 'Home'});
+          console.log(error);
+        });
   }
 }
 </script>

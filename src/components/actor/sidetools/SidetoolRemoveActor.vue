@@ -37,7 +37,6 @@ export default class SidetoolRemoveActor extends Vue {
     let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
     await axios.delete(`/api/people/${this.$store.getters.actorPage.actorID}/`, config)
         .then((response) => {
-          console.log(response);
           if (response.status === 401) this.$store.dispatch("logout");
         })
         .catch((error) => {
@@ -47,7 +46,7 @@ export default class SidetoolRemoveActor extends Vue {
   }
 
   private emitParent(state: number) {
-    if(state === 1) this.$router.replace({name: 'Home'});
+    if (state === 1) this.$router.replace({name: 'Home'});
     this.$emit('visibility', 1, state);
   }
 }
