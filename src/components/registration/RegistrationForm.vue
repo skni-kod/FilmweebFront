@@ -122,7 +122,7 @@ export default class RegistrationForm extends Vue {
   }
 
   submit(): void {
-    if (!(this.$refs.form as Vue & { validate: () => boolean }).validate()) {
+    if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
 
       this.$store.dispatch('registration', {
         email: this.$data.formData.at(0).value,

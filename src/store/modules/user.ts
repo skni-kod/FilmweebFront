@@ -137,7 +137,7 @@ const userModule: Module<any, any> = {
                 .then((res) => {
                     console.table(res);
                     if (res.status == 200) {
-                        router.push({name: 'Login'});
+                        router.push({name: 'Home'});
                     }
                 })
                 .catch((error) => {

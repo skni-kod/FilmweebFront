@@ -6,19 +6,20 @@
       </v-toolbar>
       <v-card-text>
         <v-text-field
-          v-for="(input, i) in formData"
-          :key="i"
-          :label="input.label"
-          v-model="input.value"
-          required
-          :rules="input.rules"
+            v-for="(input, i) in formData"
+            :key="i"
+            :label="input.label"
+            v-model="input.value"
+            required
+            :rules="input.rules"
         >
         </v-text-field>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn class="secondary roundend-xl mr-2 mb-2" @click.prevent="submit"
-          >Odzyskaj hasło</v-btn
+        >Odzyskaj hasło
+        </v-btn
         >
       </v-card-actions>
     </v-form>
@@ -27,7 +28,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 
 @Component
 export default class PasswordRetrieveForm extends Vue {
@@ -40,8 +41,8 @@ export default class PasswordRetrieveForm extends Vue {
           rules: [
             (v: string) => !!v || "Adres e-mail jest wymagany",
             (v: string) =>
-              /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(v) ||
-              "Nieprawidłowy adres e-mail",
+                /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(v) ||
+                "Nieprawidłowy adres e-mail",
           ],
         },
       ],
@@ -49,13 +50,13 @@ export default class PasswordRetrieveForm extends Vue {
   }
 
   submit(): void {
-    if (!(this.$refs.form as Vue & { validate: () => boolean }).validate()) {}
+    if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
 
-    this.$store.dispatch("retrieve", {
-      email: this.$data.formData.at(0).value,
-    });
+      this.$store.dispatch("retrieve", {
+        email: this.$data.formData.at(0).value,
+      });
 
-    console.table(this.$data.formData);
+    }
   }
 }
 </script>
