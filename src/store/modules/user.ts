@@ -9,6 +9,7 @@ const userModule: Module<any, any> = {
         token: "",
         refreshToken: "",
         userId: null,
+        isAuth: false,
         isAdmin: false,
         profileData: {},
         userData: {}
@@ -18,11 +19,13 @@ const userModule: Module<any, any> = {
         authUser(state, auth) {
             state.token = auth.token;
             state.refreshToken = auth.refreshToken;
+            state.isAuth = true;
         },
         clearAuthData(state) {
             state.token = "";
             state.refreshToken = "";
             state.userId = null;
+            state.isAuth = false;
             state.isAdmin = false;
             state.profileData = {};
             state.userData = {};
@@ -35,8 +38,9 @@ const userModule: Module<any, any> = {
         setProfileData(state, response) {
             state.profileData = response;
         },
-        restoreToken(state, token) {
+        restoreSession(state, token) {
             state.token = token;
+            state.isAuth = true;
         }
     },
 
@@ -67,7 +71,7 @@ const userModule: Module<any, any> = {
             await axios
                 .get('/api/logout', {
                     headers: {
-                        token: getters.token,
+                        Authorization: 'Bearer ' + getters.token,
                     }
                 })
                 .catch((error) => {
@@ -119,15 +123,67 @@ const userModule: Module<any, any> = {
         },
         async getProfileSession({commit, dispatch}) {
             if (Vue.$cookies.isKey('filmweeb_sess_user')) {
-                commit('restoreToken', Vue.$cookies.get('filmweeb_sess_user'));
+                commit('restoreSession', Vue.$cookies.get('filmweeb_sess_user'));
                 dispatch('getUserData');
             }
-        }
+        },
+        async registration(_, data) {
+            await axios
+                .post('/api/register', data, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                })
+                .then((res) => {
+                    console.table(res);
+                    if (res.status == 200) {
+                        router.push({name: 'Home'});
+                    }
+                })
+                .catch((error) => {
+                    alert('Błąd rejestracji. Spróbuj ponownie.');
+                    console.table(error);
+                })
+        },
+        async retrieve(_, data) {
+            await axios
+                .post('/api/password_reset', data)
+                .then((res) => {
+                    console.table(res);
+                    if (res.status == 200) {
+                        router.push({name: 'Login'});
+                    }
+                })
+                .catch((error) => {
+                    alert('Brak użytkownika o podanym adres e-mail. Spróbuj ponownie.');
+                    console.table(error);
+                })
+        },
+        async password_change({getters, dispatch}, data) {
+            dispatch('getProfileSession');
+            await axios
+                .put(`/api/password_change/${getters.userId}/`, data, {
+                    headers: {
+                        Authorization: 'Bearer ' + getters.token,
+                    }
+                })
+                .then((res) => {
+                    console.table(res);
+                    if (res.status == 200) {
+                        dispatch('logout');
+                        router.replace({name: 'Login'});
+                    }
+                })
+                .catch((error) => {
+                    alert('Wystąpił błąd przy zmianie hasła. Spróbuj ponownie.');
+                    console.table(error);
+                })
+        },
     },
 
     getters: {
         token: state => state.token,
-        isAuthenticated: state => state.token !== "",
+        isAuthenticated: state => state.isAuth,
         userId: state => state.userId,
         isAdmin: state => state.isAdmin,
         profileData: state => state.profileData,

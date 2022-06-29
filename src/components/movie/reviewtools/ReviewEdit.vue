@@ -26,7 +26,7 @@
               required
               :rules="formData.rules"
           ></v-textarea>
-          <v-btn type="submit" class="edit-confirm" @click.prevent="submit"> Zapisz </v-btn>
+          <v-btn type="submit" class="edit-confirm" @click.prevent="submit"> Zapisz</v-btn>
         </v-form>
       </div>
     </div>
@@ -40,7 +40,7 @@ import axios from "axios";
 
 @Component({})
 export default class ReviewEdit extends Vue {
-  @Prop() private  readonly btnID: any;
+  @Prop() private readonly btnID: any;
   @Prop({required: true}) private readonly reviewData: any;
 
   mounted() {
@@ -51,32 +51,31 @@ export default class ReviewEdit extends Vue {
     return {
       formDataTypes: ['pozytywna', 'neutralna', 'negatywna'],
       formData: {
-          value: "",
-          rules: [ (v: string) => !!v || "Treść jest wymagana" ],
-        },
+        value: "",
+        rules: [(v: string) => !!v || "Treść jest wymagana"],
+      },
     };
   }
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      //console.log("submit");
+
+      let formDataValue: object = {
+        review_type: this.reviewData.review_type,
+        id: this.reviewData.id,
+        review: this.$data.formData.value,
+        movie: this.reviewData.movie_id,
+        user: this.$store.getters.userId,
+        creation_date: this.reviewData.creation_date,
+      };
+
+      let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+      await axios.put(`/api/reviews/${this.reviewData.id}/`, formDataValue, config)
+          .catch((error) => {
+            console.log(error);
+          });
+      this.emitParent();
     }
-
-    let formDataValue: object = {
-      review_type: this.reviewData.review_type,
-      id: this.reviewData.id,
-      review: this.$data.formData.value,
-      movie: this.reviewData.movie_id,
-      user: this.$store.getters.userId,
-      creation_date: this.reviewData.creation_date,
-    };
-
-    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    await axios.put(`/api/reviews/${this.reviewData.id}/`, formDataValue, config)
-        .catch((error) => {
-          console.log(error);
-        });
-    this.emitParent();
   }
 
   private emitParent() {

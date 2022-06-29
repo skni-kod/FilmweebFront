@@ -35,21 +35,20 @@ export default class CommentAdd extends Vue {
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      //console.log("submit");
+
+      let formDataValue: object = {
+        comment: this.$data.formData.value,
+        movie: this.$store.getters.moviePage.movieID,
+        user: this.$store.getters.userId
+      };
+
+      let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+      await axios.post(`/api/moviecomments/`, formDataValue, config)
+          .catch((error) => {
+            console.log(error);
+          });
+      this.emitParent();
     }
-
-    let formDataValue: object = {
-      comment: this.$data.formData.value,
-      movie: this.$store.getters.moviePage.movieID,
-      user: this.$store.getters.userId
-    };
-
-    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    await axios.post(`/api/moviecomments/`, formDataValue, config)
-        .catch((error) => {
-          console.log(error);
-        });
-    this.emitParent();
   }
 
   private emitParent() {

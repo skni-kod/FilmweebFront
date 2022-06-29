@@ -3,21 +3,21 @@
     <v-form class="form" ref="form">
       <h3>Importuj informacje o filmie z zewnętrznego serwisu</h3>
       <v-text-field
-        v-for="(input, i) in formData"
-        :key="i"
-        v-model="input.value"
-        :label="input.label"
-        color="dark"
-        :rules="input.rules"
+          v-for="(input, i) in formData"
+          :key="i"
+          v-model="input.value"
+          :label="input.label"
+          color="dark"
+          :rules="input.rules"
       ></v-text-field>
-      <v-btn type="submit" @click.prevent="submit"> Importuj film </v-btn>
+      <v-btn type="submit" @click.prevent="submit"> Importuj film</v-btn>
     </v-form>
   </v-card>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 
 @Component
 export default class ImportMovieForm extends Vue {
@@ -30,7 +30,7 @@ export default class ImportMovieForm extends Vue {
           rules: [
             (v: string) => !!v || "Pole wymagane",
             (v: string) =>
-              v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
+                v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
           ],
         },
       ],
@@ -38,9 +38,7 @@ export default class ImportMovieForm extends Vue {
   }
 
   submit(): void {
-    if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      console.log("submit");
-    }
+    if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {}
   }
 }
 </script>

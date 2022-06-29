@@ -34,18 +34,17 @@ export default class ReviewRemove extends Vue {
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      //console.log("submit");
-    }
 
-    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    await axios.delete(`/api/reviews/${this.reviewData.id}/`, config)
-        .then((response) => {
-          if (response.status === 401) this.$store.dispatch("logout");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    this.emitParent();
+      let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+      await axios.delete(`/api/reviews/${this.reviewData.id}/`, config)
+          .then((response) => {
+            if (response.status === 401) this.$store.dispatch("logout");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      this.emitParent();
+    }
   }
 
   private emitParent() {

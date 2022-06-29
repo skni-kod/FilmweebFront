@@ -29,25 +29,26 @@ import axios from "axios";
 
 @Component({})
 export default class SidetoolRemoveMovie extends Vue {
+  @Prop({required: true}) private readonly btnID: any;
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      //console.log("submit");
+
+      let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+      await axios.delete(`/api/movies/${this.$store.getters.moviePage.movieID}/`, config)
+          .then((response) => {
+            if (response.status === 401) this.$store.dispatch("logout");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      this.emitParent(1);
     }
-    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    await axios.delete(`/api/movies/${this.$store.getters.moviePage.movieID}/`, config)
-        .then((response) => {
-          if (response.status === 401) this.$store.dispatch("logout");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    this.emitParent(1);
   }
 
   private emitParent(state: number) {
     if (state === 1) this.$router.replace({name: 'Home'});
-    this.$emit('visibility', 1, state);
+    this.$emit('visibility', this.btnID, state);
   }
 }
 </script>

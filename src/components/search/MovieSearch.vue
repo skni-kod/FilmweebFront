@@ -44,6 +44,7 @@ export default class MovieSearch extends Vue {
     if (!(this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       return;
     }
+
     let request = "/api/search/movie/?";
     if (this.$data.search) {
       request += "&title=" + this.$data.search;

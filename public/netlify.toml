@@ -1,0 +1,15 @@
+[[redirects]]
+  from = "/api/*"
+  to = "http://papaj.pro:6969/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"

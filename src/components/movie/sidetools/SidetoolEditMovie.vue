@@ -37,6 +37,7 @@ import axios from "axios";
 
 @Component({})
 export default class SidetoolAddToList extends Vue {
+  @Prop({required: true}) private readonly btnID: any;
 
   mounted() {
     let movieData = this.$store.getters.moviePage.movieData;
@@ -126,33 +127,32 @@ export default class SidetoolAddToList extends Vue {
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      //console.log("submit");
+
+      let formDataValue: object = {
+        id: this.$store.getters.actorPage.actorID,
+        original_title: this.$data.formData[0].value,
+        title: this.$data.formData[1].value,
+        production_year: this.$data.formData[2].value,
+        production_country: this.$data.formData[3].value,
+        airing_date: this.$data.formData[4].value,
+        duration: this.$data.formData[5].value,
+        description: this.$data.formData[6].value,
+        poster: this.$data.formData[7].value,
+        user: this.$store.getters.userId,
+      };
+
+      let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+      await axios.put(`/api/movies/${this.$store.getters.moviePage.movieID}/`, formDataValue, config)
+          .catch((error) => {
+            console.log(error);
+          });
+
+      this.emitParent(1);
     }
-
-    let formDataValue: object = {
-      id: this.$store.getters.actorPage.actorID,
-      original_title: this.$data.formData[0].value,
-      title: this.$data.formData[1].value,
-      production_year: this.$data.formData[2].value,
-      production_country: this.$data.formData[3].value,
-      airing_date: this.$data.formData[4].value,
-      duration: this.$data.formData[5].value,
-      description: this.$data.formData[6].value,
-      poster: this.$data.formData[7].value,
-      user: this.$store.getters.userId,
-    };
-
-    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    await axios.put(`/api/movies/${this.$store.getters.moviePage.movieID}/`, formDataValue, config)
-        .catch((error) => {
-          console.log(error);
-        });
-
-    this.emitParent(1);
   }
 
   private emitParent(state: number) {
-    this.$emit('visibility', 0, state);
+    this.$emit('visibility', this.btnID, state);
   }
 }
 </script>
