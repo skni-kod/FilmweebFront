@@ -17,6 +17,7 @@ export default new Vuex.Store({
         },
         profilePage: { 
             movieLists: [],
+            movieListsData: [],
         }
     },
     mutations: {
@@ -34,13 +35,21 @@ export default new Vuex.Store({
         },
         setDebug(state, debug : boolean) {
             state.debug = debug;
-        }
+        },
+        setMovieList(state, movieLists) {
+            state.profilePage.movieLists = movieLists;
+        },
+        setMovieListData(state, movieListsData) {
+            state.profilePage.movieListsData = movieListsData;
+        },
     },
     actions: {},
     modules: { user },
     getters: {
         moviePage: state => state.moviePage,
         actorPage: state => state.actorPage,
-        debug: state => state.debug
+        debug: state => state.debug,
+        movieLists: state => state.profilePage.movieLists,
+        movieListsData: state => state.profilePage.movieListsData
     }
 })

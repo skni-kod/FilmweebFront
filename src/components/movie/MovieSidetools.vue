@@ -1,6 +1,6 @@
 <template>
   <div class="movie-sidetools-wrapper">
-    <div v-for="btn in movieTools" :key="btn.id">
+    <div v-for="(btn, i) in movieTools" :key="btn.id">
       <v-btn class="sidetools-btns"
               v-if="btn.user === userState && (!btn.admin || btn.admin === adminState)"
               @click="btn.visible = !btn.visible">
@@ -9,7 +9,7 @@
       </v-btn>
       <keep-alive>
         <component class="movie-sidetool-form" v-if="btn.visible"
-                   @visibility="changeVisSidetool"
+                   @visibility="changeVisSidetool" :btnID="i"
                    v-bind:is="btn.link
         "></component>
       </keep-alive>
@@ -36,14 +36,14 @@ export default class MovieSidetools extends Vue {
   private data() {
     return {
       movieTools: [
-        /*{
+        {
           text: 'Dodaj film do listy',
           link: 'SidetoolAddToList',
           icon: "mdi-playlist-plus",
           user: true,
           admin: false,
           visible: false,
-        },*/
+        },
         {
           text: 'Edytuj film',
           link: 'SidetoolEditMovie',

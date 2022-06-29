@@ -119,7 +119,6 @@ export default class ActorCover extends Vue {
     return this.$store.getters.isAuthenticated;
   }
 }
-}
 </script>
 
 <style lang="scss" scoped>

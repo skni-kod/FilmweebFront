@@ -2,7 +2,6 @@ import {Module} from 'vuex';
 import axios from 'axios';
 import router from '../../router/index';
 import Vue from 'vue';
-import {configs} from "@typescript-eslint/eslint-plugin";
 
 // eslint-disable-next-line
 const userModule: Module<any, any> = {
@@ -122,7 +121,7 @@ const userModule: Module<any, any> = {
                     console.table(error);
                 })
         },
-        async getProfileSession({commit, getters, dispatch}) {
+        async getProfileSession({commit, dispatch}) {
             if (Vue.$cookies.isKey('filmweeb_sess_user')) {
                 commit('restoreSession', Vue.$cookies.get('filmweeb_sess_user'));
                 dispatch('getUserData');

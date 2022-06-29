@@ -29,6 +29,7 @@ import axios from "axios";
 
 @Component({})
 export default class SidetoolRemoveMovie extends Vue {
+  @Prop({required: true}) private readonly btnID: any;
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
@@ -47,7 +48,7 @@ export default class SidetoolRemoveMovie extends Vue {
 
   private emitParent(state: number) {
     if (state === 1) this.$router.replace({name: 'Home'});
-    this.$emit('visibility', 1, state);
+    this.$emit('visibility', this.btnID, state);
   }
 }
 </script>

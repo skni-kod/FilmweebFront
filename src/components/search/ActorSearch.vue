@@ -24,29 +24,31 @@ export default class Search extends Vue {
 
   async submit() {
     if (!(this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-
-      let request = "/api/search/person/?";
-      if (this.$data.first_name) {
-        request += "&first_name=" + this.$data.first_name;
-      }
-      if (this.$data.last_name) {
-        request += "&last_name=" + this.$data.last_name;
-      }
-      await axios
-          .get(request)
-          .then((response) => {
-            this.$data.actors = response.data;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      this.sortActors();
-      if (this.$data.actors.length === 0) {
-        this.$data.showNoResults = true;
-      } else {
-        this.$data.showNoResults = false;
-      }
+      return;
     }
+
+    let request = "/api/search/person/?";
+    if (this.$data.first_name) {
+      request += "&first_name=" + this.$data.first_name;
+    }
+    if (this.$data.last_name) {
+      request += "&last_name=" + this.$data.last_name;
+    }
+    await axios
+        .get(request)
+        .then((response) => {
+          this.$data.actors = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    this.sortActors();
+    if (this.$data.actors.length === 0) {
+      this.$data.showNoResults = true;
+    } else {
+      this.$data.showNoResults = false;
+    }
+
   }
 
   sortActors() {

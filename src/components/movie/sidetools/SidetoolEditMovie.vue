@@ -37,6 +37,7 @@ import axios from "axios";
 
 @Component({})
 export default class SidetoolAddToList extends Vue {
+  @Prop({required: true}) private readonly btnID: any;
 
   mounted() {
     let movieData = this.$store.getters.moviePage.movieData;
@@ -151,7 +152,7 @@ export default class SidetoolAddToList extends Vue {
   }
 
   private emitParent(state: number) {
-    this.$emit('visibility', 0, state);
+    this.$emit('visibility', this.btnID, state);
   }
 }
 </script>
