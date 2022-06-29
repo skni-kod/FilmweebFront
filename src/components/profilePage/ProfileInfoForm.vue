@@ -3,14 +3,15 @@
     <v-form class="pa-4" ref="form">
       <h3>Dane użytkownika</h3>
       <v-text-field
-          v-for="(input, i) in formData"
-          :key="i"
-          v-model="input.value"
-          :label="input.label"
-          color="dark"
-          required
-          :rules="input.rules"
-          :type="input.type"
+        v-for="(input, i) in formData"
+        :key="i"
+        v-model="input.value"
+        :label="input.label"
+        color="dark"
+        required
+        :rules="input.rules"
+        :type="input.type"
+        :autocomplete="input.autocomplete"
       ></v-text-field>
       <v-btn type="submit" @click.prevent="submit"> Zapisz</v-btn>
     </v-form>
@@ -19,7 +20,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {Component} from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import axios from "axios";
 
 @Component
@@ -41,24 +42,12 @@ export default class ProfileInfoForm extends Vue {
           value: "",
           minLength: 3,
           maxLength: 32,
-          rules: [
-            (v: string) => !!v || "Imię jest wymagane",
-            (v: string) =>
-                v.length >= 3 || "Imię powinno mieć przynajmniej 3 znaki",
-            (v: string) =>
-                v.length <= 32 || "Imię nie może mieć więcej niż 32 znaki",
-          ],
+          rules: [],
         },
         {
           label: "Nazwisko",
           value: "",
-          rules: [
-            (v: string) => !!v || "Nazwisko jest wymagane",
-            (v: string) =>
-                v.length >= 3 || "Nazwisko powinno mieć przynajmniej 3 znaki",
-            (v: string) =>
-                v.length <= 32 || "Nazwisko nie może mieć więcej niż 32 znaki",
-          ],
+          rules: [],
         },
         {
           label: "Nazwa użytkowika",
@@ -66,18 +55,18 @@ export default class ProfileInfoForm extends Vue {
           rules: [
             (v: string) => !!v || "Nazwa użytkowika jest wymagane",
             (v: string) =>
-                v.length >= 3 ||
-                "Nazwa użytkowika powinna mieć przynajmniej 3 znaki",
+              v.length >= 3 ||
+              "Nazwa użytkowika powinna mieć przynajmniej 3 znaki",
             (v: string) =>
-                v.length <= 32 ||
-                "Nazwa użytkowika nie może mieć więcej niż 32 znaki",
+              v.length <= 32 ||
+              "Nazwa użytkowika nie może mieć więcej niż 32 znaki",
           ],
         },
         {
           label: "Data urodzenia",
           value: null,
           type: "date",
-          rules: [],
+          rules: [(v: string) => !!v || "Data urodzenia jest wymagana"],
         },
         {
           label: "Adres e-mail",
@@ -85,8 +74,8 @@ export default class ProfileInfoForm extends Vue {
           rules: [
             (v: string) => !!v || "Adres e-mail jest wymagany",
             (v: string) =>
-                /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(v) ||
-                "Nieprawidłowy adres e-mail",
+              /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(v) ||
+              "Nieprawidłowy adres e-mail",
           ],
         },
         {
@@ -100,10 +89,11 @@ export default class ProfileInfoForm extends Vue {
           type: "password",
           rules: [
             (v: string) =>
-                v.length >= 8 || "Hasło musi mieć przynajmniej 8 znaków",
+              v.length >= 8 || "Hasło musi mieć przynajmniej 8 znaków",
             (v: string) =>
-                v.length <= 32 || "Hasło nie może mieć więcej jak 32 znaki",
+              v.length <= 32 || "Hasło nie może mieć więcej jak 32 znaki",
           ],
+          autocomplete: "new-password",
         },
       ],
     };
@@ -111,20 +101,22 @@ export default class ProfileInfoForm extends Vue {
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-
       let formDataValue: object = {
         email: this.$data.formData.at(4).value,
         birth_date: this.$data.formData.at(3).value,
-        password: this.$data.formData.at(5).value,
+        password: this.$data.formData.at(6).value,
       };
 
-      let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+      let config: object = {
+        headers: { Authorization: "Bearer " + this.$store.getters.token },
+      };
+
       await axios
-          .put(`/api/users/${this.$store.getters.userId}/`, formDataValue, config)
-          .catch((error) => {
-            console.table(error);
-            return;
-          });
+        .put(`/api/users/${this.$store.getters.userId}/`, formDataValue, config)
+        .catch((error) => {
+          console.table(error);
+          return;
+        });
 
       formDataValue = {
         nick: this.$data.formData.at(2).value,
@@ -135,16 +127,17 @@ export default class ProfileInfoForm extends Vue {
       };
 
       await axios
-          .put(`/api/profiles/${this.profileData.id}/`, formDataValue, config)
-          .then((res) => {
-            alert('Dane osobowe zostany zmienione pomyślnie');
-            this.$data.formData[6].value = '';
-          })
-          .catch((error) => {
-            console.table(error);
-          })
+        .put(`/api/profiles/${this.profileData.id}/`, formDataValue, config)
+        .then((res) => {
+          if (res.status == 200)
+            alert("Dane osobowe zostany zmienione pomyślnie");
+        })
+        .catch((error) => {
+          console.table(error);
+        });
 
-      this.$store.dispatch('getUserData');
+      this.$data.formData[6].value = "";
+      this.$store.dispatch("getUserData");
       this.$forceUpdate();
     }
   }
