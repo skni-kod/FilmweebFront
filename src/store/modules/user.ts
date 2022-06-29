@@ -1,4 +1,4 @@
-import {Module} from 'vuex';
+import { Module } from 'vuex';
 import axios from 'axios';
 import router from '../../router/index';
 import Vue from 'vue';
@@ -45,7 +45,7 @@ const userModule: Module<any, any> = {
     },
 
     actions: {
-        async login({commit, dispatch}, data) {
+        async login({ commit, dispatch }, data) {
             await axios
                 .post('/api/token', {
                     email: data.email,
@@ -59,7 +59,7 @@ const userModule: Module<any, any> = {
                         });
                         dispatch('getUserData');
                         Vue.$cookies.set('filmweeb_sess_user', res.data.access);
-                        router.push({name: 'Home'});
+                        router.push({ name: 'Home' });
                     }
                 })
                 .catch((error) => {
@@ -67,7 +67,7 @@ const userModule: Module<any, any> = {
                     console.table(error);
                 })
         },
-        async logout({commit, getters}) {
+        async logout({ commit, getters }) {
             await axios
                 .get('/api/logout', {
                     headers: {
@@ -79,10 +79,10 @@ const userModule: Module<any, any> = {
                 })
             commit('clearAuthData');
             Vue.$cookies.remove('filmweeb_sess_user');
-            router.replace({name: 'Home'});
+            router.replace({ name: 'Home' });
         },
 
-        async getUserData({commit, getters, dispatch}) {
+        async getUserData({ commit, getters, dispatch }) {
             await axios
                 .get('/api/check', {
                     headers: {
@@ -103,12 +103,12 @@ const userModule: Module<any, any> = {
                     //alert('Błąd w uzyskaniu danych użytkownika.');
                     if (error.response.status == 401) {
                         dispatch('logout');
-                        router.replace({name: 'Login'});
+                        router.replace({ name: 'Login' });
                     }
                     console.table(error);
                 })
         },
-        async getProfileData({commit, getters}) {
+        async getProfileData({ commit, getters }) {
             await axios
                 .get(`/api/profiles/${getters.userId}/`)
                 .then((res) => {
@@ -121,7 +121,7 @@ const userModule: Module<any, any> = {
                     console.table(error);
                 })
         },
-        async getProfileSession({commit, dispatch}) {
+        async getProfileSession({ commit, dispatch }) {
             if (Vue.$cookies.isKey('filmweeb_sess_user')) {
                 commit('restoreSession', Vue.$cookies.get('filmweeb_sess_user'));
                 dispatch('getUserData');
@@ -137,7 +137,7 @@ const userModule: Module<any, any> = {
                 .then((res) => {
                     console.table(res);
                     if (res.status == 200) {
-                        router.push({name: 'Home'});
+                        router.push({ name: 'Home' });
                     }
                 })
                 .catch((error) => {
@@ -151,7 +151,7 @@ const userModule: Module<any, any> = {
                 .then((res) => {
                     console.table(res);
                     if (res.status == 200) {
-                        router.push({name: 'Login'});
+                        router.push({ name: 'Login' });
                     }
                 })
                 .catch((error) => {
@@ -159,7 +159,7 @@ const userModule: Module<any, any> = {
                     console.table(error);
                 })
         },
-        async password_change({getters, dispatch}, data) {
+        async password_change({ getters, dispatch }, data) {
             dispatch('getProfileSession');
             await axios
                 .put(`/api/password_change/${getters.userId}/`, data, {
@@ -171,12 +171,17 @@ const userModule: Module<any, any> = {
                     console.table(res);
                     if (res.status == 200) {
                         dispatch('logout');
-                        router.replace({name: 'Login'});
+                        router.replace({ name: 'Login' });
                     }
                 })
                 .catch((error) => {
-                    alert('Wystąpił błąd przy zmianie hasła. Spróbuj ponownie.');
-                    console.table(error);
+                    if (error.response.status == 400) {
+                        alert('Podane hasło jest nieprawidłowe.')
+                    }
+                    else {
+                        alert('Wystąpił błąd przy zmianie hasła. Spróbuj ponownie.');
+                        console.log(error);
+                    }
                 })
         },
     },

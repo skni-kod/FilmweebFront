@@ -53,7 +53,7 @@ export default class ProfileInfoForm extends Vue {
           label: "Nazwa użytkowika",
           value: "",
           rules: [
-            (v: string) => !!v || "Nazwa użytkowika jest wymagane",
+            (v: string) => !!v || "Nazwa użytkowika jest wymagana",
             (v: string) =>
               v.length >= 3 ||
               "Nazwa użytkowika powinna mieć przynajmniej 3 znaki",
@@ -101,6 +101,7 @@ export default class ProfileInfoForm extends Vue {
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
+      let abort = false;
       let formDataValue: object = {
         email: this.$data.formData.at(4).value,
         birth_date: this.$data.formData.at(3).value,
@@ -112,11 +113,19 @@ export default class ProfileInfoForm extends Vue {
       };
 
       await axios
-        .put(`/api/users/${this.$store.getters.userId}/`, formDataValue, config)
+        .put(
+          `/api/user_change/${this.$store.getters.userId}/`,
+          formDataValue,
+          config
+        )
         .catch((error) => {
-          console.table(error);
-          return;
+          if (error.response.status == 400) {
+            alert("Podane hasło jest nieprawidłowe.");
+          }
+          abort = true;
         });
+
+      if (abort) return;
 
       formDataValue = {
         nick: this.$data.formData.at(2).value,
