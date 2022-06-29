@@ -27,10 +27,8 @@ export default class SidetoolAddToList extends Vue {
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      //console.log("submit");
+      this.emitParent();
     }
-
-    this.emitParent();
   }
 
   private emitParent() {

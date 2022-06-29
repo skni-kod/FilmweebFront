@@ -34,15 +34,14 @@ export default class CommentRemove extends Vue {
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      //console.log("submit");
-    }
 
-    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    await axios.delete(`/api/moviecomments/${this.commentData.id}/`, config)
-        .catch((error) => {
-          console.log(error);
-        });
-    this.emitParent();
+      let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+      await axios.delete(`/api/moviecomments/${this.commentData.id}/`, config)
+          .catch((error) => {
+            console.log(error);
+          });
+      this.emitParent();
+    }
   }
 
   private emitParent() {

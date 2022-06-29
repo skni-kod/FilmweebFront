@@ -49,9 +49,12 @@ export default class PasswordRetrieveForm extends Vue {
   }
 
   submit(): void {
-    if (!(this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      return;
-    }
+    if (!(this.$refs.form as Vue & { validate: () => boolean }).validate()) {}
+
+    this.$store.dispatch("retrieve", {
+      email: this.$data.formData.at(0).value,
+    });
+
     console.table(this.$data.formData);
   }
 }

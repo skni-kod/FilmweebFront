@@ -26,12 +26,12 @@ export default class Login extends Vue {
           ],
         },
         {
-          label: "Haslo",
+          label: "Hasło",
           value: "",
           type: "password",
           rules: [
             (v: string) =>
-              v.length >= 8 || "Hasło musi mieć przynajmniej 8 znaki",
+              v.length >= 8 || "Hasło musi mieć przynajmniej 8 znaków",
             (v: string) =>
               v.length <= 32 || "Hasło nie może mieć więcej jak 32 znaki",
           ],

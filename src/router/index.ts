@@ -16,7 +16,7 @@ const routes: Array<RouteConfig> = [
         name: 'Login',
         component: () => import(/* webpackChunkName: "film" */ '../views/TheLogin.vue'),
         beforeEnter: (_, _2, next) => {
-            if (store.getters.isAuthenticated) {
+            if (Vue.$cookies.isKey('filmweeb_sess_user')) {
                 next({name: 'Home'});
             } else {
                 next();

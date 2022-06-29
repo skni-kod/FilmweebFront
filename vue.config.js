@@ -6,9 +6,9 @@ module.exports = {
     proxy: {
       "^/api/": {
         target: "http://papaj.pro:6969/",
+        //target: "https://filmweebback.herokuapp.com/",
         pathRewrite: { "^/api/": "/" },
         changeOrigin: true,
-        logLevel: "debug"
       }
     }
   }

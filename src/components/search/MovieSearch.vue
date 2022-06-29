@@ -42,40 +42,40 @@ export default class MovieSearch extends Vue {
 
   async submit() {
     if (!(this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      return;
-    }
-    let request = "/api/search/movie/?";
-    if (this.$data.search) {
-      request += "&title=" + this.$data.search;
-    }
-    if (this.$data.country) {
-      request += "&country=" + this.$data.country;
-    }
-    if (this.$data.valueSlider <= 240 && this.$data.valueSlider > 0) {
-      request += "&duration=" + this.$data.valueSlider.toString();
-    }
-    if (this.$data.rating) {
-      request += "&stars=" + this.$data.rating.toString();
-    }
-    if (this.$data.genre) {
-      request += "&genre=" + this.$data.genre.toString();
-    }
-    if (this.$data.releaseDate) {
-      request += "&aired=" + this.$data.releaseDate.toString();
-    }
-    await axios
-        .get(request)
-        .then((response) => {
-          this.$data.movies = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    this.sortMovies();
-    if (this.$data.movies.length === 0) {
-      this.$data.showNoResults = true;
-    } else {
-      this.$data.showNoResults = false;
+
+      let request = "/api/search/movie/?";
+      if (this.$data.search) {
+        request += "&title=" + this.$data.search;
+      }
+      if (this.$data.country) {
+        request += "&country=" + this.$data.country;
+      }
+      if (this.$data.valueSlider <= 240 && this.$data.valueSlider > 0) {
+        request += "&duration=" + this.$data.valueSlider.toString();
+      }
+      if (this.$data.rating) {
+        request += "&stars=" + this.$data.rating.toString();
+      }
+      if (this.$data.genre) {
+        request += "&genre=" + this.$data.genre.toString();
+      }
+      if (this.$data.releaseDate) {
+        request += "&aired=" + this.$data.releaseDate.toString();
+      }
+      await axios
+          .get(request)
+          .then((response) => {
+            this.$data.movies = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      this.sortMovies();
+      if (this.$data.movies.length === 0) {
+        this.$data.showNoResults = true;
+      } else {
+        this.$data.showNoResults = false;
+      }
     }
   }
 

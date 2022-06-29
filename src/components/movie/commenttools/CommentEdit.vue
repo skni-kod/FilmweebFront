@@ -52,22 +52,21 @@ export default class CommentEdit extends Vue {
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      //console.log("submit");
+
+      let formDataValue: object = {
+        id: this.commentData.id,
+        comment: this.$data.formData.value,
+        movie: this.commentData.movie_id,
+        user: this.$store.getters.userId,
+      };
+
+      let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+      await axios.put(`/api/moviecomments/${this.commentData.id}/`, formDataValue, config)
+          .catch((error) => {
+            console.log(error);
+          });
+      this.emitParent();
     }
-
-    let formDataValue: object = {
-      id: this.commentData.id,
-      comment: this.$data.formData.value,
-      movie: this.commentData.movie_id,
-      user: this.$store.getters.userId,
-    };
-
-    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    await axios.put(`/api/moviecomments/${this.commentData.id}/`, formDataValue, config)
-        .catch((error) => {
-          console.log(error);
-        });
-    this.emitParent();
   }
 
   private emitParent() {

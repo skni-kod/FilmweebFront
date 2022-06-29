@@ -44,26 +44,25 @@ export default class ReviewAdd extends Vue {
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      //console.log("submit");
+
+      const today = new Date();
+      const creation_date = today.getFullYear() + '-' + ((today.getMonth() + 1) < 10 ? '0' : null) + (today.getMonth() + 1) + '-' + today.getDate();
+
+      let formDataValue: object = {
+        review_type: this.$data.formDataTypeValue,
+        review: this.$data.formData.value,
+        movie: this.$store.getters.moviePage.movieID,
+        user: this.$store.getters.userId,
+        creation_date: creation_date,
+      };
+
+      let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+      await axios.post(`/api/reviews/`, formDataValue, config)
+          .catch((error) => {
+            console.log(error);
+          });
+      this.emitParent();
     }
-
-    const today = new Date();
-    const creation_date = today.getFullYear() + '-' + ((today.getMonth() + 1) < 10 ? '0' : null) + (today.getMonth() + 1) + '-' + today.getDate();
-
-    let formDataValue: object = {
-      review_type: this.$data.formDataTypeValue,
-      review: this.$data.formData.value,
-      movie: this.$store.getters.moviePage.movieID,
-      user: this.$store.getters.userId,
-      creation_date: creation_date,
-    };
-
-    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    await axios.post(`/api/reviews/`, formDataValue, config)
-        .catch((error) => {
-          console.log(error);
-        });
-    this.emitParent();
   }
 
   private emitParent() {

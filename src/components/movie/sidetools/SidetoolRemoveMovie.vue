@@ -32,17 +32,17 @@ export default class SidetoolRemoveMovie extends Vue {
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      //console.log("submit");
+
+      let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+      await axios.delete(`/api/movies/${this.$store.getters.moviePage.movieID}/`, config)
+          .then((response) => {
+            if (response.status === 401) this.$store.dispatch("logout");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      this.emitParent(1);
     }
-    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    await axios.delete(`/api/movies/${this.$store.getters.moviePage.movieID}/`, config)
-        .then((response) => {
-          if (response.status === 401) this.$store.dispatch("logout");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    this.emitParent(1);
   }
 
   private emitParent(state: number) {

@@ -96,26 +96,25 @@ export default class SidetoolAddToList extends Vue {
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      //console.log("submit");
+
+      let formDataValue: object = {
+        id: this.$store.getters.actorPage.actorID,
+        first_name: this.$data.formData.at(0).value,
+        last_name: this.$data.formData.at(1).value,
+        bio: this.$data.formData.at(2).value,
+        birth_date: this.$data.formData.at(3).value,
+        birth_place: this.$data.formData.at(4).value,
+        user: this.$store.getters.userId,
+      };
+
+      let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+      await axios.put(`/api/people/${this.$store.getters.actorPage.actorID}/`, formDataValue, config)
+          .catch((error) => {
+            console.log(error);
+          });
+
+      this.emitParent(1);
     }
-
-    let formDataValue: object = {
-      id: this.$store.getters.actorPage.actorID,
-      first_name: this.$data.formData.at(0).value,
-      last_name: this.$data.formData.at(1).value,
-      bio: this.$data.formData.at(2).value,
-      birth_date: this.$data.formData.at(3).value,
-      birth_place: this.$data.formData.at(4).value,
-      user: this.$store.getters.userId,
-    };
-
-    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    await axios.put(`/api/people/${this.$store.getters.actorPage.actorID}/`, formDataValue, config)
-        .catch((error) => {
-          console.log(error);
-        });
-
-    this.emitParent(1);
   }
 
   private emitParent(state: number) {

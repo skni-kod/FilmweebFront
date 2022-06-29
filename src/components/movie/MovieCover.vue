@@ -91,24 +91,23 @@ export default class MovieCover extends Vue {
 
   private async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
-      // console.log("submit");
+
+      let formDataValue: object = {
+        mark: this.$data.mark,
+        movie: this.$store.getters.moviePage.movieID,
+        user: this.$store.getters.userId
+      };
+
+      let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
+      await axios.post(`/api/moviemarks/`, formDataValue, config)
+          .then((response) => {
+            this.getAvgMark(this.$route.params.id);
+            this.$forceUpdate();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
-
-    let formDataValue: object = {
-      mark: this.$data.mark,
-      movie: this.$store.getters.moviePage.movieID,
-      user: this.$store.getters.userId
-    };
-
-    let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
-    await axios.post(`/api/moviemarks/`, formDataValue, config)
-        .then((response) => {
-          this.getAvgMark(this.$route.params.id);
-          this.$forceUpdate();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
   }
 
   private get movieData() {
