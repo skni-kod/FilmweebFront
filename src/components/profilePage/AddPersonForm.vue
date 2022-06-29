@@ -91,11 +91,11 @@ export default class AddPersonForm extends Vue {
           .then((response) => {
             alert(`Dodano nową osobę: ${this.$data.formData[0].value} ${this.$data.formData[1].value}`);
             this.$data.formData.forEach((obj: any) => {
-              obj.value = null;
+              obj.value = '';
             });
           })
           .catch((error) => {
-            alert('Bład przy dodawaniu filmu. Spróbuj ponownie');
+            alert('Bład przy dodawaniu osoby. Spróbuj ponownie');
             console.log(error);
           });
     }

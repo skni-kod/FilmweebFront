@@ -136,6 +136,10 @@ export default class ProfileInfoForm extends Vue {
 
       await axios
           .put(`/api/profiles/${this.profileData.id}/`, formDataValue, config)
+          .then((res) => {
+            alert('Dane osobowe zostany zmienione pomyślnie');
+            this.$data.formData[6].value = '';
+          })
           .catch((error) => {
             console.table(error);
           })

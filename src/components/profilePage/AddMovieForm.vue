@@ -146,7 +146,7 @@ export default class AddMovieForm extends Vue {
           .then((response) => {
             alert(`Dodano nowy film: ${this.$data.formData[1].value}`);
             this.$data.formData.forEach((obj: any) => {
-              obj.value = null;
+              obj.value = '';
             });
           })
           .catch((error) => {
