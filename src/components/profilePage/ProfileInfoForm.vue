@@ -121,10 +121,6 @@ export default class ProfileInfoForm extends Vue {
       let config: object = {headers: {Authorization: "Bearer " + this.$store.getters.token}};
       await axios
           .put(`/api/users/${this.$store.getters.userId}/`, formDataValue, config)
-          .then((res) => {
-            console.table('1one');
-            console.table(res);
-          })
           .catch((error) => {
             console.table(error);
             return;
@@ -140,10 +136,6 @@ export default class ProfileInfoForm extends Vue {
 
       await axios
           .put(`/api/profiles/${this.profileData.id}/`, formDataValue, config)
-          .then((res) => {
-            console.table('2two');
-            console.table(res);
-          })
           .catch((error) => {
             console.table(error);
           })
