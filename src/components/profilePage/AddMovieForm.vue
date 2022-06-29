@@ -3,15 +3,15 @@
     <v-form class="pa-4" ref="form">
       <h3>Wprowadź informacje o filmie</h3>
       <v-text-field
-        v-for="(input, i) in formData"
-        :key="i"
-        v-model="input.value"
-        :label="input.label"
-        :type="input.type"
-        color="dark"
-        :rules="input.rules"
+          v-for="(input, i) in formData"
+          :key="i"
+          v-model="input.value"
+          :label="input.label"
+          :type="input.type"
+          color="dark"
+          :rules="input.rules"
       ></v-text-field>
-      <v-btn type="submit" @click.prevent="submit"> Dodaj film </v-btn>
+      <v-btn type="submit" @click.prevent="submit"> Dodaj film</v-btn>
     </v-form>
   </v-card>
 </template>
@@ -19,7 +19,7 @@
 <script lang="ts">
 import axios from "axios";
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {Component} from "vue-property-decorator";
 
 @Component
 export default class AddMovieForm extends Vue {
@@ -33,7 +33,7 @@ export default class AddMovieForm extends Vue {
           rules: [
             (v: string) => !!v || "Pole wymagane",
             (v: string) =>
-              v.length <= 100 || "Tekst nie może przekraczać 100 znaków",
+                v.length <= 100 || "Tekst nie może przekraczać 100 znaków",
           ],
         },
         {
@@ -41,7 +41,7 @@ export default class AddMovieForm extends Vue {
           value: "",
           rules: [
             (v: string) =>
-              v.length <= 100 || "Tekst nie może przekraczać 100 znaków",
+                v.length <= 100 || "Tekst nie może przekraczać 100 znaków",
           ],
         },
         {
@@ -50,10 +50,10 @@ export default class AddMovieForm extends Vue {
           type: "number",
           rules: [
             (v: string) =>
-              v === "" ||
-              v === null ||
-              (parseInt(v) > 1900 && parseInt(v) < 2100) ||
-              "Nieprawidłowy rok",
+                v === "" ||
+                v === null ||
+                (parseInt(v) > 1900 && parseInt(v) < 2100) ||
+                "Nieprawidłowy rok",
           ],
         },
         {
@@ -61,7 +61,7 @@ export default class AddMovieForm extends Vue {
           value: "",
           rules: [
             (v: string) =>
-              v.length <= 50 || "Tekst nie może przekraczać 50 znaków",
+                v.length <= 50 || "Tekst nie może przekraczać 50 znaków",
           ],
         },
         {
@@ -83,15 +83,15 @@ export default class AddMovieForm extends Vue {
           value: "",
           rules: [
             (v: string) =>
-              v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
+                v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
           ],
         },
         {
           label: "Link do plakatu",
           value: "",
           rules: [
-            (v: string) =>
-              v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
+            (v: string) => !!v || "Pole wymagane",
+            (v: string) => v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
           ],
         },
         {
@@ -99,7 +99,7 @@ export default class AddMovieForm extends Vue {
           value: "",
           rules: [
             (v: string) =>
-              v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
+                v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
           ],
         },
         {
@@ -107,7 +107,7 @@ export default class AddMovieForm extends Vue {
           value: "",
           rules: [
             (v: string) =>
-              v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
+                v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
           ],
         },
         {
@@ -115,7 +115,7 @@ export default class AddMovieForm extends Vue {
           value: "",
           rules: [
             (v: string) =>
-              v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
+                v.length <= 1000 || "Tekst nie może przekraczać 1000 znaków",
           ],
         },
       ],
@@ -125,27 +125,34 @@ export default class AddMovieForm extends Vue {
   async submit() {
     if ((this.$refs.form as Vue & { validate: () => boolean }).validate()) {
       await axios
-        .post(
-          `/api/movies/`,
-          {
-            original_title: this.$data.formData[0].value,
-            production_year: this.$data.formData[2].value,
-            production_country: this.$data.formData[3].value,
-            airing_date: this.$data.formData[4].value,
-            duration: this.$data.formData[5].value,
-            description: this.$data.formData[6].value,
-            title: this.$data.formData[1].value,
-            poster: this.$data.formData[7].value,
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + this.$store.getters.token,
-            },
-          }
-        )
-        .catch((error) => {
-          console.log(error);
-        });
+          .post(
+              `/api/movies/`,
+              {
+                original_title: this.$data.formData[0].value,
+                production_year: this.$data.formData[2].value,
+                production_country: this.$data.formData[3].value,
+                airing_date: this.$data.formData[4].value,
+                duration: this.$data.formData[5].value,
+                description: this.$data.formData[6].value,
+                title: this.$data.formData[1].value,
+                poster: this.$data.formData[7].value,
+              },
+              {
+                headers: {
+                  Authorization: "Bearer " + this.$store.getters.token,
+                },
+              }
+          )
+          .then((response) => {
+            alert(`Dodano nowy film: ${this.$data.formData[1].value}`);
+            this.$data.formData.forEach((obj: any) => {
+              obj.value = null;
+            });
+          })
+          .catch((error) => {
+            alert('Bład przy dodawaniu filmu. Spróbuj ponownie');
+            console.log(error);
+          });
     }
   }
 }
