@@ -1,7 +1,7 @@
 # filmweeb
 
 ```
-url: https://projekt-io.netlify.app/
+url: https://filmweeb.netlify.app/
 admin: olarrett0@scribd.com
 user: bmanhood1@bloglines.com
 pass: zaq1@WSX
