@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/api/*"
-  to = "http://papaj.pro:6969/:splat"
+  to = "https://filmweebback.herokuapp.com/:splat"
   status = 200
   force = true
 
