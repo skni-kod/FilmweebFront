@@ -1,10 +1,5 @@
 $movie-poster-height: 197px;
 $movie-poster-width: 133px;
-$primary: #000719;
-
-body {
-  background: $primary;
-}
 
 /* --------------------------- */
 /* List section headers styles */
@@ -138,7 +133,7 @@ body {
 @media screen and (min-width: 600px) {
   .movie-list{
     overflow: hidden;
-    background: linear-gradient(-90deg, $primary, 6%, transparent 10%);
+    //background: linear-gradient(-90deg, $base-bg-color, 6%, transparent 10%);
   }
 
   .arrow-btn {

@@ -1,4 +1,4 @@
-import {Movie} from '../components/homePage/sections/ListSection';
+import {Movie} from '../components/home/sections/ListSection';
 
 
 export const MOVIES: Movie[] = [

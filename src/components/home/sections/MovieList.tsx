@@ -34,7 +34,7 @@ const MovieList = ({movies}: MovieListProps) => {
 			setContainerWidth(wrapper!.current!.clientWidth);
 		}, []);
 
-		let sliceSize = Math.floor(containerWidth / posterWidth);
+		let sliceSize = Math.floor(0.9 * containerWidth / posterWidth);
 		if (!isLgScreen) {
 			sliceSize = movies.length;
 		}
