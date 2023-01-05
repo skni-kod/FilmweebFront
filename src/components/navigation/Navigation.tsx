@@ -4,13 +4,13 @@ import enterImg from "../../assets/images/log-img.png";
 import { useEffect, useState } from "react";
 
 const Navigation: React.FC = () => {
-  interface navLinks {
+  interface NavLink {
     id: number;
     name: string;
     path: string;
   }
 
-  const navLinks: navLinks[] = [
+  const navLinks: NavLink[] = [
     { id: 1, name: "Filmy", path: "/" },
     { id: 2, name: "Seriale", path: "/" },
     { id: 3, name: "Ranking", path: "/" },
