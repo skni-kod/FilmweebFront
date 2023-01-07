@@ -9,14 +9,19 @@ const root = ReactDOM.createRoot(
 
 const Home = lazy(() => import('./pages/Home'));
 const PageNotFound = lazy(() => import('./pages/PageNotFound'));
+const Movie = lazy(() => import('./pages/Movie'));
 
 root.render(
     <React.StrictMode>
         <div id={"container"}>
             <Router>
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="*" element={<PageNotFound/>}/>
+                    <Route index element={<Home />} />
+                    <Route  path='movie'>
+                        <Route path=':id' element={<Movie/>}/>
+                        <Route index element={<PageNotFound/>}/>
+                    </Route>
+                    <Route path='*' element={<PageNotFound/>}/>
                 </Routes>
             </Router>
         </div>
