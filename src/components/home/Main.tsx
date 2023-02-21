@@ -1,12 +1,12 @@
 import React from "react";
-import Slider from "./Slider";
+import CardSlider from "./CardSlider";
 import Buttons from "./Buttons";
 import Section from "./Section";
 
 const Main: React.FC = () => {
     return (
         <main className={"wrap-box"}>
-            <Slider/>
+            <CardSlider/>
             <Buttons/>
             <Section/>
         </main>
