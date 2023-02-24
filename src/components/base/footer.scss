@@ -1,9 +1,6 @@
 @use "../../variables/pallete" as pallete;
 footer {
     background-color: pallete.$header-gb-color;
-    position: fixed;
-    left: 0;
-    bottom: 0;
     width: 100%;
     text-align: center;
     padding: 5px 0;
@@ -11,6 +8,7 @@ footer {
     flex-direction: column;
     gap: 5px;
     font-size: 14px !important;
+    // justify-self: flex-end;
 }
 .footer-links {
     display: flex;
