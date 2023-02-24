@@ -1,7 +1,7 @@
 import React from "react";
-import CardSlider from "./CardSlider";
 import Buttons from "./Buttons";
 import Section from "./Section";
+import CardSlider from "./slider/CardSlider";
 
 const Main: React.FC = () => {
     return (

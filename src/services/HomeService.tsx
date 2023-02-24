@@ -21,15 +21,15 @@ export const getCards = (): Card[] => {
         },
         {
             id: 4,
-            title: 'Ojcostwo',
-            href: '',
-            imgUrl: 'https://fwcdn.pl/fpo/24/48/832448/7960431.3.jpg',
-        },
-        {
-            id: 5,
             title: 'Jumanji',
             href: '',
             imgUrl: 'https://fwcdn.pl/fpo/72/50/717250/7815013.3.jpg',
+        },
+        {
+            id: 5,
+            title: 'Ojcostwo',
+            href: '',
+            imgUrl: 'https://fwcdn.pl/fpo/24/48/832448/7960431.3.jpg',
         },
     ];
 };
