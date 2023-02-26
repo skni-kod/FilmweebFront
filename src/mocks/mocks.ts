@@ -1,7 +1,6 @@
-import {Movie} from '../components/home/sections/ListSection';
+import { BasicMovieInfo } from '../interfaces/BasicMovieInfo';
 
-
-export const MOVIES: Movie[] = [
+export const MOVIES: BasicMovieInfo[] = [
 	{
 		id: 1,
 		title: 'Jumanji',
@@ -28,7 +27,7 @@ export const MOVIES: Movie[] = [
 	},
 ];
 
-export const MORE_MOVIES: Movie[] = [
+export const MORE_MOVIES: BasicMovieInfo[] = [
 	{
 		id: 1,
 		title: 'Jumanji',
