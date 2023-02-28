@@ -2,6 +2,7 @@ import React, { lazy } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.scss";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -10,7 +11,7 @@ const root = ReactDOM.createRoot(
 const Home = lazy(() => import("./pages/Home"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const Movie = lazy(() => import("./pages/Movie"));
-const Login = lazy(() => import("./pages/Login"));
+// const Login = lazy(() => import("./pages/Login"));
 
 root.render(
     <React.StrictMode>

@@ -1,0 +1,35 @@
+@use "variables/pallete" as pallete;
+.login-form {
+}
+.login-copy {
+    position: relative;
+}
+.login-copy::after {
+    position: absolute;
+    content: "";
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    width: 50px;
+    background: pallete.$base-yellow;
+    border-radius: 4px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+form input {
+    border: 0;
+    border-bottom: 2px solid #fff;
+    background-color: pallete.$base-bg-color;
+    padding-bottom: 10px;
+}
+.loginButton {
+    background-color: pallete.$base-yellow;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 10px 40px;
+    border-radius: 10px;
+}
