@@ -3,8 +3,8 @@ import "./loginform.scss";
 
 const LoginForm: React.FC = () => {
     return (
-        <div className="login-form">
-            <h2 className="login-copy">Logowanie</h2>
+        <div className={"login-form"}>
+            <h2 className={"login-copy"}>Logowanie</h2>
             <form action="#" method="post">
                 <label htmlFor="userName">Nazwa użytkownika:</label>
                 <input
@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
                     id="password"
                     placeholder="Twoje hasło..."
                 />
-                <button className="loginButton">Zaloguj</button>
+                <button className={"loginButton"}>Zaloguj</button>
             </form>
         </div>
     );

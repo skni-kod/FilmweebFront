@@ -1,5 +1,6 @@
 @use "variables/pallete" as pallete;
 .login-form {
+    width: 60%;
 }
 .login-copy {
     position: relative;
@@ -25,6 +26,10 @@ form input {
     border-bottom: 2px solid #fff;
     background-color: pallete.$base-bg-color;
     padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+form label {
+    margin-bottom: 15px;
 }
 .loginButton {
     background-color: pallete.$base-yellow;
