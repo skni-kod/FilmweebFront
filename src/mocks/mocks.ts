@@ -1,4 +1,5 @@
 import { BasicMovieInfo } from '../interfaces/BasicMovieInfo';
+import { BasicActorInfo } from '../interfaces/BasicActorInfo';
 
 
 export const MOVIES: BasicMovieInfo[] = [
