@@ -57,7 +57,6 @@ li {
   justify-content: space-around;
   padding: 1em;
   flex-wrap: wrap;
-
 }
 
 .movie-card-footer span {
@@ -70,29 +69,6 @@ li {
 .star {
   color: $gold;
   margin: 0 0.2em -2px 0;
-}
-
-.nav-section-button {
-  position: absolute;
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  outline: inherit;
-  font-size: 3.5em;
-  top: 35%;
-}
-
-.btn-prev {
-  left: 2%;
-}
-
-.btn-next {
-  right: 2%;
-}
-
-.gold {
-  color: $gold;
 }
 
 .loading-info {
@@ -115,19 +91,11 @@ li {
   .movie-poster {
     height: 13em;
   }
-
-  .nav-section-button {
-    display: block;
-  }
 }
 
 @media only screen and (min-width: 992px) {
   .movie-poster {
     height: 15.7em;
-  }
-
-  .nav-section-button {
-    display: block;
   }
 }
 
@@ -135,29 +103,17 @@ li {
   .movie-poster {
     height: 19em;
   }
-
-  .nav-section-button {
-    display: block;
-  }
 }
 
 @media only screen and (min-width: 1440px) {
   .movie-poster {
     height: 20em;
   }
-
-  .nav-section-button {
-    display: block;
-  }
 }
 
 @media only screen and (min-width: 1600px) {
   .movie-poster {
     height: 20em;
-  }
-
-  .nav-section-button {
-    display: block;
   }
 }
 

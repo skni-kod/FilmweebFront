@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { BasicMovieInfo } from '../../interfaces/BasicMovieInfo';
 import { AiFillStar } from "react-icons/ai";
-import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import { ListSectionNavButtons } from '../common/ListSection/ListSectionNavButtons';
 
 import './Section.scss';
 
@@ -26,7 +26,6 @@ const Section: React.FC<SectionProps> = ({name, linkTo, movies}) => {
 			return -1;
 		return containerRef.current.scrollWidth - containerRef.current.clientWidth;
 	};
-
 
 	const header = linkTo ?
 		<Link to={linkTo} onClick={window.location.reload}>
@@ -53,7 +52,7 @@ const Section: React.FC<SectionProps> = ({name, linkTo, movies}) => {
 						<ul className="movie-list" ref={containerRef}>
 							{movieCards}
 						</ul>
-						<ListSectionNav handleScroll={handleScroll} getMaxScrollLeft={getMaxScrollLeft} />
+						<ListSectionNavButtons handleScroll={handleScroll} getMaxScrollLeft={getMaxScrollLeft} />
 					</div>
 					:
 					<div className="loading-info">
@@ -64,55 +63,6 @@ const Section: React.FC<SectionProps> = ({name, linkTo, movies}) => {
 		</>
 	);
 };
-
-
-interface SectionNavProps {
-	getMaxScrollLeft: () => number;
-	handleScroll: (delta: number) => number;
-	scrollPosition?: number;
-}
-
-const ListSectionNav: React.FC<SectionNavProps> = ({handleScroll, getMaxScrollLeft, scrollPosition}) => {
-	const scrollDelta = 400;
-	const [scrollPos, setScrollPos] = useState(scrollPosition ?? -1);
-	const showPrevButton = scrollPos > 0;
-	const showNextButton = getMaxScrollLeft() > scrollPos;
-
-	const handleClickPrev = () => {
-		const newPos = handleScroll(-scrollDelta);
-		setScrollPos(newPos < 0 ? 0 : newPos);
-	};
-	const handleClickNext = () => {
-		const newPos = handleScroll(scrollDelta);
-		const maxLeft = getMaxScrollLeft();
-		setScrollPos(newPos > maxLeft ? maxLeft : newPos);
-	};
-
-	useEffect(() => {
-		return () => {
-			setScrollPos(0);
-		};
-	}, []);
-
-	return (
-		<>
-			<div>
-				{showPrevButton &&
-					<button className="nav-section-button btn-prev" onClick={handleClickPrev}>
-						<BsFillArrowLeftCircleFill className="gold" />
-					</button>
-				}
-
-				{showNextButton &&
-					<button className="nav-section-button btn-next" onClick={handleClickNext}>
-						<BsFillArrowRightCircleFill className="gold" />
-					</button>
-				}
-			</div>
-		</>
-	);
-};
-
 
 interface MovieCardProps {
 	movie: BasicMovieInfo;
