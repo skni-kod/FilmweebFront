@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.scss";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
+import ProviderCallback from "components/login/ProviderCallback";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -24,6 +25,7 @@ root.render(
                         <Route index element={<PageNotFound />} />
                     </Route>
                     <Route path="login" element={<Login />} />
+                    <Route path="login/github/callback" element={<ProviderCallback/>}/>
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
             </Router>
