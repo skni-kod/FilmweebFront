@@ -1,0 +1,164 @@
+$gold: #FFC700;
+
+li {
+  display: inline-block;;
+}
+
+.list-wrapper {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.movie-list {
+  display: flex;
+  gap: 1.5em;
+  white-space: nowrap;
+  overflow: auto;
+  margin-top: 1em;
+  padding: 0.5em;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.movie-list::-webkit-scrollbar {
+  display: none;
+}
+
+.section-header {
+  color: white;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2em;
+  margin: 1.5em 0 0;
+}
+
+.header-underline {
+  margin-top: 1px;
+  width: 6em;
+  border: 2px solid $gold;
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.movie-poster {
+  height: 13em;
+}
+
+.movie-card-footer {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  padding: 1em;
+  flex-wrap: wrap;
+
+}
+
+.movie-card-footer span {
+  color: #fff;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.star {
+  color: $gold;
+  margin: 0 0.2em -2px 0;
+}
+
+.nav-section-button {
+  position: absolute;
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: inherit;
+  font-size: 3.5em;
+  top: 35%;
+}
+
+.btn-prev {
+  left: 2%;
+}
+
+.btn-next {
+  right: 2%;
+}
+
+.gold {
+  color: $gold;
+}
+
+.loading-info {
+  display: flex;
+  justify-content: center;
+  padding: 1em;
+
+  span {
+    font-size: 2em;
+  }
+}
+
+@media only screen and (min-width: 576px) {
+  .movie-poster {
+    height: 13em;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .movie-poster {
+    height: 13em;
+  }
+
+  .nav-section-button {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .movie-poster {
+    height: 15.7em;
+  }
+
+  .nav-section-button {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .movie-poster {
+    height: 19em;
+  }
+
+  .nav-section-button {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .movie-poster {
+    height: 20em;
+  }
+
+  .nav-section-button {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .movie-poster {
+    height: 20em;
+  }
+
+  .nav-section-button {
+    display: block;
+  }
+}
+
+
