@@ -14,10 +14,17 @@ a {
     align-items: center;
     padding-left: 5px;
     padding-right: 5px;
+    gap: 5px;
 }
 .logo {
     color: #fff;
     grid-area: 1 / 1 / 2 / 2;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.logo img {
+    max-height: 40px;
 }
 .search {
     background: #eee;
@@ -32,7 +39,9 @@ a {
 .links {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
+    grid-area: 1 / 4 / 2 / 5;
+    gap: -5px;
 }
 .link {
     color: #fff;
@@ -40,17 +49,22 @@ a {
     margin-left: 10px;
     margin-right: 10px;
 }
-nav .link:last-child {
+.link:last-child {
     margin-right: initial;
-    margin-left: 20px;
     display: flex;
     align-items: center;
+    white-space: nowrap;
 }
 .link > img {
     margin-left: 5px;
 }
 .yellow {
     color: pallete.$base-yellow !important;
+}
+@media screen and (max-width: 900px) {
+    .search {
+        padding-left: 10px;
+    }
 }
 @media screen and (max-width: 765px) {
     .nav-wrapper {
@@ -64,6 +78,7 @@ nav .link:last-child {
     .links {
         grid-row: 1 / 2;
         grid-column: 2 / 3;
+        justify-content: flex-end;
     }
     .search {
         grid-row: 2 / 2;
@@ -73,11 +88,12 @@ nav .link:last-child {
         background-repeat: no-repeat;
         background-position: 10px;
         text-indent: 20px;
+        padding-left: 20px;
     }
     .search::placeholder {
         color: #fff;
     }
-    nav .link:nth-child(-n + 3) {
+    .link:nth-child(-n + 3) {
         display: none;
     }
 }
@@ -90,6 +106,6 @@ nav .link:last-child {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    position: absolute;
+    position: fixed;
     bottom: 0;
 }
