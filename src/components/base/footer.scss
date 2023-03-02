@@ -1,0 +1,27 @@
+@use "../../variables/pallete" as pallete;
+footer {
+    background-color: pallete.$header-gb-color;
+    width: 100%;
+    text-align: center;
+    padding: 5px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 14px !important;
+    // justify-self: flex-end;
+}
+.footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.logo img {
+    max-width: 80px;
+}

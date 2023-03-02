@@ -1,56 +1,59 @@
 @use "variables/pallete" as pallete;
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 #root,
 body,
 html,
 #container {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: pallete.$base-bg-color;
-  color: pallete.$base-color;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: pallete.$base-bg-color;
+    color: pallete.$base-color;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
 }
 
 #container {
-  position: relative;
-  width: 100%;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .wrap-box {
-  display: block;
-  width: 100%;
-  max-width: 1440px;
-  margin: auto;
+    display: block;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
-@media only screen and (max-width: 576px){
+@media only screen and (max-width: 576px) {
 }
 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 768px) {
 }
 
-@media only screen and (max-width: 992px){
+@media only screen and (max-width: 992px) {
 }
 
-@media only screen and (max-width: 1200px){
+@media only screen and (max-width: 1200px) {
 }
 
 @media only screen and (max-width: 1440px) {
 }
 
-@media only screen and (max-width: 1600px){
+@media only screen and (max-width: 1600px) {
 }
