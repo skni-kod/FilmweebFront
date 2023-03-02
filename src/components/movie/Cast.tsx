@@ -33,7 +33,7 @@ const Cast: React.FC<CastProps> = ({cast}) => {
 
 
 	return (
-		<section className="width50">
+		<section className="cast-container">
 			<h1 className="section-header"> Obsada </h1>
 			<div className="header-underline"></div>
 

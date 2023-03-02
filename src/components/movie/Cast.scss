@@ -4,8 +4,10 @@ li {
   display: inline-block;;
 }
 
-.width50 {
-  width: 50%;
+.cast-container {
+  max-width: 100%;
+  overflow: hidden;
+  padding-left: 0.5em;
 }
 
 .list-wrapper {
@@ -35,7 +37,7 @@ li {
   font-style: normal;
   font-weight: 600;
   font-size: 2em;
-  margin: 1.5em 0 0;
+  margin: 0.5em 0 0;
 }
 
 .centered {
