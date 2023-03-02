@@ -6,12 +6,10 @@ import MobileBar from "components/navigation/MobileBar";
 
 const Home: React.FC = () => {
     const [showFooter, setShowFooter] = useState(true);
-    const [showMobileBar, setShowMobileBar] = useState(false);
 
     const handleResize = () => {
         const width = window.innerWidth;
         setShowFooter(width >= 768);
-        setShowMobileBar(width <= 768);
     };
 
     useEffect(() => {
@@ -24,8 +22,7 @@ const Home: React.FC = () => {
         <>
             <Header />
             <Main />
-            {showMobileBar  ? <MobileBar /> : null}
-            {showFooter ? <Footer /> : null}
+            {showFooter ? <Footer /> : <MobileBar />}
         </>
     );
 };
