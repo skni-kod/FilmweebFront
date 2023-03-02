@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Slider from "./Slider";
 import Buttons from "./Buttons";
 import Section from "./Section";
+import CardSlider from "./slider/CardSlider";
 import { getMoviesForYou, getMoviesMyList, getMoviesNew, getMoviesPopular } from '../../services/SectionsService';
 import { BasicMovieInfo } from '../../interfaces/BasicMovieInfo';
 
@@ -34,9 +34,8 @@ const Main: React.FC = () => {
 
 	return (
 		<main className={"wrap-box"}>
-			<Slider />
+			<CardSlider/>
 			<Buttons />
-
 			<Section name="Dla ciebie" movies={moviesForYou} />
 			<Section name="Nowości" movies={moviesNew} />
 			<Section name="Moja lista" movies={moviesMyList} linkTo={"/"} />
