@@ -1,9 +1,9 @@
-import axios from "axios";
+import http from "axios";
 
-const BASE_API_URL = "http://kni.prz.edu.pl:47450/";
+const BASE_API_URL = "http://kni.prz.edu.pl:47450";
 
-const api: any = axios.create({
-    baseURL:  BASE_API_URL,
+const backendApi: any = http.create({
+    baseURL: BASE_API_URL,
     timeout: 10000,
     headers: {
         "Content-Type": "application/json",
@@ -11,4 +11,10 @@ const api: any = axios.create({
     },
 });
 
-export default api;
+export default backendApi;
+
+export interface ApiResponse {
+    success: boolean;
+    data: any;
+    message: string;
+}
