@@ -6,11 +6,11 @@ import Main from "../components/home/Main";
 const Home: React.FC = () => {
     return (
         <>
-            <Header/>
-            <Main/>
-            <Footer/>
+            <Header />
+            <Main />
+            <Footer />
         </>
     );
-}
+};
 
 export default Home;

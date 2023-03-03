@@ -6,11 +6,11 @@ import Section from "./Section";
 const Main: React.FC = () => {
     return (
         <main className={"wrap-box"}>
-            <Slider/>
-            <Buttons/>
-            <Section/>
+            <Slider />
+            <Buttons />
+            <Section />
         </main>
     );
-}
+};
 
 export default Main;
