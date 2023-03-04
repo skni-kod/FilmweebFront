@@ -1,18 +1,22 @@
-import { MORE_MOVIES, MOVIES } from '../mocks/mocks';
-import { BasicMovieInfo } from '../interfaces/BasicMovieInfo';
+import { MORE_MOVIES, MOVIES } from "../mocks/mocks";
+import { BasicMovieInfo } from "../interfaces/BasicMovieInfo";
 
 export const getMoviesPopular = (): BasicMovieInfo[] => {
-	return MORE_MOVIES;
+    return MORE_MOVIES;
 };
 
 export const getMoviesNew = (): BasicMovieInfo[] => {
-	return MOVIES;
+    return MOVIES;
 };
 
 export const getMoviesForYou = (): BasicMovieInfo[] => {
-	return MORE_MOVIES;
+    return MORE_MOVIES;
 };
 
 export const getMoviesMyList = (): BasicMovieInfo[] => {
-	return MORE_MOVIES;
+    return MORE_MOVIES;
+};
+
+export const getMoviesAction = (): BasicMovieInfo[] => {
+    return MORE_MOVIES;
 };

@@ -1,7 +1,7 @@
-$gold: #FFC700;
+@use "src/variables/pallete" as pallete;
 
 li {
-  display: inline-block;;
+  display: inline-block;
 }
 
 .list-wrapper {
@@ -30,14 +30,14 @@ li {
   color: white;
   font-style: normal;
   font-weight: 600;
-  font-size: 2em;
+  font-size: 1.75em;
   margin: 1.5em 0 0;
 }
 
 .header-underline {
-  margin-top: 1px;
+  margin-top: 2.5px;
   width: 6em;
-  border: 2px solid $gold;
+  border: 2px solid pallete.$base-yellow;
 }
 
 .centered {
@@ -67,7 +67,7 @@ li {
 }
 
 .star {
-  color: $gold;
+  color: pallete.$base-yellow;
   margin: 0 0.2em -2px 0;
 }
 

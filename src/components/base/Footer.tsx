@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React from "react";
-import { NavLink } from "../../interfaces/navLinks";
+import { NavLink } from "../../interfaces/NavLinks";
 import logo from "../../assets/images/logo.png";
 import "./footer.scss";
 
@@ -12,8 +12,8 @@ const Footer: React.FC = () => {
     ];
     return (
         <footer>
-            <a href="#" className="logo">
-                <img src={logo} />
+            <a href="/" className="logo">
+                <img src={logo} alt="" />
                 <h2>
                     Film<span className="yellow">weeb</span>
                 </h2>
@@ -25,9 +25,7 @@ const Footer: React.FC = () => {
                     </Link>
                 ))}
             </div>
-            <div className="credentials">
-                Wszystkie prawa zastrzeżone &copy;2023 SKNI Kod
-            </div>
+            <div className="credentials">Wszystkie prawa zastrzeżone &copy;2023 SKNI Kod</div>
         </footer>
     );
 };
