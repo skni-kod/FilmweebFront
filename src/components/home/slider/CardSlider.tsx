@@ -1,8 +1,8 @@
-import "./CardSliderStyle.scss"
-import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
-import {Card} from "../../../interfaces/Card";
-import {getCards} from "../../../services/HomeService";
-import {FaChevronLeft, FaChevronRight} from "react-icons/fa";
+import "./CardSliderStyle.scss";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Card } from "../../../interfaces/Card";
+import { getCards } from "../../../services/HomeService";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const CardSlider: React.FC = () => {
     const [cards, setCards] = useState<Card[]>([]);
@@ -30,9 +30,10 @@ const CardSlider: React.FC = () => {
                 setSliderWidth(sliderListRef.current.offsetWidth);
             }
         }
-        window.addEventListener('resize', handleWindowResize);
+
+        window.addEventListener("resize", handleWindowResize);
         return () => {
-            window.removeEventListener('resize', handleWindowResize);
+            window.removeEventListener("resize", handleWindowResize);
         };
     }, []);
 
@@ -41,7 +42,7 @@ const CardSlider: React.FC = () => {
     }, [activeSlideIdx, sliderWidth]);
 
     const handleChangeSlide = (direction: -1 | 1) => {
-        let slideIdx: number = 0;
+        let slideIdx: number;
         switch (direction) {
             case -1:
                 slideIdx = activeSlideIdx === 0 ? activeSlideIdx : activeSlideIdx - 1;
@@ -56,35 +57,26 @@ const CardSlider: React.FC = () => {
     return (
         <div className="slider-container">
             <div className="slider-list-wrapper">
-                <ul className="slider-list"
-                    style={{transform: `translateX(-${sliderListOffsetX}px)`}}
+                <ul
+                    className="slider-list"
+                    style={{ transform: `translateX(-${sliderListOffsetX}px)` }}
                     ref={sliderListRef}
                 >
-                    {cards.map(({imgUrl, title, id}) => (
-                        <CardSliderItem
-                            imgSrc={imgUrl}
-                            imgAlt={title}
-                            key={id}
-                        />
+                    {cards.map(({ imgUrl, title, id, description }) => (
+                        <CardSliderItem imgSrc={imgUrl} title={title} key={id} description={description} />
                     ))}
                 </ul>
             </div>
             <div className="slider-arrows">
-                <div
-                    className="arrow arrow-left"
-                    onClick={() => handleChangeSlide(-1)}
-                >
-                    <FaChevronLeft/>
+                <div className="arrow arrow-left" onClick={() => handleChangeSlide(-1)}>
+                    {activeSlideIdx > 0 && <FaChevronLeft />}
                 </div>
-                <div
-                    className="arrow arrow-right"
-                    onClick={() => handleChangeSlide(1)}
-                >
-                    <FaChevronRight/>
+                <div className="arrow arrow-right" onClick={() => handleChangeSlide(1)}>
+                    {activeSlideIdx < cards.length - 1 && <FaChevronRight />}
                 </div>
             </div>
             <ul className="slider-dots">
-                {cards.map(({id}, idx) => (
+                {cards.map(({ id }, idx) => (
                     <li
                         key={id}
                         className={`dot ${activeSlideIdx === idx ? "active" : ""} ${idx}`}
@@ -94,24 +86,29 @@ const CardSlider: React.FC = () => {
             </ul>
         </div>
     );
-}
+};
 
 interface CardSliderItemProps {
-    imgSrc: string,
-    imgAlt: string,
+    imgSrc: string;
+    title: string;
+    description: string;
 }
 
-const CardSliderItem = ({imgSrc, imgAlt}: CardSliderItemProps
-) => {
+const CardSliderItem = ({ imgSrc, title, description }: CardSliderItemProps) => {
     return (
         <li className="slider-card">
-            <img
-                className="slider-card-img"
-                src={imgSrc}
-                alt={imgAlt}
-            />
+            <div className="slider-card-wrapper">
+                <div className="slider-card-img">
+                    <img src={imgSrc} alt={title} />
+                </div>
+                <div className="slider-card-content">
+                    <h3 className="slider-card-title">{title}</h3>
+                    <p className="slider-card-description">{description}</p>
+                </div>
+            </div>
+            <div className="slider-card-gradient"></div>
         </li>
     );
-}
+};
 
 export default CardSlider;

@@ -1,8 +1,25 @@
-$gold: #FFC700;
+@use "src/variables/pallete" as pallete;
+
+.nav-section-button-wrapper {
+  position: absolute;
+  top: 0;
+  width: 6.95%;
+  height: 100%;
+}
+
+.btn-prev-wrapper {
+  left: 0;
+  background: linear-gradient(to left, #0000, pallete.$base-bg-color);
+}
+
+.btn-next-wrapper {
+  right: 0;
+  background: linear-gradient(to right, #0000, pallete.$base-bg-color);
+}
 
 .nav-section-button {
   position: absolute;
-  display: none;
+  display: block;
   background: none;
   border: none;
   cursor: pointer;
@@ -12,44 +29,44 @@ $gold: #FFC700;
 }
 
 .btn-prev {
-  left: 2%;
+  margin-left: 28%;
 }
 
 .btn-next {
-  right: 2%;
+  margin-right: 28%;
 }
 
 .gold {
-  color: $gold;
+  color: pallete.$base-yellow;
 }
 
 
 @media only screen and (min-width: 768px) {
-  .nav-section-button {
+  .nav-section-button-wrapper {
     display: block;
   }
 }
 
 @media only screen and (min-width: 992px) {
-  .nav-section-button {
+  .nav-section-button-wrapper {
     display: block;
   }
 }
 
 @media only screen and (min-width: 1200px) {
-  .nav-section-button {
+  .nav-section-button-wrapper {
     display: block;
   }
 }
 
 @media only screen and (min-width: 1440px) {
-  .nav-section-button {
+  .nav-section-button-wrapper {
     display: block;
   }
 }
 
 @media only screen and (min-width: 1600px) {
-  .nav-section-button {
+  .nav-section-button-wrapper {
     display: block;
   }
 }

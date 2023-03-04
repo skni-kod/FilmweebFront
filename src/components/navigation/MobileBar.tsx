@@ -5,22 +5,22 @@ import user from "../../assets/images/user.png";
 import { Link } from "react-router-dom";
 
 const MobileBar: React.FC = () => {
-  return (
-    <div className="mobile-bar">
-      <Link to="/">
-        <img src={user} />
-      </Link>
-      <Link to="/">
-        <img src={trending} />
-      </Link>
-      <Link to="/">
-        <img src={likes} />
-      </Link>
-      <Link to="/">
-        <img src={ranking} />
-      </Link>
-    </div>
-  );
+    return (
+        <div className="mobile-bar">
+            <Link to="/">
+                <img src={user} alt="" />
+            </Link>
+            <Link to="/">
+                <img src={trending} alt="" />
+            </Link>
+            <Link to="/">
+                <img src={likes} alt="" />
+            </Link>
+            <Link to="/">
+                <img src={ranking} alt="" />
+            </Link>
+        </div>
+    );
 };
 
 export default MobileBar;

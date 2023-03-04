@@ -1,0 +1,31 @@
+@use "src/variables/pallete" as pallete;
+
+.button-link-wrapper {
+  background-image: url("https://fwcdn.pl/fpo/72/50/717250/7815013.3.jpg");
+  background-size: 100% auto;
+  background-position: 0 -85%;
+
+  .button-link {
+    width: 150px;
+    height: 57px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(red(pallete.$base-yellow), green(pallete.$base-yellow), blue(pallete.$base-yellow), 0.5);
+    text-align: center;
+    text-decoration: none;
+    color: pallete.$base-color;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgba(red(pallete.$base-yellow), green(pallete.$base-yellow), blue(pallete.$base-yellow), 0.7);
+    }
+
+    span {
+      font-size: 1.4em;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+      font-weight: bold;
+    }
+  }
+}

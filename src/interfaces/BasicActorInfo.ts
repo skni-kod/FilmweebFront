@@ -1,6 +1,6 @@
 export interface BasicActorInfo {
-	id: number;
-	name: string;
-	roleName: string;
-	imgUrl: string;
+    id: number;
+    name: string;
+    roleName: string;
+    imgUrl: string;
 }

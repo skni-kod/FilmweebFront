@@ -1,6 +1,7 @@
 export interface Card {
-    id: number;
+    id?: number;
     imgUrl: string;
     title: string;
     href: string;
+    description: string;
 }

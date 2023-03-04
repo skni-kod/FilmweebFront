@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./navigation.scss";
+import "./Navigation.scss";
 import enterImg from "../../assets/images/log-img.png";
 import logo from "../../assets/images/logo.png";
 import { useEffect, useState } from "react";
@@ -56,7 +56,7 @@ const Navigation: React.FC = () => {
                         link.name === "Zaloguj się" ? (
                             <Link className="link" key={link.id} to={link.path}>
                                 {link.name}
-                                <img src={enterImg} />
+                                <img src={enterImg} alt="" />
                             </Link>
                         ) : (
                             <Link className="link" key={link.id} to={link.path}>

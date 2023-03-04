@@ -1,6 +1,6 @@
-import { BasicActorInfo } from '../interfaces/BasicActorInfo';
-import { ACTORS, MORE_ACTORS } from '../mocks/mocks';
+import { BasicActorInfo } from "../interfaces/BasicActorInfo";
+import { MORE_ACTORS } from "../mocks/mocks";
 
 export const getMovieCast = (): BasicActorInfo[] => {
-	return MORE_ACTORS;
-}
+    return MORE_ACTORS;
+};
