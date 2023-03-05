@@ -1,4 +1,40 @@
 .movie-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+}
+
+@media only screen and (min-width: 576px) {
+  .movie-grid {
+      grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .movie-grid {
+      grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .movie-grid {
+      grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .movie-grid {
+      grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .movie-grid {
+      grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .movie-grid {
+      grid-template-columns: 1fr 1fr;
+  }
 }

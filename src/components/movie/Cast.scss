@@ -1,0 +1,120 @@
+$gold: #FFC700;
+
+li {
+  display: inline-block;;
+}
+
+.cast-container {
+  max-width: 100%;
+  overflow: hidden;
+  padding-left: 0.5em;
+}
+
+.list-wrapper {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.cast-list {
+  display: flex;
+  gap: 1.5em;
+  white-space: nowrap;
+  overflow: auto;
+  margin-top: 1em;
+  padding: 0.5em;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.cast-list::-webkit-scrollbar {
+  display: none;
+}
+
+.section-header {
+  color: white;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2em;
+  margin: 0.5em 0 0;
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-underline {
+  margin-top: 1px;
+  width: 6em;
+  border: 2px solid $gold;
+}
+
+.loading-info {
+  display: flex;
+  justify-content: center;
+  padding: 1em;
+
+  span {
+    font-size: 2em;
+  }
+}
+
+.actor-card-footer {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  padding: 1em;
+  flex-wrap: wrap;
+
+}
+
+.actor-card-footer span {
+  color: #fff;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.actor-poster {
+  height: 13em;
+}
+
+@media only screen and (min-width: 576px) {
+.actor-poster {
+  height: 13em;
+}
+}
+
+@media only screen and (min-width: 768px) {
+  .actor-poster {
+    height: 13em;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .actor-poster {
+    height: 13em;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .actor-poster {
+    height: 15em;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .actor-poster {
+    height: 17em;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .actor-poster {
+    height: 20em;
+  }
+}

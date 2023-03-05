@@ -1,7 +1,12 @@
 import React from "react";
+import Navigation from "../navigation/Navigation";
 
 const Header: React.FC = () => {
-    return <header>HeaderComponent</header>;
+    return (
+        <header>
+            <Navigation />
+        </header>
+    );
 };
 
 export default Header;
