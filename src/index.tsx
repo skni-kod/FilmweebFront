@@ -10,6 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 const Home = lazy(() => import("./pages/Home"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const Movie = lazy(() => import("./pages/Movie"));
+const Actor = lazy(() => import("./pages/Actor"));
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ root.render(
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/movie/:id" element={<Movie />} />
+                        <Route path="/actor/:id" element={<Actor />} />
                         <Route path="*" element={<PageNotFound />} />
                     </Routes>
                 </Router>
