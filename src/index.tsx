@@ -1,17 +1,15 @@
-import React, { lazy } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import Home from "./pages/Home";
+import Movie from "./pages/Movie";
+import Actor from "./pages/Actor";
+import PageNotFound from "./pages/PageNotFound";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
-
-const Home = lazy(() => import("./pages/Home"));
-const PageNotFound = lazy(() => import("./pages/PageNotFound"));
-const Movie = lazy(() => import("./pages/Movie"));
-const Actor = lazy(() => import("./pages/Actor"));
-
 const queryClient = new QueryClient();
 
 root.render(

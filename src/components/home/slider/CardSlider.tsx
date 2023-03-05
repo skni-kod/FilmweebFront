@@ -62,8 +62,8 @@ const CardSlider: React.FC = () => {
                     style={{ transform: `translateX(-${sliderListOffsetX}px)` }}
                     ref={sliderListRef}
                 >
-                    {cards.map(({ imgUrl, title, id, description }) => (
-                        <CardSliderItem imgSrc={imgUrl} title={title} key={id} description={description} />
+                    {cards.map(({ imgUrl, title, description }, idx) => (
+                        <CardSliderItem imgSrc={imgUrl} title={title} key={idx} description={description} />
                     ))}
                 </ul>
             </div>
@@ -76,9 +76,9 @@ const CardSlider: React.FC = () => {
                 </div>
             </div>
             <ul className="slider-dots">
-                {cards.map(({ id }, idx) => (
+                {cards.map((_, idx) => (
                     <li
-                        key={id}
+                        key={idx}
                         className={`dot ${activeSlideIdx === idx ? "active" : ""} ${idx}`}
                         onClick={() => setActiveSlideIdx(idx)}
                     />
