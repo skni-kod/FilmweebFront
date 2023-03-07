@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import "./navigation.scss";
+import "./Navigation.scss";
 import enterImg from "../../assets/images/log-img.png";
+import logo from "../../assets/images/logo.png";
 import { useEffect, useState } from "react";
 
 const Navigation: React.FC = () => {
@@ -34,8 +35,9 @@ const Navigation: React.FC = () => {
         <nav>
             <div className="nav-wrapper">
                 <Link to="/" className="logo">
+                    <img src={logo} alt="logo" />
                     <h1>
-                        Fill<span className="yellow">weeb</span>
+                        Film<span className="yellow">weeb</span>
                     </h1>
                 </Link>
                 <input
@@ -54,7 +56,7 @@ const Navigation: React.FC = () => {
                         link.name === "Zaloguj się" ? (
                             <Link className="link" key={link.id} to={link.path}>
                                 {link.name}
-                                <img src={enterImg} />
+                                <img src={enterImg} alt="" />
                             </Link>
                         ) : (
                             <Link className="link" key={link.id} to={link.path}>

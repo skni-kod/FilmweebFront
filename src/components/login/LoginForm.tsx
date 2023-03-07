@@ -6,10 +6,12 @@ const LoginForm: React.FC = () => {
     const [loginUrl, setLoginUrl] = useState(null);
 
     useEffect(() => {
-        axios.get("http://172.22.238.126/api/login/github/redirect").then(response => {
-           setLoginUrl(response.data);
-            console.log(response);
-          });
+        axios
+            .get("http://172.22.15.55/api/login/github/redirect")
+            .then((response) => {
+                setLoginUrl(response.data);
+                console.log(response);
+            });
         // fetch("http://172.22.238.126/api/login/github/redirect", {
         //     headers: {
         //         "Content-Type": "application/json",

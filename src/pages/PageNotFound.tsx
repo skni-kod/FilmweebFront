@@ -5,26 +5,26 @@ import Main from "../components/404/Main";
 import MobileBar from "components/navigation/MobileBar";
 
 const PageNotFound: React.FC = () => {
-  const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
-  const handleResize = () => {
-    const width = window.innerWidth;
-    setScreenWidth(width);
-  };
+    const [showFooter, setShowFooter] = useState(true);
 
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
+    const handleResize = () => {
+        const width = window.innerWidth;
+        setShowFooter(width >= 768);
     };
-  }, []);
-  return (
-    <>
-      <Header />
-      <Main />
-      {screenWidth && screenWidth < 765 ? <MobileBar /> : null}
-      <Footer />
-    </>
-  );
+
+    useEffect(() => {
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+    return (
+        <>
+            <Header />
+            <Main />
+            {showFooter ? <Footer /> : <MobileBar />}
+        </>
+    );
 };
 
 export default PageNotFound;
