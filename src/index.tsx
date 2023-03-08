@@ -4,12 +4,15 @@ import "./index.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import Home from "./pages/Home";
-import Movie from "./pages/Movie";
-import Actor from "./pages/Actor";
-import PageNotFound from "./pages/PageNotFound";
+import Login from "pages/Login";
+import ProviderCallback from "components/login/ProviderCallback";
+import Actor from "pages/Actor";
+import Home from "pages/Home";
+import Movie from "pages/Movie";
+import PageNotFound from "pages/PageNotFound";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+
 const queryClient = new QueryClient();
 
 root.render(
@@ -21,6 +24,8 @@ root.render(
                         <Route path="/" element={<Home />} />
                         <Route path="/movie/:id" element={<Movie />} />
                         <Route path="/actor/:id" element={<Actor />} />
+                        <Route path="login" element={<Login />} />
+                        <Route path="login/github/callback" element={<ProviderCallback />} />
                         <Route path="*" element={<PageNotFound />} />
                     </Routes>
                 </Router>

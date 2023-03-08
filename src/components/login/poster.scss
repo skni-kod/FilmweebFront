@@ -1,0 +1,26 @@
+@use "variables/pallete" as pallete;
+.poster {
+    width: 40%;
+}
+.box-shadow {
+    position: relative;
+}
+
+.box-shadow::after {
+    box-shadow: inset 60px 0px 50px -25px pallete.$base-bg-color,
+        inset -60px 0px 50px 0px pallete.$base-bg-color;
+    // clip-path: inset(0px -35px 0px -15px);
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 0;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+.box-shadow img {
+    max-width: 100%;
+    width: auto;
+}

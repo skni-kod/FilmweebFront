@@ -15,7 +15,7 @@ const Navigation: React.FC = () => {
         { id: 1, name: "Filmy", path: "/" },
         { id: 2, name: "Seriale", path: "/" },
         { id: 3, name: "Ranking", path: "/" },
-        { id: 4, name: "Zaloguj się", path: "/" },
+        { id: 4, name: "Zaloguj się", path: "/login" },
     ];
 
     const [screenWidth, setScreenWidth] = useState<number>();
