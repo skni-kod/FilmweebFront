@@ -10,7 +10,7 @@ const ProviderCallback: React.FC = () => {
     // On page load, we take "search" parameters
     // and proxy them to /api/auth/callback on our Laravel API
     useEffect(() => {
-        fetch(`http:/172.22.15.55/api/auth/callback${location.search}`, {
+        fetch(`http://192.168.1.51/api/auth/callback${location.search}`, {
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
@@ -28,7 +28,7 @@ const ProviderCallback: React.FC = () => {
     // Helper method to fetch User data for authenticated user
     // Watch out for "Authorization" header that is added to this call
     function fetchUserData() {
-        fetch(`http://172.22.15.55/api/user`, {
+        fetch(`http://192.168.1.51/api/user`, {
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",

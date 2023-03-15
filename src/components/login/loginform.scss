@@ -1,9 +1,7 @@
 @use "variables/pallete" as pallete;
-.login-form {
-    width: 60%;
-}
 .login-copy {
     position: relative;
+    align-self: flex-start;
 }
 .login-copy::after {
     position: absolute;
@@ -20,13 +18,17 @@ form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 80%;
 }
-form input {
+form input[type="text"],
+form input[type="password"] {
     border: 0;
     border-bottom: 2px solid #fff;
     background-color: pallete.$base-bg-color;
     padding-bottom: 10px;
     margin-bottom: 25px;
+    width: 100%;
+    color: #fff;
 }
 form label {
     margin-bottom: 15px;
@@ -37,4 +39,18 @@ form label {
     font-size: 16px;
     padding: 10px 40px;
     border-radius: 10px;
+    align-self: center;
+    line-height: 16px;
+}
+.github-button {
+    background-color: #141414;
+    border: 1px #fff solid;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 10px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

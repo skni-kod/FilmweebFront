@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./loginform.scss";
+import github from "../../assets/images/github-sign.png";
 
 const LoginForm: React.FC = () => {
     const [loginUrl, setLoginUrl] = useState(null);
 
     useEffect(() => {
-        axios
-            .get("http://172.22.15.55/api/login/github/redirect")
-            .then((response) => {
-                setLoginUrl(response.data);
-                console.log(response);
-            });
+        axios.get("http://192.168.1.51/api/login/github/redirect").then((response: ResponseType) => {
+            setLoginUrl(response.data);
+            console.log(response);
+        });
         // fetch("http://172.22.238.126/api/login/github/redirect", {
         //     headers: {
         //         "Content-Type": "application/json",
@@ -33,25 +32,22 @@ const LoginForm: React.FC = () => {
 
     return (
         <div className={"login-form"}>
-            {/* <h2 className={"login-copy"}>Logowanie</h2>
             <form action="#" method="post">
+                <h2 className={"login-copy"}>Logowanie</h2>
                 <label htmlFor="userName">Nazwa użytkownika:</label>
-                <input
-                    type="text"
-                    name="userNAme"
-                    id="userName"
-                    placeholder="Twoja nazwa użytkownika..."
-                />
+                <input type="text" name="userNAme" id="userName" placeholder="Twoja nazwa użytkownika..." />
                 <label htmlFor="password">Hasło</label>
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="Twoje hasło..."
-                />
-                <button className={"loginButton"}>Zaloguj</button>
-            </form> */}
-            {loginUrl != null && <a href={loginUrl}>Google Sign In</a>}
+                <input type="password" name="password" id="password" placeholder="Twoje hasło..." />
+                <button type="button" className="loginButton">
+                    Zaloguj
+                </button>
+            </form>
+            {loginUrl != null && (
+                <a className="github-button" href={loginUrl}>
+                    <img src={github} alt="" />
+                    Zaloguj przez GitHub
+                </a>
+            )}
         </div>
     );
 };
