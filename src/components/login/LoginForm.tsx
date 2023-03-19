@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./loginform.scss";
-import github from "../../assets/images/github-sign.png";
+import { GithubLoginButton } from "react-social-login-buttons";
+import backendApi, { ApiResponse } from "axios";
 
 const LoginForm: React.FC = () => {
     const [loginUrl, setLoginUrl] = useState(null);
 
     useEffect(() => {
-        axios.get("http://192.168.1.51/api/login/github/redirect").then((response: ResponseType) => {
+        backendApi.get("api/login/github/redirect").then((response: ApiResponse) => {
             setLoginUrl(response.data);
             console.log(response);
         });
+        // axios.get("http://172.21.231.46/api/login/github/redirect").then((response: ResponseType) => {
+        //     setLoginUrl(response.data);
+        //     console.log(response);
+        // });
         // fetch("http://172.22.238.126/api/login/github/redirect", {
         //     headers: {
         //         "Content-Type": "application/json",
@@ -43,9 +47,8 @@ const LoginForm: React.FC = () => {
                 </button>
             </form>
             {loginUrl != null && (
-                <a className="github-button" href={loginUrl}>
-                    <img src={github} alt="" />
-                    Zaloguj przez GitHub
+                <a href={loginUrl}>
+                    <GithubLoginButton />
                 </a>
             )}
         </div>

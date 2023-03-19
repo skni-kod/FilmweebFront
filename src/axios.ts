@@ -1,6 +1,6 @@
 import http from "axios";
 
-const BASE_API_URL = "http://kni.prz.edu.pl:47450";
+const BASE_API_URL = "http://172.21.231.46/";
 
 const backendApi: any = http.create({
     baseURL: BASE_API_URL,
