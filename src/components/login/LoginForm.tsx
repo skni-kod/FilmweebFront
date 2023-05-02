@@ -1,48 +1,71 @@
 import React, { useState, useEffect } from "react";
 import "./loginform.scss";
+import { useNavigate } from "react-router-dom";
 import { GithubLoginButton } from "react-social-login-buttons";
-import backendApi, { ApiResponse } from "axios";
+import backendApi, { ApiResponse } from "../../axios";
 
 const LoginForm: React.FC = () => {
     const [loginUrl, setLoginUrl] = useState(null);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [token, setToken] = useState("");
+    const navigate = useNavigate();
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log(email, password);
+        try {
+            backendApi
+                .post("login", {
+                    email: email,
+                    password: password,
+                })
+                .then((response: ApiResponse) => {
+                    console.log(response);
+                    if (response.status === 200) {
+                        navigate("/");
+                    }
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
-        backendApi.get("api/login/github/redirect").then((response: ApiResponse) => {
-            setLoginUrl(response.data);
-            console.log(response);
-        });
-        // axios.get("http://172.21.231.46/api/login/github/redirect").then((response: ResponseType) => {
-        //     setLoginUrl(response.data);
-        //     console.log(response);
-        // });
-        // fetch("http://172.22.238.126/api/login/github/redirect", {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "Accept": "application/json",
-        //     },
-        // })
-        //     .then((res) => {
-        //         if (res.ok) {
-        //             console.log(res.json());
-        //             return res.json();
-        //         }
-        //         throw new Error("Something went wrong!");
-        //     })
-        //     .then((data) => setLoginUrl(data.url))
-        //     .catch((error) => console.error(error));
+        backendApi
+            .get("login/github/redirect")
+            .then((response: ApiResponse) => {
+                console.log(response);
+                setLoginUrl(response.data);
+            })
+            .catch((error: Error) => {
+                console.error(error);
+            });
     }, []);
-
-    console.log(loginUrl);
 
     return (
         <div className={"login-form"}>
-            <form action="#" method="post">
+            <form onSubmit={handleSubmit}>
                 <h2 className={"login-copy"}>Logowanie</h2>
-                <label htmlFor="userName">Nazwa użytkownika:</label>
-                <input type="text" name="userNAme" id="userName" placeholder="Twoja nazwa użytkownika..." />
+                <label htmlFor="email">Email:</label>
+                <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Podaj email..."
+                    onChange={(e) => {
+                        setEmail(e.target.value);
+                        console.log(email);
+                    }}
+                />
                 <label htmlFor="password">Hasło</label>
-                <input type="password" name="password" id="password" placeholder="Twoje hasło..." />
-                <button type="button" className="loginButton">
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Twoje hasło..."
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <button type="submit" className="loginButton">
                     Zaloguj
                 </button>
             </form>

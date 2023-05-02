@@ -24,8 +24,8 @@ root.render(
                         <Route path="/" element={<Home />} />
                         <Route path="/movie/:id" element={<Movie />} />
                         <Route path="/actor/:id" element={<Actor />} />
-                        <Route path="login" element={<Login />} />
-                        <Route path="login/github/callback" element={<ProviderCallback />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/login/github/callback" element={<ProviderCallback />} />
                         <Route path="*" element={<PageNotFound />} />
                     </Routes>
                 </Router>

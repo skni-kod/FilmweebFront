@@ -10,15 +10,16 @@ const Navigation: React.FC = () => {
         name: string;
         path: string;
     }
+    const [screenWidth, setScreenWidth] = useState<number>();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const navLinks: NavLink[] = [
         { id: 1, name: "Filmy", path: "/" },
         { id: 2, name: "Seriale", path: "/" },
         { id: 3, name: "Ranking", path: "/" },
-        { id: 4, name: "Zaloguj się", path: "/login" },
+        { id: 4, name: isLoggedIn ? "Filip" : "Zaloguj się", path: "/login" },
     ];
 
-    const [screenWidth, setScreenWidth] = useState<number>();
     const handleResize = () => {
         const width = window.innerWidth;
         setScreenWidth(width);

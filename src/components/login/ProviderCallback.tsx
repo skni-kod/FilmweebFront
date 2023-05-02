@@ -1,4 +1,4 @@
-import backendApi, { ApiResponse } from "axios";
+import backendApi, { ApiResponse } from "../../axios";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -12,44 +12,31 @@ const ProviderCallback: React.FC = () => {
     // and proxy them to /api/auth/callback on our Laravel API
     useEffect(() => {
         backendApi
-            .get(`api/auth/callback${location.search}`)
-            .then((response: ApiResponse) => {
-                console.log(response);
+            .get(`auth/callback${location.search}`)
+            .then((response: any) => {
+                return response.json();
             })
             .then((data: any) => {
                 setLoading(false);
                 setData(data);
             });
-
-        // fetch(`http://172.21.231.46/api/auth/callback${location.search}`, {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         Accept: "application/json",
-        //     },
-        // })
-        //     .then((response) => {
-        //         return response.json();
-        //     })
-        //     .then((data) => {
-        //         setLoading(false);
-        //         setData(data);
-        //     });
     }, []);
 
     // Helper method to fetch User data for authenticated user
     // Watch out for "Authorization" header that is added to this call
     function fetchUserData() {
-        fetch(`http://172.21.231.46/api/user`, {
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                Authorization: "Bearer " + data.access_token,
-            },
-        })
-            .then((response) => {
+        backendApi
+            .get(`user`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    // Authorization: "Bearer " + data.token,
+                },
+            })
+            .then((response: any) => {
                 return response.json();
             })
-            .then((data) => {
+            .then((data: any) => {
                 setUser(data);
             });
     }
@@ -76,7 +63,7 @@ function DisplayLoading() {
     return <div>Loading....</div>;
 }
 
-function DisplayData(data) {
+function DisplayData(data: any) {
     return (
         <div>
             <samp>{JSON.stringify(data, null, 2)}</samp>
