@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import Home from "./pages/Home";
 import Movie from "./pages/Movie";
 import Actor from "./pages/Actor";
+import Register from "./pages/Register";
 import PageNotFound from "./pages/PageNotFound";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
@@ -21,6 +22,7 @@ root.render(
                         <Route path="/" element={<Home />} />
                         <Route path="/movie/:id" element={<Movie />} />
                         <Route path="/actor/:id" element={<Actor />} />
+                        <Route path="/register" element={<Register />} />
                         <Route path="*" element={<PageNotFound />} />
                     </Routes>
                 </Router>
