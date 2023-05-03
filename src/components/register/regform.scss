@@ -1,9 +1,9 @@
 @use "variables/pallete" as pallete;
-.login-copy {
+.register-copy {
     position: relative;
     align-self: flex-start;
 }
-.login-copy::after {
+.register-copy::after {
     position: absolute;
     content: "";
     height: 2px;
@@ -32,7 +32,7 @@ form input {
 form label {
     margin-bottom: 15px;
 }
-.loginButton {
+.registerButton {
     background-color: pallete.$base-yellow;
     font-weight: 700;
     font-size: 16px;
