@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Login from "pages/Login";
 import ProviderCallback from "components/login/ProviderCallback";
+import Register from "./pages/Register";
 import Actor from "pages/Actor";
 import Home from "pages/Home";
 import Movie from "pages/Movie";
@@ -26,6 +27,7 @@ root.render(
                         <Route path="/actor/:id" element={<Actor />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/login/github/callback" element={<ProviderCallback />} />
+                        <Route path="/register" element={<Register />} />
                         <Route path="*" element={<PageNotFound />} />
                     </Routes>
                 </Router>
