@@ -2,31 +2,57 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GithubLoginButton } from "react-social-login-buttons";
 import backendApi, { ApiResponse } from "../../../axios";
+import { useQuery } from "react-query";
 
 const LoginForm: React.FC = () => {
     const [loginUrl, setLoginUrl] = useState(null);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log(email, password);
-        try {
-            backendApi
-                .post("login", {
-                    email: email,
-                    password: password,
-                })
-                .then((response: ApiResponse) => {
-                    console.log(response);
-                    if (response.status === 200) {
-                        navigate("/");
-                    }
-                });
-        } catch (error) {
-            console.error(error);
+
+    const loginQuery = useQuery(
+        "login",
+        async () => {
+            const { data } = await backendApi.post("login", {
+                email: email,
+                password: password,
+            });
+            return data;
+        },
+        {
+            enabled: true,
+            retry: false,
+            onSuccess: () => {
+                navigate("/");
+            },
+            cacheTime: 15 * 60 * 1000,
         }
+    );
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        loginQuery.refetch();
     };
+
+    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     console.log(email, password);
+    //     try {
+    //         backendApi
+    //             .post("login", {
+    //                 email: email,
+    //                 password: password,
+    //             })
+    //             .then((response: ApiResponse) => {
+    //                 console.log(response);
+    //                 if (response.status === 200) {
+    //                     navigate("/");
+    //                 }
+    //             });
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
 
     useEffect(() => {
         backendApi
@@ -64,7 +90,7 @@ const LoginForm: React.FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <button type="submit" className="auth-button">
-                    Zaloguj
+                    {loginQuery.isLoading ? "..." : "Zaloguj "}
                 </button>
             </form>
             {loginUrl != null && (
