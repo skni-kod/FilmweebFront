@@ -1,9 +1,23 @@
 @use "variables/pallete" as pallete;
-.register-copy {
+.register-container,
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.form,
+.poster {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+.copy {
     position: relative;
     align-self: flex-start;
 }
-.register-copy::after {
+.copy::after {
     position: absolute;
     content: "";
     height: 2px;
@@ -32,7 +46,7 @@ form input {
 form label {
     margin-bottom: 15px;
 }
-.registerButton {
+.auth-button {
     background-color: pallete.$base-yellow;
     font-weight: 700;
     font-size: 16px;
@@ -41,15 +55,13 @@ form label {
     align-self: center;
     line-height: 16px;
 }
-.github-button {
-    background-color: #141414;
-    border: 1px #fff solid;
-    border-radius: 5px;
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 10px;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+@media screen and (max-width: 768px) {
+    .login-container,
+    .register-container {
+        justify-content: center;
+        min-height: 400px;
+    }
+    .form {
+        width: 80%;
+    }
 }

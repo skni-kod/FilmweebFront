@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/base/Header";
 import Footer from "../components/base/Footer";
 import MobileBar from "components/navigation/MobileBar";
-import Main from "components/register/Main";
+import Main from "components/auth/Main";
+import RegisterForm from "components/auth/register/RegisterForm";
 
 const Home: React.FC = () => {
-    const [showFooter, setShowFooter] = useState(true);
+    const [showFooter, setShowFooter] = useState(window.innerWidth >= 768);
 
     const handleResize = () => {
         const width = window.innerWidth;
@@ -21,7 +22,7 @@ const Home: React.FC = () => {
     return (
         <>
             <Header />
-            <Main />
+            <Main component={RegisterForm} />
             {showFooter ? <Footer /> : <MobileBar />}
         </>
     );

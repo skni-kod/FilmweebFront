@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import "./regform.scss";
-import backendApi, { ApiResponse } from "../../axios";
+import backendApi, { ApiResponse } from "../../../axios";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm: React.FC = () => {
     const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -21,6 +22,9 @@ const RegisterForm: React.FC = () => {
                 })
                 .then((response: ApiResponse) => {
                     console.log(response);
+                    if (response.status == 201) {
+                        navigate("/login");
+                    }
                 });
         } catch (error) {
             console.error(error);
@@ -28,9 +32,9 @@ const RegisterForm: React.FC = () => {
     };
 
     return (
-        <div className={"register-form"}>
+        <div className={"form"}>
             <form action="#" method="post" onSubmit={handleSubmit}>
-                <h2 className={"register-copy"}>Rejestracja</h2>
+                <h2 className={"copy"}>Rejestracja</h2>
                 <label htmlFor="userName">Nazwa użytkownika:</label>
                 <input
                     type="text"
@@ -63,7 +67,7 @@ const RegisterForm: React.FC = () => {
                     placeholder="Powtórz swoje hasło..."
                     onChange={(e) => setRepeatPassword(e.target.value)}
                 />
-                <button type="submit" className="registerButton">
+                <button type="submit" className="auth-button">
                     Zarejestruj
                 </button>
             </form>

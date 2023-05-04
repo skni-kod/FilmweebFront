@@ -5,7 +5,7 @@ import Main from "../components/404/Main";
 import MobileBar from "components/navigation/MobileBar";
 
 const PageNotFound: React.FC = () => {
-    const [showFooter, setShowFooter] = useState(true);
+    const [showFooter, setShowFooter] = useState(window.innerWidth >= 768);
 
     const handleResize = () => {
         const width = window.innerWidth;

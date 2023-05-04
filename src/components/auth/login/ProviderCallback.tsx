@@ -1,4 +1,4 @@
-import backendApi, { ApiResponse } from "../../axios";
+import backendApi, { ApiResponse } from "../../../axios";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./loginform.scss";
 import { useNavigate } from "react-router-dom";
 import { GithubLoginButton } from "react-social-login-buttons";
-import backendApi, { ApiResponse } from "../../axios";
+import backendApi, { ApiResponse } from "../../../axios";
 
 const LoginForm: React.FC = () => {
     const [loginUrl, setLoginUrl] = useState(null);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [token, setToken] = useState("");
     const navigate = useNavigate();
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -43,9 +41,9 @@ const LoginForm: React.FC = () => {
     }, []);
 
     return (
-        <div className={"login-form"}>
+        <div className={"form"}>
             <form onSubmit={handleSubmit}>
-                <h2 className={"login-copy"}>Logowanie</h2>
+                <h2 className={"copy"}>Logowanie</h2>
                 <label htmlFor="email">Email:</label>
                 <input
                     type="email"
@@ -65,13 +63,13 @@ const LoginForm: React.FC = () => {
                     placeholder="Twoje hasło..."
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit" className="loginButton">
+                <button type="submit" className="auth-button">
                     Zaloguj
                 </button>
             </form>
             {loginUrl != null && (
                 <a href={loginUrl}>
-                    <GithubLoginButton />
+                    <GithubLoginButton style={{ fontSize: "15px", height: "40px" }} />
                 </a>
             )}
         </div>

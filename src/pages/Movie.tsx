@@ -6,7 +6,7 @@ import Main from "../components/movie/Main";
 
 const Movie: React.FC = () => {
     //const {id} = useParams();
-    const [showFooter, setShowFooter] = useState(true);
+    const [showFooter, setShowFooter] = useState(window.innerWidth >= 768);
 
     const handleResize = () => {
         const width = window.innerWidth;
