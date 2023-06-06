@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import backendApi from "axios";
+import backendApi from "../axios";
 
 export const useLogin = () =>
     useQuery(
@@ -9,7 +9,7 @@ export const useLogin = () =>
             return data;
         },
         {
-            enabled: false,
+            enabled: true,
             retry: false,
         }
     );

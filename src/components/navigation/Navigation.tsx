@@ -3,7 +3,7 @@ import "./Navigation.scss";
 import enterImg from "../../assets/images/log-img.png";
 import logo from "../../assets/images/logo.png";
 import { useEffect, useState } from "react";
-import { useQueryClient } from "react-query";
+import { useLogin } from "hooks/useLoginStatus";
 
 const Navigation: React.FC = () => {
     interface NavLink {
@@ -30,15 +30,13 @@ const Navigation: React.FC = () => {
     }
 
     const [screenWidth, setScreenWidth] = useState<number>();
-    const queryClient = useQueryClient();
-    const user: UserQuery | undefined = queryClient.getQueryData("login");
-    console.log(user);
-
+    const isLoggedIn = useLogin();
+    console.log(isLoggedIn);
     const navLinks: NavLink[] = [
         { id: 1, name: "Filmy", path: "/" },
         { id: 2, name: "Seriale", path: "/" },
         { id: 3, name: "Ranking", path: "/" },
-        { id: 4, name: user ? `Hej ${user.data.user.name}!` : "Zaloguj się", path: "/login" },
+        { id: 4, name: isLoggedIn.isSuccess ? `Hej ${isLoggedIn.data.name}!` : "Zaloguj", path: "/login" },
     ];
 
     const handleResize = () => {

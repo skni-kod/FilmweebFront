@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GithubLoginButton } from "react-social-login-buttons";
 import backendApi, { ApiResponse } from "../../../axios";
 import { useQuery } from "react-query";
@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
             return data;
         },
         {
-            enabled: true,
+            enabled: false,
             retry: false,
             onSuccess: () => {
                 navigate("/");
@@ -33,26 +33,6 @@ const LoginForm: React.FC = () => {
         e.preventDefault();
         loginQuery.refetch();
     };
-
-    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     console.log(email, password);
-    //     try {
-    //         backendApi
-    //             .post("login", {
-    //                 email: email,
-    //                 password: password,
-    //             })
-    //             .then((response: ApiResponse) => {
-    //                 console.log(response);
-    //                 if (response.status === 200) {
-    //                     navigate("/");
-    //                 }
-    //             });
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
 
     useEffect(() => {
         backendApi
@@ -89,6 +69,9 @@ const LoginForm: React.FC = () => {
                     placeholder="Twoje hasło..."
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                <span>
+                    Nie masz konta? Zarejestruj się <Link to="/register">tutaj!</Link>
+                </span>
                 <button type="submit" className="auth-button">
                     {loginQuery.isLoading ? "..." : "Zaloguj "}
                 </button>

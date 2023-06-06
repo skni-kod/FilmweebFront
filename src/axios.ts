@@ -1,7 +1,8 @@
 import http from "axios";
-const BASE_API_URL = "http://172.26.56.65/api/";
+const BASE_API_URL = "http://127.0.0.1:80/api/";
 
 const backendApi: any = http.create({
+    withCredentials: true,
     baseURL: BASE_API_URL,
     timeout: 10000,
     headers: {

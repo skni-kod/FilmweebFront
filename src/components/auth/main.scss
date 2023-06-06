@@ -46,6 +46,11 @@ form input {
 form label {
     margin-bottom: 15px;
 }
+form span {
+    align-self: center;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
 .auth-button {
     background-color: pallete.$base-yellow;
     font-weight: 700;
